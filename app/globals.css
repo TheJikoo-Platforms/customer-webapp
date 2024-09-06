@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "consolas";
+    src: url("../public/consolas/CONSOLA.TTF") format("opentype");
+  }
+  :root {
+    --primary: 0, 153, 51;
+    --secondary: 56, 62, 59;
+    --secondary-2: 153, 28, 0;
+    --radius: 10px;
+    --bg-primary: #f0f0f0;
+    --bg-secondary: #ffffff;
+
+    --bg-dark: #272f2b;
+
+    --text: #242e30;
+    --footer: var(--bg-dark);
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+  }
+  html,
+  body {
+    overflow-x: hidden;
+    background: var(--bg-primary);
+    color: var(--text);
+  }
+
+  [data-overlay-container=true] {
+  height: 100%;
+  width: 100%;
+}
+
+  body[data-scroll-locked] {
+    min-width: 100%;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  @-webkit-keyframes autofill {
+    0%,100% {
+        color: black;
+        background: transparent;
+    }
+}
+
+}
+
