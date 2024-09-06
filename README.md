@@ -30,10 +30,3 @@ To get a local copy up and running, follow these simple steps:
    ```sh
    npm run dev
    ```
-
-## Contact
-
-Aruodore Lucas Adomi - [@aruodore](https://twitter.com/aruodore) - lucasadomi@gmail.com
-
-<!-- Project Link: [https://github.com/your_username_/Project-Name](https://github.com/your_username_/Project-Name) -->
-
