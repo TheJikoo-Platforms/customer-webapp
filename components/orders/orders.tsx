@@ -3,7 +3,7 @@
 import { CartItem } from "@/components/cart/cart-item";
 
 import { CustomTab } from "@/components/custom-tab";
-import { OnGoingOrderItem } from "@/components/order/ongoing-order-item";
+// import { OnGoingOrderItem } from "@/components/order/ongoing-order-item";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { removeQueryParams, updateURLParameters } from "@/lib/utils";
@@ -17,7 +17,7 @@ export const Orders = () => {
   const tab = useValidSearchParam({
     name: "tab",
     validArr: ["cart", "orders"],
-    defau: "cart",
+    // defau: "cart",
   });
   const remove = useValidSearchParam({
     name: "remove",
@@ -125,10 +125,10 @@ export const Orders = () => {
               className="overflow-y-scroll max-h-[68dvh] sm:max-h-[463px]  space-y-3 scrollbar-none"
               style={{ gap: 12, paddingTop: 12 }}
             >
+              {/* <OnGoingOrderItem />
               <OnGoingOrderItem />
               <OnGoingOrderItem />
-              <OnGoingOrderItem />
-              <OnGoingOrderItem />
+              <OnGoingOrderItem /> */}
             </div>
           </>
         )}

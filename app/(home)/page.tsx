@@ -1,6 +1,6 @@
 import { Explore } from "@/components/explore/explore";
 import { Footer } from "@/components/footer";
-import { AutoSuggestModal } from "@/components/home/auto-suggest-modal";
+import { AutoSuggest } from "@/components/home/auto-suggest";
 import Carousel from "@/components/home/carousel";
 import { DelicaciesSection } from "@/components/home/delicacies-section";
 import { Guarantee } from "@/components/home/guarantee";
@@ -49,17 +49,17 @@ export default async function Home() {
             <Orders />
           </WhiteCard>
           <WhiteCard className="min-h-[390px]">
-            <div className='flex items-center justify-between mb-6'>
+            <div className="flex items-center justify-between mb-6">
               <Text>Notifications</Text>
               <button>
-                <Settings2/>
+                <Settings2 />
               </button>
             </div>
             <Notifications />
           </WhiteCard>
         </div>
       </div>
-      <AutoSuggestModal />
+      <AutoSuggest />
       <div className="sm:hidden">
         <Footer />
       </div>

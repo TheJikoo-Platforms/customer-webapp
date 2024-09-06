@@ -7,18 +7,18 @@ import { Button } from "@/components/ui/button";
 import { MobileSheet } from "@/components/mobile-sheet";
 import { Nav } from "@/components/nav";
 import { WishlistButton } from "@/components/wishlist-button";
-import { BagButton } from "@/components/bag-button";
+// import { BagButton } from "@/components/bag-button";
 import { ScrollWrapper } from "@/components/scroll-shadow";
 // import { AnnouncementBanner } from "@/components/announcement-banner";
 import { Wallet } from "@/components/wallet";
-import { auth } from "@/auth";
-import { AccountDropdown } from "@/components/account-dropdown";
+// import { auth } from "@/auth";
+// import { AccountDropdown } from "@/components/account-dropdown";
 import { Suspense } from "react";
 import { ToggleTheme } from "./toggle-theme";
 import { PromoBanner } from "./home/promo-banner";
 
 export const Header = async () => {
-  const session = await auth();
+  // const session = await auth();
   return (
     <>
       <ScrollWrapper asChild>
@@ -47,7 +47,7 @@ export const Header = async () => {
               <div className="max-lg:hidden">
                 <ToggleTheme />
               </div>
-              {session?.user && (
+              {/* {session?.user && (
                 <div className="flex gap-5 md:gap-6 items-center">
                   <Wallet />
                   <Link href={"/wishlist"}>
@@ -56,26 +56,26 @@ export const Header = async () => {
                   <Suspense>
                     <AccountDropdown />
                   </Suspense>
-                  {/* <Link href={"/cart"} className="max-sm:hidden">
+                  <Link href={"/cart"} className="max-sm:hidden">
                   <BagButton />
-                </Link> */}
+                </Link>
                 </div>
               )}
               {!session?.user && (
                 <div className=" flex items-center">
-                  {/* <Button variant={"link"} asChild className="text-sm">
+                  <Button variant={"link"} asChild className="text-sm">
                     <Link href={'/login'}>
                       LOGIN
                     </Link>
-                  </Button> */}
+                  </Button>
                   <Button variant={"link"} asChild className="">
                     <Link href={"/login"}>LOGIN</Link>
                   </Button>
-                  {/* <Button className="max-sm:hidden " asChild>
+                  <Button className="max-sm:hidden " asChild>
                     <Link href={"/register"} className="">
                       REGISTER
                     </Link>
-                  </Button> */}
+                  </Button>
                   <Button
                     className=" p-2.5 tracking-[10%] max-sm:rounded"
                     asChild
@@ -87,9 +87,9 @@ export const Header = async () => {
                       REGISTER
                     </Link>
                   </Button>
-                  {/* <Wallet /> */}
+                  <Wallet />
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </header>
