@@ -40,7 +40,7 @@ export const CartMessageDrawer = () => {
 const formSchema = z.object({
   message: z.string().min(1, "Please fill a valid email"),
 });
-const CartMessageForm = () => {
+export const CartMessageForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

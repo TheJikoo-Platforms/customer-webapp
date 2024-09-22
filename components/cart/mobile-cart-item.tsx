@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { CartModulate } from "./cart-modulate";
-import { Copy } from 'lucide-react'
-import { CopyToClipboard } from "@/components/clipboard/copy-to-clipboard";
+import { Copy } from "lucide-react";
+// import { CopyToClipboard } from "@/components/clipboard/copy-to-clipboard";
 
 export const MobileCartItem = () => {
   return (
@@ -32,13 +32,13 @@ export const MobileCartItem = () => {
         <CartModulate />
       </div>
       <div className="flex justify-between mt-5 sm:mt-7">
-        <CopyToClipboard
+        {/* <CopyToClipboard
           className="flex gap-1 text-xs items-center"
           item={{ id: "WUB889", time: new Date(Date.now()), type: "order" }}
         >
           <Copy className="size-3.5 text-black dark:text-white" />
           WUB889
-        </CopyToClipboard>
+        </CopyToClipboard> */}
         <h3 className="text-[10px] sm:text-sm font-semibold">₦ 3,500</h3>
       </div>
     </div>

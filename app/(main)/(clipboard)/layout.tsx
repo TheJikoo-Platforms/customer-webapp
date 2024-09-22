@@ -1,8 +1,14 @@
-import { ClipboardDropdown } from "@/components/clipboard/clipboard-dropdown";
+// import { ClipboardDropdown } from "@/components/clipboard/clipboard-dropdown";
 
-export default function ClipboardLayout({children}:{children:React.ReactNode}) {
-    return <>
-        {/* <ClipboardDropdown/> */}
-    {children}
+export default function ClipboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      {/* <ClipboardDropdown/> */}
+      {children}
     </>
+  );
 }

@@ -1,4 +1,4 @@
-import { AuthState } from "@/components/auth-state";
+// import { AuthState } from "@/components/auth-state";
 export default function MainTemplate({
   children,
 }: {
@@ -6,7 +6,7 @@ export default function MainTemplate({
 }) {
   return (
     <>
-      <AuthState />
+      {/* <AuthState /> */}
       {children}
     </>
   );

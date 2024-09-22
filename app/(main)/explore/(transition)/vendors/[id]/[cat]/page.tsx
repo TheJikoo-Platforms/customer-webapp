@@ -9,7 +9,7 @@ import { ExploreItem } from "@/components/explore/explore-item";
 import { HorizontalScroll } from "@/components/horizontal-scroll";
 import { DM_Sans } from "next/font/google";
 import { BackButton } from "@/components/back-button";
-import { VendorProductItem } from "@/components/vendors/vendor-product-item";
+// import { VendorProductItem } from "@/components/vendors/vendor-product-item";
 import { MotionWrapper } from "@/components/motion-wrapper";
 import { kumbh } from "@/lib/fonts";
 
@@ -95,13 +95,13 @@ export default function VendorsProducts() {
             ))}
           </HorizontalScroll>
         </div>
-        <div className="mt-6 space-y-3">
+        {/* <div className="mt-6 space-y-3">
           <VendorProductItem href="/explore/vendors/id/cat/food" />
           <VendorProductItem href="/explore/vendors/id/cat/food" />
           <VendorProductItem href="/explore/vendors/id/cat/food" />
           <VendorProductItem href="/explore/vendors/id/cat/food" />
           <VendorProductItem href="/explore/vendors/id/cat/food" />
-        </div>
+        </div> */}
       </div>
     </div>
   );

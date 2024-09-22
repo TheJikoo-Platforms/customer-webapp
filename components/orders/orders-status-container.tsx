@@ -2,7 +2,7 @@ import { Copy } from "lucide-react";
 import { FiAlertTriangle } from "react-icons/fi";
 import { SquarePen } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { CopyToClipboard } from "../clipboard/copy-to-clipboard";
+// import { CopyToClipboard } from "../clipboard/copy-to-clipboard";
 import { Button } from "@/components/ui/button";
 import { ReviewModal } from "./review-modal";
 import { ReportModal } from "./report-modal";
@@ -27,13 +27,13 @@ export const OrdersStatusContainer = ({
         </div>
         <div className="flex gap-2">
           <h3 className="max-md:hidden">Order Number:</h3>
-          <CopyToClipboard
+          {/* <CopyToClipboard
             className="text-jikoo-order dark:text-purple-400 flex gap-1 items-center"
             item={{ id: "WUB889", time: new Date(Date.now()), type: "order" }}
           >
             <Copy className="size-4 text-black dark:text-purple-400" />
             WUB889
-          </CopyToClipboard>
+          </CopyToClipboard> */}
         </div>
         <div className="flex gap-1 text-black/60 dark:text-white">
           <p>8:30</p>

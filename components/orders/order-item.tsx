@@ -1,12 +1,10 @@
 import Image from "next/image";
 import { Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CopyToClipboard } from "../clipboard/copy-to-clipboard";
+// import { CopyToClipboard } from "../clipboard/copy-to-clipboard";
 // import
 
 export const OrderItem = () => {
- 
-
   return (
     <div className="px-4 py-5 border-b border-dashed border-black/25 dark:border-white/25">
       <div className="flex justify-between items-center mb-6">
@@ -31,17 +29,18 @@ export const OrderItem = () => {
             <p className="text-[10px] sm:text-sm md:text-base text-black/80 dark:text-white/60">
               Side: Fufu (2)
             </p>
-            <CopyToClipboard
+            {/* <CopyToClipboard
               item={{
                 id: "#1E340L7",
                 time: new Date(Date.now()),
                 type: "item",
-              }}
-              className="text-jikoo-orange text-xs md:text-base flex gap-1 max-md:hidden"
-            >
+              }} */}
+            className="text-jikoo-orange text-xs md:text-base flex gap-1
+            max-md:hidden"
+            {/* >
               <Copy className="size-5 " />
-              #1E340L7
-            </CopyToClipboard>
+              #1E340L7 */}
+            {/* </CopyToClipboard> */}
           </div>
         </div>
         <p className="font-bold text-xs sm:text-base md:text-xl lg:text-2xl">
@@ -50,16 +49,18 @@ export const OrderItem = () => {
       </div>
       <div className="flex justify-between">
         <div>
-          <CopyToClipboard
+          {/* <CopyToClipboard
             item={{ id: "#1E340L7", time: new Date(Date.now()), type: "item" }}
             className="text-jikoo-orange text-xs flex gap-1 md:hidden"
           >
             <Copy className="size-3 " />
-            #1E340L7
-          </CopyToClipboard>
+            #1E340L7 */}
+          {/* </CopyToClipboard> */}
         </div>
         <div className="flex gap-7">
-          <Button className="py-2 font-bold max-md:hidden lg:text-base">VIEW PRODUCT</Button>
+          <Button className="py-2 font-bold max-md:hidden lg:text-base">
+            VIEW PRODUCT
+          </Button>
           <Button className="py-2 font-bold lg:text-base">Buy Again</Button>
         </div>
       </div>
