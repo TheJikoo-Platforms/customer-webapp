@@ -55,18 +55,20 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
     images: APP_IMAGES,
   },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    // userScalable: false
+    interactiveWidget: "resizes-content",
+  },
 };
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  // userScalable: false
-  themeColor: "#009933",
-  interactiveWidget: "resizes-content",
-};
-// export const viewport: Viewport = {
-// };
+export function generateViewport() {
+  return {
+    themeColor: "#009933",
+  };
+}
 
 export default function RootLayout({
   children,
@@ -76,10 +78,13 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
-        <body className={dmSans.className + " min-h-dvh flex flex-col"}>
+        {/* <body className={dmSans.className + " min-h-dvh flex flex-col"}> */}
+        <body className={"min-h-dvh flex flex-col"}>
           {/* <PWAInstallPrompt/> */}
-          <Providers>{children}</Providers>
-          <Toaster />
+          <Providers>
+            {children}
+            <Toaster />
+          </Providers>
         </body>
       </html>
     </ViewTransitions>

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { CopyToClipboard } from "@/components/clipboard/copy-to-clipboard";
+// import { CopyToClipboard } from "@/components/clipboard/copy-to-clipboard";
 import { Star, Copy } from "lucide-react";
 import { WishlistIcon } from "@/components/ui/icons/wishlist-icon";
 
@@ -24,17 +24,17 @@ export const ProductDetails = () => {
   const changeTab = (tab: string) => {
     updateURLParameters({ tab });
   };
-   const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(1);
 
-   const decreaseQuantity = () => {
-     if (quantity > 1) {
-       setQuantity(quantity - 1);
-     }
-   };
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
-   const increaseQuantity = () => {
-     setQuantity(quantity + 1);
-   };
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
   return (
     <MotionWrapper className="px-3 py-6">
       <BackButton back />

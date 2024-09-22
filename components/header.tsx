@@ -34,7 +34,7 @@ export const Header = async () => {
                   height={Logo.height}
                   width={Logo.width}
                   src={Logo.src}
-                  className=" h-[22px] sm:h-[26.5px] w-auto"
+                  className=" h-[20px] sm:h-[24.5px] w-auto"
                   quality={100}
                   priority
                 />

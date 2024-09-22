@@ -40,6 +40,13 @@ const config = {
           orange: "#D24305",
           footer: "var(--footer)",
           error: "#DD524D",
+          "brand-green": "#009933",
+        },
+        state: {
+          "success-50": "#E7F6EC",
+          "success-75": "#B5E3C4",
+          "success-200": "#5FC381",
+          "success-600": "#04802E",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -61,7 +68,16 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        grey: {
+          "75": "#F7F9FC",
+          "200": "#E4E7EC",
+          "400": "#98A2B3",
+          "500": "#667185",
+          "700": "#344054",
+          "900": "#101928",
+        },
       },
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -71,7 +87,11 @@ const config = {
       screens: {
         sm400: "400px",
       },
-
+      fontFamily: {
+        inter: ['"Inter"', "sans-serif"],
+        "dm-sans": ["DM Sans", "Arial", "sans-serif"],
+        "sf-pro": ["SF Pro Display", "sans-serif"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

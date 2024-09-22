@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { WhiteCard } from "@/components/white-card";
-import { BlogItem } from "@/components/blog/blog-item";
+// import { BlogItem } from "@/components/blog/blog-item";
 import { HomeTitle } from "./home-title";
 export const BlogSection = () => {
   return (
@@ -12,23 +12,14 @@ export const BlogSection = () => {
         </HomeTitle>
         <div>
           <ul className="grid grid-cols-2 sm:grid-cols-4 gap-x-[22px] gap-y-5 md:gap-x-14 sm:gap-y-10 lg:gap-x-16 ">
-            <li>
-              <BlogItem data={""} />
-              
-            </li>
-            <li>
-              <BlogItem data={""} />
-            </li>
-            <li>
-              <BlogItem data={""} />
-            </li>
-            <li>
-              <BlogItem data={""} />
-            </li>
+            <li>{/* <BlogItem data={""} /> */}</li>
+            <li>{/* <BlogItem data={""} /> */}</li>
+            <li>{/* <BlogItem data={""} /> */}</li>
+            <li>{/* <BlogItem data={""} /> */}</li>
           </ul>
           <div className="mt-6 md:mt-12 flex justify-end">
             <Link href={"/blogs"} className="text-xs sm:text-xl lg:text-2xl">
-              Read More {'>'}
+              Read More {">"}
             </Link>
           </div>
         </div>

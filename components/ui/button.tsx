@@ -5,12 +5,11 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center py-4 h-auto whitespace-nowrap tracking-widest  rounded-[9.74px] text-[10px] sm:text-sm  font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ",
+  "inline-flex items-center justify-center py-4 h-auto whitespace-nowrap tracking-widest rounded-[9.74px] text-[10px] sm:text-sm  font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ",
   {
     variants: {
       variant: {
-        default:
-          "text-xs rounded-md bg-primary text-white hover:bg-primary/90",
+        default: "text-xs rounded-md bg-primary text-white hover:bg-primary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -19,6 +18,9 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline py-0",
+        underlined:
+          "text-primary underline-offset-4 underline py-0 tracking-normal",
+
         new: "",
         newOutline:
           "text-xs rounded-md py-4 h-auto border-[3px] md:border-[4px] border-primary bg-background text-primary",
