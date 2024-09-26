@@ -428,7 +428,7 @@ const RegistrationForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <div className="relative" ref={ref}>
+                  <div className="relative">
                     <BorderedDiv
                       className={`items-center gap-2 ${
                         form.formState.touchedFields.dob && !errors.dob
@@ -452,6 +452,7 @@ const RegistrationForm = ({
                       <FaChevronDown className="text-sm text-grey-400" />
                     </BorderedDiv>
                     <Calendar
+                      // ref={ref}
                       mode="single"
                       captionLayout="dropdown-buttons"
                       className={`bg-white absolute bottom-14 left-1/2 -translate-x-1/2 shadow rounded invisible opacity-0 ${
@@ -463,8 +464,8 @@ const RegistrationForm = ({
                       selected={field.value ? new Date(field.value) : undefined}
                       onSelect={(date) => {
                         if (date) {
-                          const formattedDate = format(date, "yyyy-MM-dd"); // Format the date as 'YYYY-MM-DD'
-                          field.onChange(formattedDate); // Return the formatted string
+                          const formattedDate = format(date, "yyyy-MM-dd");
+                          field.onChange(formattedDate);
                         }
                       }}
                       {...field}
@@ -582,7 +583,6 @@ const OtpForm = ({
             )}
           />
 
-          {/* Submit OTP button */}
           <Button
             type="submit"
             disabled={otpForm.formState.isSubmitting}

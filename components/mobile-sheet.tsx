@@ -25,7 +25,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 // import { signOut } from "@/auth";
-import { revalidatePath } from "next/cache";
 import { OpenAndClose } from "./opening-and-closing";
 // import { LogoutButton } from "./auth/logout-button";
 import { redirect } from "next/navigation";

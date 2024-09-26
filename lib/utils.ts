@@ -44,7 +44,7 @@ export function updateURLParameters(
 }
 
 //TODO: should return a correct date and time
-export function getTime(time:Date) {
+export function getTime(time: Date) {
   const date = new Date(time);
   let hours = date.getHours();
   const minutes = date.getMinutes();
@@ -55,3 +55,20 @@ export function getTime(time:Date) {
   const timeStr = hours + ":" + minutesStr + " " + ampm;
   return timeStr;
 }
+
+export function createFilledArray<T>(item: T, count: number): T[] {
+  return Array(count).fill(item);
+}
+
+export const getImageDimensions = (
+  src: string
+): Promise<{ width: number; height: number }> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      resolve({ width: img.width, height: img.height });
+    };
+    img.onerror = (error) => reject(error);
+  });
+};

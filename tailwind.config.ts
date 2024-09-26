@@ -86,6 +86,9 @@ const config = {
       },
       screens: {
         sm400: "400px",
+        sm500: "500px",
+        sm600: "600px",
+        sm700: "700px",
       },
       fontFamily: {
         inter: ['"Inter"', "sans-serif"],
