@@ -16,7 +16,7 @@ import { Settings2 } from "lucide-react";
 export default async function Home() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
-    <div className="lg:grid lg:grid-cols-[calc(66%-24px),34%] lg:gap-6 max-lg:bg-white dark:bg-primary-foreground lg:mt-6 lg:mb-0 items-start">
+    <div className="lg:grid lg:grid-cols-[calc(68%-24px),32%] lg:gap-6 max-lg:bg-white dark:bg-primary-foreground lg:mt-6 lg:mb-0 items-start">
       <div className="space-y-5 sm:space-y-8 lg:space-y-9 min-w-0 lg:rounded-xl lg:bg-white lg:py-3">
         <Carousel />
         <Guarantee />
@@ -33,7 +33,7 @@ export default async function Home() {
         <WhiteCard className="p-4">
           <Orders />
         </WhiteCard>
-        <WhiteCard className="">
+        <WhiteCard className="rounded-none">
           <Cart />
         </WhiteCard>
       </div>

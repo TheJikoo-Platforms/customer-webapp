@@ -155,8 +155,8 @@ const LoginForm = () => {
               {form.formState.isSubmitting ? "Signing in..." : "Sign In"}
             </Button>
 
-            <Link
-              href={"/"}
+            <p
+              // href={"/"}
               className="rounded-sm justify-center gap-4 border-[1.5px] border-[#D0D5DD] tracking-normal inline-flex items-center py-3.5 h-auto whitespace-nowrap text-[10px] sm:text-sm font-bold"
             >
               <Image
@@ -169,7 +169,7 @@ const LoginForm = () => {
               <span className="text-base text-grey-700">
                 Continue with Google
               </span>
-            </Link>
+            </p>
           </div>
         </form>
       </Form>

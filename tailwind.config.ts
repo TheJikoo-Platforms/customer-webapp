@@ -29,6 +29,7 @@ const config = {
         primary: {
           DEFAULT: "rgba(var(--primary), <alpha-value>)",
           foreground: "var(--bg-primary)",
+          "400": "#F56630",
         },
         secondary: {
           DEFAULT: "rgba(var(--secondary), <alpha-value>)",
@@ -74,7 +75,9 @@ const config = {
           "200": "#E4E7EC",
           "400": "#98A2B3",
           "500": "#667185",
+          "600": "#475367",
           "700": "#344054",
+          "800": "#1D2739",
           "900": "#101928",
         },
       },
@@ -120,6 +123,7 @@ const config = {
   plugins: [
     require("tailwindcss-animate"),
     require("tailwind-scrollbar"),
+    require("@tailwindcss/line-clamp"),
     // require("daisyui"),
     // nextui(),
   ],
