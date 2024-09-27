@@ -19,7 +19,7 @@ export default function MainLayout({
         <EnterLocation className="flex md:hidden py-6 px-[18px]" />
       </div>
       <NormalWrapper>
-        <main className="flex flex-col flex-1">{children}</main>
+        <main className="flex flex-col flex-1 lg:mb-6">{children}</main>
       </NormalWrapper>
       <Footer />
       <div className="sm:hidden">

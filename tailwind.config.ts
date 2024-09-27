@@ -33,6 +33,7 @@ const config = {
         secondary: {
           DEFAULT: "rgba(var(--secondary), <alpha-value>)",
           foreground: "var(--bg-secondary)",
+          "400": "#1671D9",
         },
         jikoo: {
           red: "rgba(var(--secondary-2), <alpha-value>)",

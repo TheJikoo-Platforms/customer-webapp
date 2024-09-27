@@ -1,3 +1,4 @@
+import Cart from "@/components/cart/cartt";
 import { Explore } from "@/components/explore/explore";
 import { Footer } from "@/components/footer";
 import { AutoSuggest } from "@/components/home/auto-suggest";
@@ -7,7 +8,7 @@ import { Guarantee } from "@/components/home/guarantee";
 import { ProductRecommendations } from "@/components/home/product-recommendation";
 import { VendorsSection } from "@/components/home/vendors-section";
 import { Notifications } from "@/components/notification/notifications";
-import { Orders } from "@/components/orders/orders";
+import Orders from "@/components/orders/orderss";
 import { Text } from "@/components/ui/text";
 import { WhiteCard } from "@/components/white-card";
 import { Settings2 } from "lucide-react";
@@ -15,7 +16,7 @@ import { Settings2 } from "lucide-react";
 export default async function Home() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
-    <div className="lg:grid lg:grid-cols-[66%,34%] lg:gap-6 max-lg:bg-white dark:bg-primary-foreground lg:mt-6 lg:mb-0">
+    <div className="lg:grid lg:grid-cols-[calc(66%-24px),34%] lg:gap-6 max-lg:bg-white dark:bg-primary-foreground lg:mt-6 lg:mb-0 items-start">
       <div className="space-y-5 sm:space-y-8 lg:space-y-9 min-w-0 lg:rounded-xl lg:bg-white lg:py-3">
         <Carousel />
         <Guarantee />
@@ -28,18 +29,12 @@ export default async function Home() {
         <DelicaciesSection />
       </div>
 
-      <div className="container max-lg:hidden shrink-0 space-y-6 ">
-        <WhiteCard className="min-h-[390px]">
+      <div className="max-lg:hidden space-y-6 sticky top-[80px]">
+        <WhiteCard className="p-4">
           <Orders />
         </WhiteCard>
-        <WhiteCard className="min-h-[390px]">
-          <div className="flex items-center justify-between mb-6">
-            <Text>Notifications</Text>
-            <button>
-              <Settings2 />
-            </button>
-          </div>
-          <Notifications />
+        <WhiteCard className="">
+          <Cart />
         </WhiteCard>
       </div>
     </div>

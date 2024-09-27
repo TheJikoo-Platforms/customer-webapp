@@ -156,7 +156,7 @@ const LoginForm = () => {
             </Button>
 
             <Link
-              href={""}
+              href={"/"}
               className="rounded-sm justify-center gap-4 border-[1.5px] border-[#D0D5DD] tracking-normal inline-flex items-center py-3.5 h-auto whitespace-nowrap text-[10px] sm:text-sm font-bold"
             >
               <Image

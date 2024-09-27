@@ -12,7 +12,7 @@ export const WideWrapper = ({ children }: ChildrenProps) => {
 
 export const NormalWrapper = ({ children }: ChildrenProps) => {
   return (
-    <div className="lg:px-6 xl:max-w-[1200px] 2xl:max-w-[1220px] xl:mx-auto">
+    <div className="lg:px-6 xl:max-w-[1200px] 2xl:max-w-[1240px] xl:mx-auto">
       {children}
     </div>
   );
