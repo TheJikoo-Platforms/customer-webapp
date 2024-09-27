@@ -36,7 +36,7 @@ export const Slide = ({
 
   return (
     <div className="pl-5 lg:pl-[36px] py-3">
-      <div className="flex sm:gap-10 items-center relative ">
+      <div className="flex sm:gap-10 items-center relative overflow-x-hidden">
         {/* Left side */}
         <div className="flex-1 lg:py-3">
           {/* Location */}
