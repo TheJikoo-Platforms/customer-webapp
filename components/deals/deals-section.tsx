@@ -1,7 +1,7 @@
 import { DealItem } from "@/components/deals/deal-item";
 import { Text } from "@/components/ui/text";
 import { ChevronRight } from "lucide-react";
-import Link from 'next/link'
+import Link from "next/link";
 import { HorizontalScroll } from "../horizontal-scroll";
 
 const CATEGORYLIST = [
@@ -36,7 +36,7 @@ export const DealsSection = () => {
   return (
     <div className="">
       <div className="flex justify-between items-center mb-5 pr-6">
-        <Text className="text-base ">Deals</Text>
+        <Text className="text-xl">Deals</Text>
         <Link href={"/explore/restaurants"} className="flex gap-1 items-center">
           See More <ChevronRight size={18} className="text-primary " />{" "}
         </Link>

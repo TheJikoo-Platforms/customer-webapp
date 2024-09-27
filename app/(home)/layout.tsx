@@ -1,7 +1,8 @@
 import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import { EnterLocation, Header } from "@/components/header";
 import { PromoBanner } from "@/components/home/promo-banner";
 import { BottomNav } from "@/components/mobile-nav";
+import { NormalWrapper } from "@/components/wrappers";
 
 export default function MainLayout({
   children,
@@ -14,10 +15,13 @@ export default function MainLayout({
       <div className="mt-[68px] xl:mt-[72px]">
         <PromoBanner />
       </div>
-      <main className="flex flex-col flex-1 pb-[68px]  ">{children}</main>
-      <div className="max-sm:hidden">
-        <Footer />
+      <div className="">
+        <EnterLocation className="flex md:hidden py-6 px-[18px]" />
       </div>
+      <NormalWrapper>
+        <main className="flex flex-col flex-1 lg:mb-6">{children}</main>
+      </NormalWrapper>
+      <Footer />
       <div className="sm:hidden">
         <BottomNav />
       </div>

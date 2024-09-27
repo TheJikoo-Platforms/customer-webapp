@@ -33,6 +33,7 @@ const config = {
         secondary: {
           DEFAULT: "rgba(var(--secondary), <alpha-value>)",
           foreground: "var(--bg-secondary)",
+          "400": "#1671D9",
         },
         jikoo: {
           red: "rgba(var(--secondary-2), <alpha-value>)",
@@ -86,6 +87,9 @@ const config = {
       },
       screens: {
         sm400: "400px",
+        sm500: "500px",
+        sm600: "600px",
+        sm700: "700px",
       },
       fontFamily: {
         inter: ['"Inter"', "sans-serif"],

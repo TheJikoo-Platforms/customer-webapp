@@ -2,21 +2,26 @@ import Link from "next/link";
 import { RecommendationItem } from "./recommendation-item";
 import { LoadingIcon } from "@/components/ui/icons/loading-icon";
 import { HorizontalScroll } from "../horizontal-scroll";
+import { cn } from "@/lib/utils";
 
 const PRODUCTRECOMMENDATIONSLIST = [
-  // {
-  //   title: (
-  //     <>
-  //       Recent <span className="block">Orders</span>
-  //     </>
-  //   ),
-  //   imageUrl: "/home/recent.png",
-  //   href: "",
-  //   linkLabel: "Repeat",
-  //   bg: "#fff",
-  //   color: "#000",
-  //   mobile: true,
-  // },
+  {
+    title: (
+      <>
+        <span className="flex items-center gap-1 ">
+          Auto
+          <LoadingIcon className="size-[12px]" fill={"#5C4F44"} />
+        </span>
+        <span> Suggest</span>
+      </>
+    ),
+    imageUrl: "/home/auto.png",
+    href: "",
+    linkLabel: "Suggest",
+    bg: "#EDD3BA",
+    color: "#5C4F44",
+    auto: true,
+  },
   {
     title: (
       <>
@@ -56,34 +61,18 @@ const PRODUCTRECOMMENDATIONSLIST = [
   },
 ];
 
-export const ProductRecommendations = () => {
+export const ProductRecommendations = ({
+  className = "md:grid md:grid-cols-2",
+}: {
+  className?: string;
+}) => {
   return (
-    <HorizontalScroll className="flex flex-nowrap gap-2 md:grid md:grid-cols-2 md:gap-3 max-lg:-translate-x-6 max-lg:px-6 w-full ">
-      <Link
-        href={{ query: { modal: "suggest" } }}
-        className="block"
-        scroll={false}
-      >
-        <RecommendationItem
-          data={{
-            title: (
-              <>
-                <span className="flex items-center gap-1 ">
-                  Auto
-                  <LoadingIcon className="size-[12px]" fill={"#5C4F44"} />
-                </span>
-                <span> Suggest</span>
-              </>
-            ),
-            imageUrl: "/home/auto.png",
-            href: "",
-            linkLabel: "Suggest",
-            bg: "#EDD3BA",
-            color: "#5C4F44",
-            auto: true,
-          }}
-        />
-      </Link>
+    <HorizontalScroll
+      className={cn(
+        "flex flex-nowrap gap-2 md:gap-3 max-lg:-translate-x-6 max-lg:px-6 w-full",
+        className
+      )}
+    >
       {PRODUCTRECOMMENDATIONSLIST.map((el, index) => (
         <div key={index} className="flex-shrink-0">
           <RecommendationItem data={el} />

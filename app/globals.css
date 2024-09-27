@@ -34,11 +34,11 @@
   }
   html,
   body {
-    overflow-x: hidden;
     background: var(--bg-primary);
     font-family: "DM Sans", "Arial", "sans-serif";
     color: var(--text);
     transition: all;
+    scroll-behavior: smooth;
   }
 
   [data-overlay-container="true"] {

@@ -156,8 +156,8 @@ const LoginForm = () => {
             </Button>
 
             <Link
-              href={""}
-              className="rounded-sm justify-center gap-4 border-[1.5px] border-[#D0D5DD] tracking-normal inline-flex items-center py-4 h-auto whitespace-nowrap text-[10px] sm:text-sm font-bold"
+              href={"/"}
+              className="rounded-sm justify-center gap-4 border-[1.5px] border-[#D0D5DD] tracking-normal inline-flex items-center py-3.5 h-auto whitespace-nowrap text-[10px] sm:text-sm font-bold"
             >
               <Image
                 src={GOOGLEICON}

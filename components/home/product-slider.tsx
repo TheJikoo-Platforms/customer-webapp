@@ -8,10 +8,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { FoodItem } from "../food-item";
+import { FoodItemDesktop } from "../food-item";
 
-
-export const ProductSlider =()=> {
+export const ProductSlider = () => {
   return (
     <Carousel
       opts={{
@@ -21,11 +20,8 @@ export const ProductSlider =()=> {
     >
       <CarouselContent className="gap-5">
         {Array.from({ length: 9 }).map((_, index) => (
-          <CarouselItem
-            key={index}
-            className="relative lg:w-64 basis-[none]"
-            >
-                <FoodItem/>
+          <CarouselItem key={index} className="relative lg:w-64 basis-[none]">
+            <FoodItemDesktop index={index} />
           </CarouselItem>
         ))}
       </CarouselContent>
@@ -33,4 +29,4 @@ export const ProductSlider =()=> {
       <CarouselNext />
     </Carousel>
   );
-}
+};
