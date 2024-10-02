@@ -193,6 +193,12 @@ const otpSchema = z.object({
     .regex(/^\d{6}$/, { message: "OTP must contain only digits" }), // Ensures it is numeric
 });
 
+const passwordSchema = z.object({
+  password: z
+    .string()
+    .length(6, { message: "Pasword must be exactly 6 digits" }) // Ensures length of 6
+    .regex(/^\d{6}$/, { message: "Password must contain only digits" }), // Ensures it is numeric
+});
 export {
   useFormField,
   Form,
@@ -205,4 +211,5 @@ export {
   emailSchema,
   phoneSchema,
   otpSchema,
+  passwordSchema,
 };
