@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
 import { IoClose } from "react-icons/io5";
-import { LoveIcon } from "../auth/ui/icons";
 import { FaMinus, FaPlus, FaStar } from "react-icons/fa6";
 import { Button } from "../ui/button";
+import { LoveIcon } from "../ui/icons";
 
 const FoodItem = () => {
   return (
