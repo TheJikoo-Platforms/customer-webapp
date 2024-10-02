@@ -9,6 +9,8 @@ import { IoLocationOutline } from "react-icons/io5";
 import { UnstyledInput } from "./ui/unstyled-input";
 import { cn } from "@/lib/utils";
 import { WideWrapper } from "./wrappers";
+import { Nav } from "./nav";
+import { ArrowDownIcon, BellIcon } from "./ui/icons";
 
 export const Header = async () => {
   return (
@@ -16,12 +18,12 @@ export const Header = async () => {
       <ScrollWrapper asChild>
         <header className=" py-4 bg-primary-foreground fixed top-0 z-30 w-full left-0">
           <WideWrapper>
-            <div className="flex items-center justify-between md:gap-4 xl:gap-5">
-              <div className="flex items-center gap-5">
-                <div className="lg:hidden">
-                  <MobileSheet />
-                </div>
+            <div className="flex items-center justify-between gap-3 md:gap-4 xl:gap-5">
+              <div className="lg:hidden">
+                <MobileSheet />
+              </div>
 
+              <div className="flex items-center gap-10">
                 <Link href={"/"} className="">
                   <Image
                     alt="logo"
@@ -35,17 +37,40 @@ export const Header = async () => {
                 </Link>
 
                 <EnterLocation className="hidden md:flex rounded-full" />
-
-                {/* <div className="max-lg:hidden ml-[69px]">
-                <Nav />
-              </div> */}
               </div>
 
-              <div className="flex items-center gap-2 xl:gap-5 max-sm:ml-auto">
+              <div className="max-lg:hidden">
+                <Nav />
+              </div>
+
+              <div className="flex lg:gap-5">
                 <div className="max-lg:hidden">
                   <ToggleTheme />
                 </div>
-                <div className="md:hidden">
+
+                <button type="button" className="flex items-center">
+                  <BellIcon />
+                  <div className="bg-jikoo-brand-green px-2 flex items-center rounded-full text-white text-[10px] font-medium font-inter">
+                    2
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  className="hidden lg:flex items-center gap-0.5"
+                >
+                  <Image
+                    src="/avatar.png"
+                    alt="User Image"
+                    width={640}
+                    height={640}
+                    className="w-[38px] h-[38px] rounded-full border-[2.363px] border-white bg-[#FFE7CC]"
+                  />
+                  <ArrowDownIcon />
+                </button>
+
+                {/* Auth - Mobile and Desktop */}
+                {/* <div className="md:hidden">
                   <Button variant={"link"} asChild className="">
                     <Link href={"/login"}>LOGIN</Link>
                   </Button>
@@ -64,7 +89,7 @@ export const Header = async () => {
                   >
                     <Link href={"/login"}>Login</Link>
                   </Button>
-                </div>
+                </div> */}
               </div>
             </div>
           </WideWrapper>
@@ -113,7 +138,7 @@ export const EnterLocation = ({ className }: { className: string }) => {
   return (
     <div
       className={cn(
-        "bg-white px-3 py-2 max-h-[36px] items-center gap-2",
+        "bg-white pl-3 pr-1 py-2 max-h-[36px] items-center gap-2",
         className
       )}
     >

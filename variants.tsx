@@ -24,3 +24,28 @@ export const fadeIn = (direction: string, delay: number) => {
     },
   };
 };
+
+export const backdropVariants = {
+  initial: {
+    opacity: 0,
+    y: "0",
+  },
+
+  animate: {
+    opacity: 1,
+    y: "0",
+    transition: {
+      type: "spring",
+      duration: 1,
+    },
+  },
+
+  exit: {
+    opacity: 0,
+    y: "100%",
+    transition: {
+      type: "spring",
+      duration: 1.5,
+    },
+  },
+};

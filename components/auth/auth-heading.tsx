@@ -10,7 +10,7 @@ const AuthHeading = ({ text, className }: ButtonProps) => {
   return (
     <h2
       className={cn(
-        "text-center text-lg font-medium font-sf-pro leading-[22px] my-14",
+        "text-center text-lg font-medium font-sf-pro leading-[22px] mt-14 mb-8",
         className
       )}
     >

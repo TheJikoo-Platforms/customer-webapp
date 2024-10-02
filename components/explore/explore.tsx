@@ -63,14 +63,7 @@ const RESTAURANTLIST = [
 export const Explore = ({ className }: { className?: string }) => {
   return (
     <div className={cn("py-6 pl-6", className)}>
-      <div className="my-3 lg:my-0">
-        <Text className="text-xl mb-3 tracking-[-0.4px]">Categories</Text>
-        <HorizontalScroll className="gap-6 flex max-lg:-translate-x-6 max-lg:px-6">
-          {CATEGORYLIST.map((el, key) => (
-            <ExploreItem href="/explore/restaurants/id" data={el} key={key} />
-          ))}
-        </HorizontalScroll>
-      </div>
+      <CategoryList />
 
       <div className="mt-6">
         <div className="flex justify-between items-center pr-4 mb-5">
@@ -103,3 +96,21 @@ export const Explore = ({ className }: { className?: string }) => {
   <DealsSection />
 </div> */
 }
+
+export const CategoryList = ({ className }: { className?: string }) => {
+  return (
+    <div className="my-3 lg:my-0">
+      <Text className="text-xl mb-3 tracking-[-0.4px]">Categories</Text>
+      <HorizontalScroll
+        className={cn(
+          "gap-6 flex max-lg:-translate-x-6 max-lg:px-6",
+          className
+        )}
+      >
+        {CATEGORYLIST.map((el, key) => (
+          <ExploreItem href="/explore/restaurants/id" data={el} key={key} />
+        ))}
+      </HorizontalScroll>
+    </div>
+  );
+};

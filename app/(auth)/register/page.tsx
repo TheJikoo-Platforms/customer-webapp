@@ -1,4 +1,4 @@
-import RegistrationPage from "@/components/auth/registration-form";
+import RegistrationFlow from "@/components/auth/registration";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function RegisterPage() {
-  return <RegistrationPage />;
+  return <RegistrationFlow />;
 }
