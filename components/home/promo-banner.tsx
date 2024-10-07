@@ -7,7 +7,7 @@ export const PromoBanner = () => {
       <WideWrapper>
         <div className="py-3 items-center gap-3 flex">
           <ChevronLeft size={16} className="text-white shrink-0" />
-          <div className="grow py-3 text-sm sm600:text-center">
+          <div className="grow  text-sm sm600:text-center">
             <span className="text-white lg:font-bold leading-tight">
               Buy more, save more | Up to 30% off 3+ Items | Code: SAVEITEMS{" "}
             </span>

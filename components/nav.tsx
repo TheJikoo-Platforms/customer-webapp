@@ -14,11 +14,6 @@ import { usePathname } from "next/navigation";
 
 const NAVLIST = [
   { name: "Home", path: "/", label: "" },
-  {
-    name: "Explore",
-    path: "/explore",
-    label: "explore",
-  },
   { name: "Wallet", path: "/wallet", label: "wallet" },
   { name: "My Orders", path: "/orders", label: "orders" },
   { name: "Contact", path: "/contact", label: "contact" },

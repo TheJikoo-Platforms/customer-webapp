@@ -25,7 +25,32 @@ export const fadeIn = (direction: string, delay: number) => {
   };
 };
 
-export const backdropVariants = {
+export const slideFromRight = {
+  initial: {
+    opacity: 0,
+    x: "400px",
+  },
+
+  animate: {
+    opacity: 1,
+    x: "0",
+    transition: {
+      type: "tween",
+      duration: 0.5,
+    },
+  },
+
+  exit: {
+    opacity: 0,
+    x: "100%",
+    transition: {
+      type: "spring",
+      duration: 1.5,
+    },
+  },
+};
+
+export const slideUp = {
   initial: {
     opacity: 0,
     y: "0",

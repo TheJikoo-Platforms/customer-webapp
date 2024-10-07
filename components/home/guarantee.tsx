@@ -6,12 +6,12 @@ const LIST = [
     title: "Fast Delivery",
     body: "On all orders",
   },
+  { imageUrl: "/home/bulk.svg", title: "Bulk Orders", body: "For your events" },
   {
     imageUrl: "/home/cashback.svg",
     title: "Refunds",
     body: "On failed orders",
   },
-  { imageUrl: "/home/bulk.svg", title: "Bulk Orders", body: "For your events" },
   { imageUrl: "/home/yummy.svg", title: "Tasty Food", body: "100% assured" },
 ];
 

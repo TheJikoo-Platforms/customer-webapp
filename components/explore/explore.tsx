@@ -62,45 +62,25 @@ const RESTAURANTLIST = [
 
 export const Explore = ({ className }: { className?: string }) => {
   return (
-    <div className={cn("py-6 pl-6", className)}>
-      <CategoryList />
-
-      <div className="mt-6">
-        <div className="flex justify-between items-center pr-4 mb-5">
-          <Text className="text-xl tracking-[-0.4px]">Near You</Text>
-          <Link
-            href={"/explore/restaurants"}
-            className="flex gap-1 items-center text-sm text-primary"
-          >
-            See More <ChevronRight size={18} className="text-primary " />{" "}
-          </Link>
-        </div>
-        <HorizontalScroll className="gap-6 flex max-lg:-translate-x-6 max-lg:px-6">
-          {RESTAURANTLIST.map((el, key) => (
-            <ExploreItem href="/explore/vendors/dd" data={el} key={key} />
-          ))}
-        </HorizontalScroll>
-      </div>
+    <div className={cn("py-6", className)}>
+      <CategoryList className="py-6 border-y border-y-grey-300" />
+      <RestaurantList />
     </div>
   );
 };
-{
-  /* <div className="flex items-center gap-3 max-sm:pr-6">
-    <SearchInput />
-    <FilterButton action={{ filter: 'explore'}}/>
-</div> */
-}
 
-{
-  /* <div className="mt-6 max-lg:[&_.horizontal-scroll]:-translate-x-6 max-lg:[&_.horizontal-scroll]:px-6">
-  <DealsSection />
-</div> */
-}
-
-export const CategoryList = ({ className }: { className?: string }) => {
+export const CategoryList = ({
+  className,
+  headingSize,
+}: {
+  className?: string;
+  headingSize?: string;
+}) => {
   return (
-    <div className="my-3 lg:my-0">
-      <Text className="text-xl mb-3 tracking-[-0.4px]">Categories</Text>
+    <div className="px-5 lg:px-0 overflow-x-hidden">
+      <Text className={cn("text-xl mb-3 tracking-[-0.4px]", headingSize)}>
+        Categories
+      </Text>
       <HorizontalScroll
         className={cn(
           "gap-6 flex max-lg:-translate-x-6 max-lg:px-6",
@@ -109,6 +89,27 @@ export const CategoryList = ({ className }: { className?: string }) => {
       >
         {CATEGORYLIST.map((el, key) => (
           <ExploreItem href="/explore/restaurants/id" data={el} key={key} />
+        ))}
+      </HorizontalScroll>
+    </div>
+  );
+};
+
+export const RestaurantList = () => {
+  return (
+    <div className="mt-6 px-5 lg:px-0 border-b border-b-grey-300 pb-7 overflow-x-hidden">
+      <div className="flex justify-between items-center mb-5">
+        <Text className="text-xl tracking-[-0.4px]">Near You</Text>
+        <Link
+          href={"/explore/restaurants"}
+          className="flex gap-1 items-center text-sm text-primary"
+        >
+          See More <ChevronRight size={18} className="text-primary " />{" "}
+        </Link>
+      </div>
+      <HorizontalScroll className="gap-6 flex max-lg:-translate-x-6 max-lg:px-6">
+        {RESTAURANTLIST.map((el, key) => (
+          <ExploreItem href="/explore/vendors/dd" data={el} key={key} />
         ))}
       </HorizontalScroll>
     </div>

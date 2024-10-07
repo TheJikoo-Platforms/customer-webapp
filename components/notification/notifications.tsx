@@ -1,15 +1,15 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { createFilledArray } from "@/lib/utils";
 import { NewNotificationItem, NotificationItem } from "./notification-item";
 import { ArrowLeftIcon, FilterIcon } from "../ui/icons";
-import { IoClose } from "react-icons/io5";
-import { useTransitionRouter } from "next-view-transitions";
 import Backdrop from "../ui/backdrop";
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 import { AnimatePresence, motion } from "framer-motion";
-import { backdropVariants } from "@/variants";
+import { slideFromRight, slideUp } from "@/variants";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
+import { setShowNotificationsOverlay } from "@/redux-store/slices/backdrop/notifications";
+import { RootState } from "@/redux-store/store";
+import { useMediaQuery } from "react-responsive";
 
 const NOTIFICATIONS = [
   {
@@ -76,125 +76,221 @@ const NOTIFICATIONS = [
     time: "2 mins age",
   },
 ];
+const FILTERARRAY = ["Recent", "Unread"];
 
-export const NotificationsDesktop = () => {
-  return (
-    <div className="bg-white rounded-xl p-6 w-full max-w-[800px]">
-      <div className="flex items-center justify-between mt-3 mb-9">
-        <div className="flex items-center gap-6">
-          <p className="text-xl font-bold tracking-[ -0.4px]">Notifications</p>
-
-          <button type="button">
-            <FilterIcon />
-          </button>
-        </div>
-
-        <button type="button">
-          <IoClose className="text-2xl text-grey-900" />
-        </button>
-      </div>
-      <ul className="">
-        {createFilledArray("_", 10).map((item, key) => (
-          <li key={key}>
-            <NotificationItem />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export const NotificationsMobile = () => {
-  const router = useTransitionRouter();
-  const [currentFilter, setCurrentFilter] = useState("recent");
-  const [isShowingFilters, setIsShowingFilters] = useState(false);
-  const clickOutsideRef = useRef<HTMLDivElement>(null);
-  const handleOnClickOutside = () => {
-    setIsShowingFilters(false);
-  };
-  useOnClickOutside(clickOutsideRef, handleOnClickOutside);
+export const NotificationsOverlay = () => {
+  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
 
   return (
     <>
-      <div className="bg-white rounded-xl w-full max-w-[800px]">
-        <div className="flex items-center justify-between  p-6 gap-6 bg-white sticky top-0 w-full z-30 pb-3">
-          <button onClick={() => router.back()} type="button">
-            <ArrowLeftIcon />
-          </button>
-          <p className="text-2xl font-medium tracking-[-0.48px]">
-            Notifications
-          </p>
-
-          <button type="button" onClick={() => setIsShowingFilters(true)}>
-            <FilterIcon />
-          </button>
-        </div>
-
-        <ul className="p-6">
-          {NOTIFICATIONS.map((item, key) => (
-            <li key={key}>
-              <NewNotificationItem
-                imageUrl={item.imageUrl}
-                time={item.time}
-                title={item.title}
-                message={item.message}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <AnimatePresence>
-        {isShowingFilters && (
-          <Backdrop>
-            <div className="h-full flex w-full">
-              <div
-                className="bg-white p-6 flex flex-col gap-6 self-end w-full rounded-t-3xl pb-10"
-                ref={clickOutsideRef}
-              >
-                <div className="flex items-center justify-between">
-                  <p className="text-xl text-black tracking-[-0.4px] font-medium">
-                    Sort by
-                  </p>
-                  <button
-                    type="button"
-                    className="text-sm tracking-[-0.35px] text-grey-600"
-                    onClick={() => setIsShowingFilters(false)}
-                  >
-                    Clear filter
-                  </button>
-                </div>
-
-                {/* Filter Button */}
-                <div className="flex items-center">
-                  <button
-                    type="button"
-                    className={`text-sm px-4 py-2 rounded-full transition-all duration-400 ${
-                      currentFilter === "recent"
-                        ? "text-white bg-jikoo-brand-green"
-                        : "text-[#344054] bg-transparent"
-                    }`}
-                    onClick={() => setCurrentFilter("recent")}
-                  >
-                    Recent
-                  </button>
-                  <button
-                    className={`text-sm px-4 py-2 rounded-full transition-all duration-400 ${
-                      currentFilter === "unread"
-                        ? "text-white bg-jikoo-brand-green"
-                        : "text-[#344054] bg-transparent"
-                    }`}
-                    onClick={() => setCurrentFilter("unread")}
-                    type="button"
-                  >
-                    Unread
-                  </button>
-                </div>
-              </div>
-            </div>
-          </Backdrop>
-        )}
-      </AnimatePresence>
+      {isMobile ? (
+        <NotificationsOverlayMobile />
+      ) : (
+        <NotificationOverlayDesktop />
+      )}
     </>
+  );
+};
+
+const NotificationOverlayDesktop = () => {
+  const [currentFilter, setCurrentFilter] = useState("recent");
+  const [isShowingFilters, setIsShowingFilters] = useState(false);
+  const dispatch = useAppDispatch();
+  const showNotificationOverlay = useAppSelector(
+    (state: RootState) => state.notificationOverlay.showNotificationsOverlay
+  );
+  const mainRef = useRef<HTMLDivElement>(null);
+  const handleCloseNotifications = () => {
+    dispatch(setShowNotificationsOverlay(false));
+  };
+  useOnClickOutside(mainRef, handleCloseNotifications);
+
+  return (
+    <AnimatePresence>
+      {showNotificationOverlay && (
+        <Backdrop variants={slideUp}>
+          <div className="flex w-full justify-end items-center relative">
+            <motion.div
+              variants={slideFromRight}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              ref={mainRef}
+              className="bg-white rounded-xl h-screen w-full rounded-l-2xl max-w-[520px] overflow-y-auto scrollbar-none"
+            >
+              {/* Top Bar */}
+              <div className="flex items-center justify-between p-6 gap-6 bg-white sticky top-0 w-full z-30 pb-3 rounded-tl-2xl">
+                <p className="text-grey-900 text-xl font-bold tracking-[-0.4px]">
+                  Notifications
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => setIsShowingFilters((prev) => !prev)}
+                >
+                  <FilterIcon />
+                </button>
+
+                {isShowingFilters && (
+                  <div className="bg-white p-6 flex flex-col gap-6 self-end w-[320px] rounded-xl pb-10 fixed top-14 right-6 shadow-xx-large">
+                    <div className="flex items-center justify-between">
+                      <p className="text-lg text-black tracking-[-0.4px] font-medium">
+                        Sort by
+                      </p>
+                      <button
+                        type="button"
+                        className="text-sm tracking-[-0.35px] text-grey-600"
+                      >
+                        Clear filter
+                      </button>
+                    </div>
+
+                    {/* Filter Button */}
+                    <div className="flex items-center gap-3">
+                      {FILTERARRAY.map((filter) => (
+                        <button
+                          key={filter}
+                          type="button"
+                          className={`text-sm py-2 rounded-full transition-all duration-400 ${
+                            currentFilter === filter.toLowerCase()
+                              ? "text-white bg-jikoo-brand-green px-4"
+                              : "text-[#344054] bg-transparent"
+                          }`}
+                          onClick={() => setCurrentFilter(filter.toLowerCase())}
+                        >
+                          {filter}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <ul className="p-10">
+                {NOTIFICATIONS.map((item, key) => (
+                  <li key={key}>
+                    <NewNotificationItem
+                      imageUrl={item.imageUrl}
+                      time={item.time}
+                      title={item.title}
+                      message={item.message}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </Backdrop>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const NotificationsOverlayMobile = () => {
+  const [currentFilter, setCurrentFilter] = useState("recent");
+  const [isShowingFilters, setIsShowingFilters] = useState(false);
+  const dispatch = useAppDispatch();
+  const showNotificationOverlay = useAppSelector(
+    (state: RootState) => state.notificationOverlay.showNotificationsOverlay
+  );
+  const handleCloseNotifications = () => {
+    dispatch(setShowNotificationsOverlay(false));
+  };
+  const handleHideFilter = () => {
+    setIsShowingFilters(false);
+  };
+  const filterRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(filterRef, handleHideFilter);
+
+  return (
+    <AnimatePresence>
+      {showNotificationOverlay && (
+        <Backdrop className="z-[100]" variants={slideUp}>
+          <div className="flex w-full justify-end items-center relative">
+            <div className="bg-white rounded-xl h-screen w-full overflow-y-auto scrollbar-none">
+              <div className="flex items-center justify-between p-6 gap-6 bg-white sticky top-0 w-full z-30 pb-3 ">
+                <button
+                  className=""
+                  onClick={handleCloseNotifications}
+                  type="button"
+                >
+                  <ArrowLeftIcon />
+                </button>
+                <p className="text-2xl font-medium tracking-[-0.48px] text-grey-900 lg:text-xl lg:font-bold lg:tracking-[-0.4px]">
+                  Notifications
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => setIsShowingFilters((prev) => !prev)}
+                >
+                  <FilterIcon />
+                </button>
+              </div>
+
+              <ul className="p-6">
+                {NOTIFICATIONS.map((item, key) => (
+                  <li key={key}>
+                    <NewNotificationItem
+                      imageUrl={item.imageUrl}
+                      time={item.time}
+                      title={item.title}
+                      message={item.message}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Mobile Filter */}
+            <div className="">
+              <AnimatePresence>
+                {isShowingFilters && (
+                  <Backdrop variants={slideUp}>
+                    <div className="h-full flex w-full">
+                      <div
+                        className="bg-white p-6 flex flex-col gap-6 self-end w-full rounded-t-3xl pb-10"
+                        ref={filterRef}
+                      >
+                        <div className="flex items-center justify-between">
+                          <p className="text-xl text-black tracking-[-0.4px] font-medium">
+                            Sort by
+                          </p>
+                          <button
+                            type="button"
+                            className="text-sm tracking-[-0.35px] text-grey-600"
+                          >
+                            Clear filter
+                          </button>
+                        </div>
+
+                        {/* Filter Button */}
+                        <div className="flex items-center gap-3">
+                          {FILTERARRAY.map((filter) => (
+                            <button
+                              key={filter}
+                              type="button"
+                              className={`text-sm py-2 rounded-full transition-all duration-400 ${
+                                currentFilter === filter.toLowerCase()
+                                  ? "text-white bg-jikoo-brand-green px-4"
+                                  : "text-[#344054] bg-transparent"
+                              }`}
+                              onClick={() =>
+                                setCurrentFilter(filter.toLowerCase())
+                              }
+                            >
+                              {filter}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </Backdrop>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </Backdrop>
+      )}
+    </AnimatePresence>
   );
 };

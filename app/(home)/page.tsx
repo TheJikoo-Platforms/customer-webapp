@@ -1,35 +1,32 @@
 import Cart from "@/components/cart/cartt";
 import { Explore } from "@/components/explore/explore";
 import { Footer } from "@/components/footer";
-import { AutoSuggest } from "@/components/home/auto-suggest";
 import Carousel from "@/components/home/carousel";
-import { DelicaciesSection } from "@/components/home/delicacies-section";
-import FoodItem from "@/components/home/food-items";
 import { Guarantee } from "@/components/home/guarantee";
+import { HandpickedForYou } from "@/components/home/handpicked-for-you";
 import { ProductRecommendations } from "@/components/home/product-recommendation";
-import SearchUI from "@/components/home/search";
+import { SearchButton } from "@/components/home/search";
+
 import { VendorsSection } from "@/components/home/vendors-section";
 import Orders from "@/components/orders/orderss";
-import { Text } from "@/components/ui/text";
 import { WhiteCard } from "@/components/white-card";
-import { Settings2 } from "lucide-react";
 
 export default async function Home() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
     <div className="lg:grid lg:grid-cols-[calc(68%-24px),32%] lg:gap-6 lg:mt-6 lg:mb-0 items-start">
-      <div>
-        <SearchUI />
-        <div className="space-y-5 sm:space-y-8 lg:space-y-9 min-w-0 lg:rounded-xl lg:bg-white lg:py-3">
+      <div className="">
+        <div className="max-lg:hidden">
+          <SearchButton />
+        </div>
+        <div className="space-y-5 sm:space-y-8 lg:space-y-9 min-w-0 lg:rounded-xl bg-white lg:py-3">
           <Carousel />
           <Guarantee />
-          <div className="px-5 py-3 lg:px-[36px] lg:py-6 container hidden lg:block lg:p-3 max-sm:pb-12">
-            <ProductRecommendations className="md:grid md:grid-cols-4" />
-          </div>
-          <div className="px-5 lg:px-[36px]">
+          <ProductRecommendations />
+          <div className="lg:px-6">
             <Explore className="p-0 py-0 pl-0" />
           </div>
-          <DelicaciesSection />
+          <HandpickedForYou />
         </div>
       </div>
 
@@ -61,4 +58,9 @@ export default async function Home() {
 }
 {
   /* <NewsSection /> */
+}
+{
+  /* <div className="px-5 py-3 lg:px-[36px] lg:py-6 container hidden lg:block lg:p-3 max-sm:pb-12">
+            
+          </div> */
 }

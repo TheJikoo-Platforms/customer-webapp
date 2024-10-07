@@ -59,7 +59,7 @@ const Cart = () => {
         <GetStarted />
       </div> */}
 
-      {/* <div className="flex flex-col gap-3 mt-4">
+      <div className="flex flex-col gap-3 mt-4">
         {CARTITEMS.map((item, key) => (
           <CartItem
             numberOfItems={item.numberOfItems}
@@ -70,10 +70,10 @@ const Cart = () => {
             key={key}
           />
         ))}
-      </div> */}
+      </div>
 
       <div className="mt-6">
-        {/* <p className="text-grey-900 font-bold">Add a message</p>
+        <p className="text-grey-900 font-bold">Add a message</p>
 
         <Input
           className="placeholder:text-grey-400 font-normal mt-3"
@@ -83,7 +83,7 @@ const Cart = () => {
         <div className="mt-5 flex justify-between items-center">
           <p className="text-grey-500">Subtotal:</p>
           <p className="text-grey-800 font-bold">₦4,000</p>
-        </div> */}
+        </div>
 
         <Button
           type="button"

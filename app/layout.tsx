@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { ReduxProviders } from "@/redux-store/providers";
 
 const APP_NAME = "Jikoo";
 const APP_DEFAULT_TITLE = "Jikoo";
@@ -76,17 +77,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
-      <html lang="en" suppressHydrationWarning>
-        {/* <body className={dmSans.className + " min-h-dvh flex flex-col"}> */}
-        <body className={"min-h-dvh flex flex-col"}>
-          {/* <PWAInstallPrompt/> */}
-          <Providers>
-            {children}
-            <Toaster />
-          </Providers>
-        </body>
-      </html>
-    </ViewTransitions>
+    <ReduxProviders>
+      <ViewTransitions>
+        <html lang="en" suppressHydrationWarning>
+          {/* <body className={dmSans.className + " min-h-dvh flex flex-col"}> */}
+          <body className={"min-h-dvh flex flex-col"}>
+            {/* <PWAInstallPrompt/> */}
+            <Providers>
+              {children}
+              <Toaster />
+            </Providers>
+          </body>
+        </html>
+      </ViewTransitions>
+    </ReduxProviders>
   );
 }

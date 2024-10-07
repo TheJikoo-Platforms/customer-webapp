@@ -1,16 +1,24 @@
 import React from "react";
-import { ChildrenProps } from "../wrappers";
-import { backdropVariants } from "@/variants";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-export const Backdrop = ({ children }: ChildrenProps) => {
+interface BackdropProps {
+  children: React.ReactNode;
+  className?: string;
+  variants: any;
+}
+
+export const Backdrop = ({ children, variants, className }: BackdropProps) => {
   return (
     <motion.div
-      variants={backdropVariants}
+      variants={variants}
       initial="initial"
       animate="animate"
       exit="exit"
-      className="fixed inset-0 bg-[#3E383866] backdrop-blur-[2px] w-full h-full z-50"
+      className={cn(
+        "fixed inset-0 bg-[#3E383866] backdrop-blur-[2px] z-50",
+        className
+      )}
     >
       {children}
     </motion.div>
