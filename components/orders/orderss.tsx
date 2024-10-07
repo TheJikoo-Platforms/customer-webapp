@@ -17,7 +17,7 @@ const Orders: React.FC<OrdersProps> = ({ a }) => {
         </span>
       </h3>
 
-      <div className="flex flex-col items-center mt-[22px] mb-2.5">
+      {/* <div className="flex flex-col items-center mt-[22px] mb-2.5">
         <Image
           alt="Empty State"
           src="/empty-state.png"
@@ -28,9 +28,9 @@ const Orders: React.FC<OrdersProps> = ({ a }) => {
           Login or sign up to see your on-going orders
         </p>
         <GetStarted />
-      </div>
+      </div> */}
 
-      {/* <OrderItem /> */}
+      <OrderItem />
     </div>
   );
 };
@@ -51,9 +51,9 @@ const OrderItem = ({ withoutArrow = false }: { withoutArrow?: boolean }) => {
   return (
     <div className="flex p-4">
       <div className="flex flex-col gap-3 w-full">
-        <p className="px-3 py-0.5 bg-secondary-400 font-inter text-xs text-white font-medium rounded-full w-fit">
+        {/* <p className="px-3 py-0.5 bg-secondary-400 font-inter text-xs text-white font-medium rounded-full w-fit">
           Ongoing
-        </p>
+        </p> */}
 
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-1.5">
@@ -71,7 +71,7 @@ const OrderItem = ({ withoutArrow = false }: { withoutArrow?: boolean }) => {
           <p className="text-jikoo-brand-green font-bold text-sm">₦ 3,500</p>
         </div>
 
-        <p className="truncate whitespace-nowrap text-gray-500 text-sm">
+        <p className="truncate text-gray-500 text-sm">
           Chicken Girl (1) • Beef (2) • Plantain (4) Fish (2) • Pepsi (2)
         </p>
 

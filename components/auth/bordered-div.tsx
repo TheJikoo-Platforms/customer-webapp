@@ -11,7 +11,7 @@ const BorderedDiv = React.forwardRef<HTMLDivElement, BorderDivProps>(
     return (
       <div
         className={cn(
-          "flex h-14 w-full font-medium rounded-sm border border-[#d0d4dd] dark:border-white/60 p-4 focus-within:border focus-within:border-state-success-200 transition-all",
+          "flex w-full font-medium rounded-sm border border-[#d0d4dd] dark:border-white/60 p-4 focus-within:border focus-within:border-state-success-200 transition-all",
           className
         )}
         {...props}

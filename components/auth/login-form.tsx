@@ -1,12 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import {
+  emailSchema,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  passwordSchema,
+  phoneSchema,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -26,36 +29,55 @@ import GOOGLEICON from "@/public/google-icon.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const formSchema = z.object({
-  phoneNumber: z
-    .string()
-    .min(10, "Phone number must be at least 10 digits")
-    .regex(/^\d+$/, "Phone number must only contain numbers"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
 const LoginForm = () => {
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
+  const [isEnteringNumber, setIsEnteringNumber] = useState(false);
+
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
+  // Combined schemas
+  const emailAndPasswordSchema = emailSchema.merge(passwordSchema);
+  const phoneAndPasswordSchema = phoneSchema.merge(passwordSchema);
+
+  // Union type of the combined schemas
+  type CombinedSchema =
+    | z.infer<typeof emailAndPasswordSchema>
+    | z.infer<typeof phoneAndPasswordSchema>;
+
+  const formSchema = isEnteringNumber
+    ? phoneAndPasswordSchema
+    : emailAndPasswordSchema;
+  const combinedDefaultValues = isEnteringNumber
+    ? { phoneNumber: "", password: "" }
+    : { mail: "", password: "" };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onTouched",
-    defaultValues: {
-      phoneNumber: "",
-      password: "",
-    },
+    defaultValues: combinedDefaultValues,
   });
 
   const errors = form.formState.errors;
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Check if the first character is a number
+    if (value.length > 0) {
+      setIsEnteringNumber(/^\d/.test(value));
+    }
+  };
   // Submit handler
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     await new Promise((resolve, reject) => setTimeout(resolve, 5000));
     router.push("/");
-    console.log(values);
+    if ("phoneNumber" in values) {
+      // Handle phone number submission
+      console.log(values.phoneNumber, values.password);
+    } else {
+      // Handle email submission
+      console.log(values.mail, values.password);
+    }
   };
 
   return (
@@ -64,7 +86,7 @@ const LoginForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
-            name="phoneNumber"
+            name={isEnteringNumber ? "phoneNumber" : "mail"}
             render={({ field }) => (
               <FormItem className="space-y-0">
                 <FormLabel className="text-sm font-medium">
@@ -72,23 +94,38 @@ const LoginForm = () => {
                 </FormLabel>
                 <FormControl>
                   <BorderedDiv
+                    // React Form Library Error.
                     className={`items-center gap-2 ${
-                      form.formState.touchedFields.phoneNumber &&
-                      !errors.phoneNumber &&
-                      "bg-grey-75"
+                      isEnteringNumber
+                        ? // @ts-ignore
+                          form.formState.touchedFields?.phoneNumber &&
+                          // @ts-ignore
+                          !errors?.phoneNumber &&
+                          "bg-grey-75"
+                        : // @ts-ignore
+                          form.formState.touchedFields?.mail &&
+                          // @ts-ignore
+                          !errors?.mail &&
+                          "bg-grey-75"
                     }`}
                   >
-                    <div className="flex items-center gap-2">
-                      <NGFlag />
-                      <span className="font-normal dark:text-white text-sm text-grey-400">
-                        +234
-                      </span>
-                    </div>
+                    {isEnteringNumber && (
+                      <div className="flex items-center gap-2">
+                        <NGFlag />
+                        <span className="font-normal dark:text-white text-sm text-grey-400">
+                          +234
+                        </span>
+                      </div>
+                    )}
                     <UnstyledInput
                       type="text"
-                      placeholder="Enter phone number"
+                      placeholder=""
                       className="placeholder:text-grey-400 font-normal"
                       {...field}
+                      onChange={(e) => {
+                        field.onChange(e); // Keep the form field updated
+                        handleInputChange(e); // Check input type
+                      }}
                     />
                   </BorderedDiv>
                 </FormControl>
@@ -113,7 +150,7 @@ const LoginForm = () => {
                   >
                     <PasswordKey />
                     <UnstyledInput
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? "number" : "password"}
                       placeholder="Confirm password"
                       className="placeholder:text-grey-400 font-normal"
                       {...field}
@@ -148,16 +185,16 @@ const LoginForm = () => {
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
-              className={`bg-primary w-full uppercase rounded-md font-semibold mt-4 ${
+              className={`bg-primary w-full rounded-md font-semibold mt-4 ${
                 form.formState.isSubmitting && "opacity-65 transition-all"
               }`}
             >
               {form.formState.isSubmitting ? "Signing in..." : "Sign In"}
             </Button>
 
-            <Link
-              href={"/"}
-              className="rounded-sm justify-center gap-4 border-[1.5px] border-[#D0D5DD] tracking-normal inline-flex items-center py-3.5 h-auto whitespace-nowrap text-[10px] sm:text-sm font-bold"
+            <p
+              // href={"/"}
+              className="rounded-sm justify-center gap-4 border-[1.5px] border-[#D0D5DD] tracking-normal inline-flex items-center py-4 h-auto whitespace-nowrap text-[10px] sm:text-sm font-semibold"
             >
               <Image
                 src={GOOGLEICON}
@@ -169,7 +206,7 @@ const LoginForm = () => {
               <span className="text-base text-grey-700">
                 Continue with Google
               </span>
-            </Link>
+            </p>
           </div>
         </form>
       </Form>

@@ -29,6 +29,7 @@ const config = {
         primary: {
           DEFAULT: "rgba(var(--primary), <alpha-value>)",
           foreground: "var(--bg-primary)",
+          "400": "#F56630",
         },
         secondary: {
           DEFAULT: "rgba(var(--secondary), <alpha-value>)",
@@ -70,11 +71,16 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
         grey: {
+          "50": "#F9FAFB",
+          "100": "#F2F4F7",
           "75": "#F7F9FC",
           "200": "#E4E7EC",
+          "300": "#D0D5DD",
           "400": "#98A2B3",
           "500": "#667185",
+          "600": "#475367",
           "700": "#344054",
+          "800": "#1D2739",
           "900": "#101928",
         },
       },

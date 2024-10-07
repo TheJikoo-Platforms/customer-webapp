@@ -5,11 +5,11 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center py-4 h-auto whitespace-nowrap tracking-widest rounded-[9.74px] text-[10px] sm:text-sm  font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ",
+  "inline-flex items-center justify-center py-4 h-auto whitespace-nowrap rounded-[9.74px] text-sm sm:text-base font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ",
   {
     variants: {
       variant: {
-        default: "text-xs rounded-md bg-primary text-white hover:bg-primary/90",
+        default: "rounded-md bg-primary text-white hover:bg-primary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -25,7 +25,7 @@ const buttonVariants = cva(
         newOutline:
           "text-xs rounded-md py-4 h-auto border-[3px] md:border-[4px] border-primary bg-background text-primary",
         rounded:
-          "py-2 bg-[#5fc381] rounded-[100px] border border-[#e7f6ec] text-center text-white text-xs font-bold leading-[17.40px] ",
+          "py-2 bg-[#5fc381] rounded-[100px] border border-[#e7f6ec] text-center text-white font-bold leading-[17.40px] ",
         clear: "",
       },
 

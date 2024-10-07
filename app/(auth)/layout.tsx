@@ -10,8 +10,7 @@ export default function AuthLayout({
     <>
       <div className="min-h-[100dvh] bg-white">
         <div className="flex">
-          <AuthImageSection className="invisible" />
-          <AuthImageSection className="fixed" />
+          <AuthImageSection className="sticky top-0" />
           <div className="p-6 max-w-[400px] mx-auto py-10 md:py-[100px] w-full md:w-1/2">
             <main>{children}</main>
           </div>

@@ -28,30 +28,30 @@ export const Footer = () => {
           <div className="md:flex space-y-12  ">
             <div className="flex  gap-16">
               <ul className="space-y-4 md:space-y-5">
-                <li>
+                <li key={"1"}>
                   <Link href={"/"}>Jikoo</Link>
                 </li>
-                <li>
+                <li key={"2"}>
                   <Link href={"/about"}>About</Link>
                 </li>
-                <li>
+                <li key={3}>
                   <Link href={"vendors.jikoo.ng"}>Vendors</Link>
                 </li>
-                <li>
+                <li key={4}>
                   <Link href={"/track-order"}>Orders Tracker</Link>
                 </li>
               </ul>
               <ul className="space-y-4 md:space-y-5">
-                <li>
+                <li key={5}>
                   <Link href={"/contact"}>Contact us</Link>
                 </li>
-                <li>
+                <li key={6}>
                   <Link href={"/about"}>Help Center</Link>
                 </li>
-                <li>
+                <li key={7}>
                   <Link href={"vendors.jikoo.ng"}>Jikoo community</Link>
                 </li>
-                <li>
+                <li key={8}>
                   <Link href={"/advertise"}>Advertisement</Link>
                 </li>
               </ul>
@@ -65,9 +65,7 @@ export const Footer = () => {
                   className="grow border-none bg-[#343e39] text-[10px] text-[#98a1b2] rounded-sm px-3 py-2 h-auto"
                   placeholder="Enter email"
                 />{" "}
-                <Button className="py-2 px-3 text-[10px]" >
-                  SUBSCRIBE
-                </Button>
+                <Button className="py-2 px-3 text-[10px]">SUBSCRIBE</Button>
               </form>
             </div>
           </div>

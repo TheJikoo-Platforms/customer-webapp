@@ -46,6 +46,15 @@
     width: 100%;
   }
 
+  button:focus {
+    outline: transparent;
+    border: transparent;
+  }
+
+  .shadow-xx-large {
+    box-shadow: 0px 25px 50px -12px rgba(16, 24, 40, 0.25);
+  }
+
   body[data-scroll-locked] {
     min-width: 100%;
   }
