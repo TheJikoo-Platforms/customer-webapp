@@ -1,6 +1,6 @@
 import { WishlistButton } from "../wishlist-button";
 import { Button } from "@/components/ui/button";
-import Image from 'next/image'
+import Image from "next/image";
 export const SearchItem = () => {
   return (
     <div className=" pb-3 bg-[#e7f6ec] rounded-xl space-y-2.5">
@@ -13,7 +13,7 @@ export const SearchItem = () => {
           src="/pizza.png"
           unoptimized
         />
-        <WishlistButton />
+        <WishlistButton className="" />
       </div>
       <div className="px-3 space-y-3">
         <div className="justify-between items-center flex text-[#1e1e1e]">

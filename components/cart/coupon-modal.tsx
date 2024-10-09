@@ -11,7 +11,10 @@ export const CouponModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"link"} className=" text-black/60 dark:text-white underline px-0 py-0 h-auto">
+        <Button
+          variant={"link"}
+          className=" text-black/60 dark:text-white underline px-0 py-0 h-auto"
+        >
           Apply discount
         </Button>
       </DialogTrigger>

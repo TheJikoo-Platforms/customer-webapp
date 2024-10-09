@@ -1,4 +1,4 @@
-import {  Settings2 } from "lucide-react";
+import { Settings2 } from "lucide-react";
 import { ExploreItem } from "@/components/explore/explore-item";
 import { Text } from "@/components/ui/text";
 import { SearchInput } from "@/components/ui/search-input";
@@ -22,7 +22,7 @@ export default function RestaurantsPage() {
   return (
     <div className="py-6 pl-6">
       <div className="flex items-center gap-3 pr-6">
-       <SearchInput/>
+        <SearchInput />
         <button>
           <Settings2 />
         </button>
@@ -30,24 +30,24 @@ export default function RestaurantsPage() {
       <div className="mt-3">
         <Text className="text-base mb-5">Near You</Text>
         <HorizontalScroll className="gap-3.5 flex ">
-          {RESTAURANTLIST.map((el) => (
-            <ExploreItem data={el} key={el.name} />
+          {RESTAURANTLIST.map((el, key) => (
+            <ExploreItem data={el} key={key} />
           ))}
         </HorizontalScroll>
       </div>
       <div className="mt-3">
         <Text className="text-base mb-5">Your Favourites</Text>
         <HorizontalScroll className="gap-3.5 flex ">
-          {RESTAURANTLIST.map((el) => (
-            <ExploreItem data={el} key={el.name} />
+          {RESTAURANTLIST.map((el, key) => (
+            <ExploreItem data={el} key={key} />
           ))}
         </HorizontalScroll>
       </div>
       <div className="mt-3">
         <Text className="text-base mb-5">All vendors</Text>
         <HorizontalScroll className="gap-3.5 flex ">
-          {RESTAURANTLIST.map((el) => (
-            <ExploreItem data={el} key={el.name} />
+          {RESTAURANTLIST.map((el, key) => (
+            <ExploreItem data={el} key={key} />
           ))}
         </HorizontalScroll>
       </div>

@@ -29,10 +29,12 @@ const config = {
         primary: {
           DEFAULT: "rgba(var(--primary), <alpha-value>)",
           foreground: "var(--bg-primary)",
+          "400": "#F56630",
         },
         secondary: {
           DEFAULT: "rgba(var(--secondary), <alpha-value>)",
           foreground: "var(--bg-secondary)",
+          "400": "#1671D9",
         },
         jikoo: {
           red: "rgba(var(--secondary-2), <alpha-value>)",
@@ -40,6 +42,13 @@ const config = {
           orange: "#D24305",
           footer: "var(--footer)",
           error: "#DD524D",
+          "brand-green": "#009933",
+        },
+        state: {
+          "success-50": "#E7F6EC",
+          "success-75": "#B5E3C4",
+          "success-200": "#5FC381",
+          "success-600": "#04802E",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -61,7 +70,21 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        grey: {
+          "50": "#F9FAFB",
+          "100": "#F2F4F7",
+          "75": "#F7F9FC",
+          "200": "#E4E7EC",
+          "300": "#D0D5DD",
+          "400": "#98A2B3",
+          "500": "#667185",
+          "600": "#475367",
+          "700": "#344054",
+          "800": "#1D2739",
+          "900": "#101928",
+        },
       },
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -70,8 +93,15 @@ const config = {
       },
       screens: {
         sm400: "400px",
+        sm500: "500px",
+        sm600: "600px",
+        sm700: "700px",
       },
-
+      fontFamily: {
+        inter: ['"Inter"', "sans-serif"],
+        "dm-sans": ["DM Sans", "Arial", "sans-serif"],
+        "sf-pro": ["SF Pro Display", "sans-serif"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

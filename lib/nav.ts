@@ -1,4 +1,3 @@
-import { NavAccountIcon } from "@/components/nav-account-icon";
 import {
   AccountIcon,
   BasketIcon,
@@ -6,27 +5,24 @@ import {
   ExploreIcon,
   CartIcon,
   NotificationIcon,
+  WalletIcon,
+  NavAccountIcon,
 } from "@/components/ui/icons/nav-icons";
 
 export const NAVLIST = [
   { name: "Home", path: "/", icon: HomeIcon, label: "" },
+  { name: "Search", path: "/", icon: ExploreIcon, label: "search" },
+  { name: "My Orders", path: "/", icon: CartIcon, label: "orders" },
   {
-    name: "Explore",
-    path: "/explore",
-    icon: ExploreIcon,
-    label: "explore",
-  },
-  { name: "My Orders", path: "/orders", icon: CartIcon, label: "orders" },
-  {
-    name: "Notifications",
-    path: "/notifications",
-    icon: NotificationIcon,
-    label: "notifications",
+    name: "Wallet",
+    path: "/",
+    icon: WalletIcon,
+    label: "wallet",
   },
   {
-    name: "",
-    path: "/account",
+    name: "Profile",
+    path: "/",
     icon: NavAccountIcon,
-    label: "Account",
+    label: "profile",
   },
 ];
