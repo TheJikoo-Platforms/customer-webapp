@@ -6,10 +6,9 @@ import { PiCookingPot } from "react-icons/pi";
 import { PiBicycleThin } from "react-icons/pi";
 import { WishlistButton } from "../wishlist-button";
 import { AddedToCartIcon, AddToCartIcon } from "../ui/icons";
-import { useState } from "react";
 import { IFoodItem } from "../types";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
-import { RootState } from "@/redux-store/store";
+
 import {
   setCurrentFoodItem,
   setShowFoodItemOverlay,
