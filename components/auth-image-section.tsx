@@ -31,7 +31,7 @@ const AuthImageSection = ({ className }: AuthImageSectionProps) => {
             initial="hidden"
             animate="show"
             exit="hidden"
-            className="h2 xl:mt-8 font-inter font-semibold text-5xl lg:text-6xl -tracking-[0.02em]"
+            className="h2 xl:mt-8 font-dm-sans font-semibold text-4xl lg:text-6xl -tracking-[0.02em]"
           >
             Deal With Your Food Cravings
           </motion.h1>
@@ -40,7 +40,7 @@ const AuthImageSection = ({ className }: AuthImageSectionProps) => {
             initial="hidden"
             animate="show"
             exit="hidden"
-            className="text-lg max-w-[380px] font-light pt-6 font-dm-sans leading-[21.6px]"
+            className="text-sm lg:text-lg max-w-[380px] font-light pt-2 lg:pt-6 font-dm-sans leading-[21.6px]"
           >
             Enjoy the true taste of 9ja delicacies when you order from Jikoo’s
             top tested vendors.

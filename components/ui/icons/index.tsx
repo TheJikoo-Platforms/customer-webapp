@@ -780,7 +780,7 @@ export const AddedToCartIcon = () => (
     fill="none"
     // className="min-w-5 min-h-5"
   >
-    <g clip-path="url(#clip0_15220_42025)">
+    <g clipPath="url(#clip0_15220_42025)">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -821,7 +821,7 @@ export const AddToCartIcon = () => (
     viewBox="0 0 20 21"
     fill="none"
   >
-    <g clip-path="url(#clip0_15220_41812)">
+    <g clipPath="url(#clip0_15220_41812)">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

@@ -16,7 +16,7 @@ import BorderedDiv from "../auth/bordered-div";
 import { UnstyledInput } from "../ui/unstyled-input";
 import Spinner from "../ui/spinner";
 import { createFilledArray } from "@/lib/utils";
-import { FoodItem } from "../food-item";
+import { FoodItem } from "../food-items/food-item";
 import { useMediaQuery } from "react-responsive";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 
@@ -71,7 +71,7 @@ const SearchUIMobile = () => {
           }}
           animate={{ opacity: 100, y: "0", transition: { type: "tween" } }}
           exit={{ opacity: 0, y: "100%" }}
-          className="bg-white flex pb-20 flex-col gap-6 h-screen overflow-y-auto scrollbar-none fixed inset-0 z-50"
+          className="bg-white flex pb-20 flex-col gap-6 h-screen overflow-y-auto scrollbar-none fixed inset-0 z-30"
         >
           <SearchUI />
         </motion.div>
@@ -81,6 +81,9 @@ const SearchUIMobile = () => {
 };
 
 const SearchUI = () => {
+  const foodItems = useAppSelector(
+    (state: RootState) => state.foodItemData.foodItems
+  );
   const searchForm = useForm({
     defaultValues: {
       query: "",
@@ -189,10 +192,10 @@ const SearchUI = () => {
         {isSubmitted && (
           <>
             <p className="text-[#1E1E1E]">75 results for “Amala”</p>
-            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 lg:gap-x-12">
-              {createFilledArray("", 10).map((_, index) => (
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-12">
+              {foodItems.map((foodItem, index) => (
                 <li key={index}>
-                  <FoodItem index={index + 1} key={index} />
+                  <FoodItem data={foodItem} />
                 </li>
               ))}
             </ul>

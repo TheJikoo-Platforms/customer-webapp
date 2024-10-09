@@ -3,7 +3,7 @@ import { Explore } from "@/components/explore/explore";
 import { Footer } from "@/components/footer";
 import Carousel from "@/components/home/carousel";
 import { Guarantee } from "@/components/home/guarantee";
-import { HandpickedForYou } from "@/components/home/handpicked-for-you";
+import { HandpickedForYou } from "@/components/home/handpicked";
 import { ProductRecommendations } from "@/components/home/product-recommendation";
 import { SearchButton } from "@/components/home/search";
 
