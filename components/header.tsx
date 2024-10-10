@@ -22,7 +22,7 @@ export const Header = () => {
   return (
     <>
       <ScrollWrapper asChild>
-        <header className=" py-4 bg-primary-foreground fixed top-0 z-50 w-full left-0">
+        <header className=" py-4 bg-primary-foreground fixed top-0 z-20 w-full left-0">
           <WideWrapper>
             <div className="flex items-center justify-between gap-3 md:gap-4 xl:gap-5">
               {/* <div className="lg:hidden">

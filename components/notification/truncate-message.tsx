@@ -11,7 +11,6 @@ export const TruncateText = ({ text }: { text: string }) => {
       if (textRef.current) {
         // Check if the text exceeds 2 lines (adjust based on your design)
         const isOverflowing = textRef.current.scrollHeight > 40;
-        console.log(textRef.current.scrollHeight);
         setIsTruncated(isOverflowing);
       }
     };

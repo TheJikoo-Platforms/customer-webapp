@@ -1,53 +1,50 @@
-"use client";
-import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { PromoBanner } from "@/components/home/promo-banner";
-import { EnterLocation, LocationOverlay } from "@/components/home/location";
 import { BottomNav } from "@/components/mobile-nav";
-import { NormalWrapper } from "@/components/wrappers";
-import { useAppSelector } from "@/redux-store/hooks";
-import { RootState } from "@/redux-store/store";
 import {
   AuthNotification,
   CartNotification,
 } from "@/components/fixed-notification";
-import { NotificationsOverlay } from "@/components/notification/notifications";
-import { SearchOverlay } from "@/components/home/search";
+import Backdrops from "@/components/backdrops";
+import { PromoBanner } from "@/components/home/promo-banner";
+import { NormalWrapper } from "@/components/wrappers";
+import { WhiteCard } from "@/components/white-card";
+import Cart from "@/components/cart/cartt";
+import Orders from "@/components/orders/orderss";
+import { Footer } from "@/components/footer";
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const showLocationOverlay = useAppSelector(
-    (state: RootState) => state.locationOverlay.showLocationOverlay
-  );
-  const showNotificationOverlay = useAppSelector(
-    (state: RootState) => state.notificationOverlay.showNotificationsOverlay
-  );
-  const showSearchOverlay = useAppSelector(
-    (state: RootState) => state.searchOverlay.showsearchOverlay
-  );
-
   return (
     <>
-      <Header />
-      <div className="mt-[68px] xl:mt-[72px]">
-        <PromoBanner />
+      <Backdrops />
+      <div className="min-h-dvh">
+        <Header />
+        <div className="hidden md:block mt-[68px] xl:mt-[72px]">
+          <PromoBanner />
+        </div>
+        <NormalWrapper>
+          <div className="lg:grid lg:grid-cols-[calc(68%-24px),32%] lg:gap-6 lg:mt-6 lg:mb-0 items-start">
+            <main className="flex flex-col flex-1">{children}</main>
+            <div className="max-lg:hidden space-y-6 sticky top-[80px]">
+              <WhiteCard className="p-4">
+                <Orders />
+              </WhiteCard>
+              <WhiteCard className="rounded-none">
+                <Cart />
+              </WhiteCard>
+            </div>
+          </div>
+        </NormalWrapper>
+        <Footer />
+        <div className="sm:hidden">
+          <AuthNotification />
+          {/* <CartNotification /> */}
+          <BottomNav />
+        </div>
       </div>
-      <EnterLocation className="flex lg:hidden py-6 px-[18px]" />
-      <NormalWrapper>
-        <main className="flex flex-col flex-1 mb-16 lg:mb-6">{children}</main>
-      </NormalWrapper>
-      {/* <Footer /> */}
-      <div className="sm:hidden">
-        <AuthNotification />
-        {/* <CartNotification /> */}
-        <BottomNav />
-      </div>
-      {showLocationOverlay && <LocationOverlay />}
-      {showNotificationOverlay && <NotificationsOverlay />}
-      {showSearchOverlay && <SearchOverlay />}
     </>
   );
 }

@@ -61,7 +61,7 @@ export const StepOneForm: React.FC<StepOneFormProps> = React.memo(
           <Button
             type="submit"
             disabled={isSubmitting}
-            className={`bg-primary w-full rounded-md font-semibold mt-4 ${
+            className={`bg-primary w-full rounded-md font-semibold text-base mt-4 ${
               isSubmitting && "opacity-65 transition-all"
             }`}
             onClick={handleGoToNextPage}
@@ -71,7 +71,7 @@ export const StepOneForm: React.FC<StepOneFormProps> = React.memo(
 
           <p
             // href={"/"}
-            className="rounded-sm justify-center gap-4 border-[1.5px] border-[#D0D5DD] tracking-normal inline-flex items-center py-4 h-auto whitespace-nowrap text-[10px] text-sm font-semibold"
+            className="rounded-sm justify-center gap-4 border-[1.5px] border-[#D0D5DD] tracking-normal inline-flex items-center py-[15px] h-auto whitespace-nowrap text-[10px] text-sm font-semibold"
           >
             <Image
               src={GOOGLEICON}

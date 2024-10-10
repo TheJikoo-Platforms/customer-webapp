@@ -97,12 +97,13 @@ export const EnterLocation = ({ className }: { className: string }) => {
     dispatch(handleLocationOverlay());
   };
   return (
-    <button
-      type="button"
+    <div
       className={cn("bg-white pl-3 pr-4 py-2 max-h-[36px] relative", className)}
-      onClick={handleOverlay}
     >
-      <div className="max-w-[242px] flex items-center gap-2">
+      <div
+        className="max-w-[242px] flex items-center gap-2 cursor-pointer"
+        onClick={handleOverlay}
+      >
         <IoLocationOutline className="text-jikoo-brand-green" />
         <p className="text-sm text-black">Enter your location</p>
         <IoIosArrowDown className="text-grey-500" />
@@ -113,7 +114,7 @@ export const EnterLocation = ({ className }: { className: string }) => {
           handlePrompt={handlePrompt}
         />
       )}
-    </button>
+    </div>
   );
 };
 

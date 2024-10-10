@@ -61,7 +61,7 @@ export const BottomNav = () => {
   return (
     <>
       <nav
-        className="fixed bottom-0 left-0 w-full bg-white dark:bg-primary-foreground z-[60]"
+        className="fixed bottom-0 left-0 w-full bg-white dark:bg-primary-foreground z-40"
         style={{
           transform: isKeyboardVisible ? "translateY(50px)" : "translateY(0)",
           boxShadow: "0px -10px 18px -2px #10192812",

@@ -11,17 +11,17 @@ import {
 
 export const NAVLIST = [
   { name: "Home", path: "/", icon: HomeIcon, label: "" },
-  { name: "Search", path: "/search", icon: ExploreIcon, label: "search" },
-  { name: "My Orders", path: "/orders", icon: CartIcon, label: "orders" },
+  { name: "Search", path: "/", icon: ExploreIcon, label: "search" },
+  { name: "My Orders", path: "/", icon: CartIcon, label: "orders" },
   {
     name: "Wallet",
-    path: "/wallet",
+    path: "/",
     icon: WalletIcon,
     label: "wallet",
   },
   {
     name: "Profile",
-    path: "/profile",
+    path: "/",
     icon: NavAccountIcon,
     label: "profile",
   },

@@ -3,18 +3,21 @@ import { Explore } from "@/components/explore/explore";
 import { Footer } from "@/components/footer";
 import Carousel from "@/components/home/carousel";
 import { Guarantee } from "@/components/home/guarantee";
-import { HandpickedForYou } from "@/components/home/handpicked-for-you";
+import { HandpickedForYou } from "@/components/home/handpicked";
+import { EnterLocation } from "@/components/home/location";
 import { ProductRecommendations } from "@/components/home/product-recommendation";
+import { PromoBanner } from "@/components/home/promo-banner";
 import { SearchButton } from "@/components/home/search";
-
 import { VendorsSection } from "@/components/home/vendors-section";
 import Orders from "@/components/orders/orderss";
 import { WhiteCard } from "@/components/white-card";
+import { NormalWrapper } from "@/components/wrappers";
 
 export default async function Home() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
-    <div className="lg:grid lg:grid-cols-[calc(68%-24px),32%] lg:gap-6 lg:mt-6 lg:mb-0 items-start">
+    <>
+      <EnterLocation className="flex lg:hidden py-6 px-[18px]" />
       <div className="">
         <div className="max-lg:hidden">
           <SearchButton />
@@ -29,16 +32,7 @@ export default async function Home() {
           <HandpickedForYou />
         </div>
       </div>
-
-      <div className="max-lg:hidden space-y-6 sticky top-[80px]">
-        <WhiteCard className="p-4">
-          <Orders />
-        </WhiteCard>
-        <WhiteCard className="rounded-none">
-          <Cart />
-        </WhiteCard>
-      </div>
-    </div>
+    </>
   );
 }
 
