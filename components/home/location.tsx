@@ -44,7 +44,7 @@ interface LocationProps {
 
 export const LocationOverlay = () => {
   const currentLocationPage = useAppSelector(
-    (state: RootState) => state.locationOverlay.currentLocationPage
+    (state: RootState) => state.location.currentLocationPage
   );
   const dispatch = useAppDispatch();
   const handleOverlay = () => {
@@ -138,7 +138,7 @@ const LocationPrompt = React.forwardRef<HTMLDivElement, LocationProps>(
           className="w-full inline-flex"
           onClick={() => handlePageChange("address")}
         >
-          <BorderedDiv className={`items-center gap-2 my-6`}>
+          <BorderedDiv className="items-center gap-2 my-6">
             <SlLocationPin className="text-grey-500" />
             <p className="text-sm text-grey-400">Enter your location</p>
           </BorderedDiv>

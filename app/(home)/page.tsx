@@ -1,4 +1,4 @@
-import Cart from "@/components/cart/cartt";
+import Cart from "@/components/cart/cart";
 import { Explore } from "@/components/explore/explore";
 import { Footer } from "@/components/footer";
 import Carousel from "@/components/home/carousel";
@@ -17,6 +17,9 @@ export default async function Home() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
     <>
+      <div className="block md:hidden mt-[68px]">
+        <PromoBanner />
+      </div>
       <EnterLocation className="flex lg:hidden py-6 px-[18px]" />
       <div className="">
         <div className="max-lg:hidden">

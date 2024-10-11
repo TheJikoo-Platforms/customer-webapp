@@ -8,7 +8,7 @@ import Backdrops from "@/components/backdrops";
 import { PromoBanner } from "@/components/home/promo-banner";
 import { NormalWrapper } from "@/components/wrappers";
 import { WhiteCard } from "@/components/white-card";
-import Cart from "@/components/cart/cartt";
+import Cart from "@/components/cart/cart";
 import Orders from "@/components/orders/orderss";
 import { Footer } from "@/components/footer";
 
@@ -32,16 +32,16 @@ export default function MainLayout({
               <WhiteCard className="p-4">
                 <Orders />
               </WhiteCard>
-              <WhiteCard className="rounded-none">
+              <WhiteCard className="rounded-2xl p-6 px-5">
                 <Cart />
               </WhiteCard>
             </div>
           </div>
         </NormalWrapper>
-        <Footer />
-        <div className="sm:hidden">
-          <AuthNotification />
-          {/* <CartNotification /> */}
+        <div className="mt-6">{/* <Footer /> */}</div>
+        {/* <AuthNotification /> */}
+        <div className="lg:hidden">
+          <CartNotification />
           <BottomNav />
         </div>
       </div>

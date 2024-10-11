@@ -30,7 +30,7 @@ export const SearchOverlay = () => {
 const SearchUIDesktop = () => {
   const dispatch = useAppDispatch();
   const showSearchOverlay = useAppSelector(
-    (state: RootState) => state.searchOverlay.showsearchOverlay
+    (state: RootState) => state.search.showsearchOverlay
   );
   const mainRef = useRef<HTMLDivElement>(null);
   const handleCloseSearch = () => {
@@ -57,7 +57,7 @@ const SearchUIDesktop = () => {
 
 const SearchUIMobile = () => {
   const showSearchOverlay = useAppSelector(
-    (state: RootState) => state.searchOverlay.showsearchOverlay
+    (state: RootState) => state.search.showsearchOverlay
   );
   return (
     <AnimatePresence>

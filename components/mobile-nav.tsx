@@ -11,7 +11,7 @@ import { setShowSearchOverlay } from "@/redux-store/slices/backdrop/search";
 
 export const BottomNav = () => {
   const showSearchOverlay = useAppSelector(
-    (state: RootState) => state.searchOverlay.showsearchOverlay
+    (state: RootState) => state.search.showsearchOverlay
   );
   const dispatch = useAppDispatch();
   const handleOverlay = () => {
