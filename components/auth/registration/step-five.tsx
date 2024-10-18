@@ -25,6 +25,7 @@ import { StepFourFormData } from "./step-four";
 import { validateOtp, verifyMail } from "@/api/requests";
 import { useMutation } from "@tanstack/react-query";
 import { MdCancel } from "react-icons/md";
+import { FaCircleCheck } from "react-icons/fa6";
 
 interface StepFiveProps {
   stepFourData: StepFourFormData | null;
@@ -52,10 +53,18 @@ export const StepFiveForm = React.memo(
         setTimeout(() => {
           handleNextStep(6);
           toast({
-            variant: "fade",
-            title: "We sent you a verification link",
-            description: "Check your email to verify your email",
+            title: "Registration Successful",
+            icon: (
+              <div className="w-6 h-6 bg-state-success-50 border border-state-success-75 flex items-center justify-center rounded">
+                <FaCircleCheck className="text-state-success-600" />
+              </div>
+            ),
           });
+          // toast({
+          //   variant: "fade",
+          //   title: "We sent you a verification link",
+          //   description: "Check your email to verify your email",
+          // });
         }, 1000);
       },
       onError: (error: any) => {

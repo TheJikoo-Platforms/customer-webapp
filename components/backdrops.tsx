@@ -26,6 +26,9 @@ export default function Backdrops() {
   const showCartOverlay = useAppSelector(
     (state: RootState) => state.cart.showCartOverlay
   );
+  const showCheckoutOverlay = useAppSelector(
+    (state: RootState) => state.cart.showCheckoutOverlay
+  );
   const showFoodItemOverlay = useAppSelector(
     (state: RootState) => state.foodItemOverlay.showFoodItemOverlay
   );
@@ -36,7 +39,7 @@ export default function Backdrops() {
       {showSearchOverlay && <SearchOverlay />}
       {showCartOverlayMobile && <CartOverLayMobile />}
       {showCartOverlay && <CartBackdrops />}
-      {showCartOverlay && <CheckoutBackdrops />}
+      {showCheckoutOverlay && <CheckoutBackdrops />}
       {showFoodItemOverlay && <FoodItemOverlay />}
     </>
   );

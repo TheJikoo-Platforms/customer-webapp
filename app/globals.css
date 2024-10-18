@@ -81,6 +81,10 @@ input:-internal-autofill-selected {
   background: transparent !important;
 }
 
+.border-state-error-200,
+.border-state-error-200:focus-within {
+  border-color: #e26e6a;
+}
 @layer utilities {
   .lds-ring div {
     box-sizing: border-box;

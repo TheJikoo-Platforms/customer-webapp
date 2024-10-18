@@ -154,13 +154,13 @@ const LoginForm = () => {
                 <FormControl>
                   <BorderedDiv
                     className={`items-center gap-2 ${
-                      // isEnteringNumber
-                      // ? getFieldClassName(
-                      //     form.formState,
-                      //     errors,
-                      //     "phoneNumber"
-                      //   )
-                      getFieldClassName(form.formState, errors, "mail")
+                      isEnteringNumber
+                        ? getFieldClassName(
+                            form.formState,
+                            errors,
+                            "phoneNumber"
+                          )
+                        : getFieldClassName(form.formState, errors, "mail")
                     }`}
                   >
                     {isEnteringNumber && (

@@ -4,7 +4,7 @@ import { ArrowLeftIcon, BicycleIcon, CartCheckIcon } from "../ui/icons";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import {
   setFlowState,
-  setShowCartOverlay,
+  setShowCheckoutOverlay,
 } from "@/redux-store/slices/backdrop/cart";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaChevronRight } from "react-icons/fa6";
@@ -41,7 +41,7 @@ export default function Checkout() {
   // const [formValues, setformValues] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleFormOverlay = (item: string) => {
-    dispatch(setShowCartOverlay({ showOverlay: true, activeItem: item }));
+    dispatch(setShowCheckoutOverlay({ showOverlay: true, activeItem: item }));
   };
   const handleLocationModal = () => {
     dispatch(handleLocationOverlay());
@@ -312,7 +312,7 @@ const messageSchema = z.object({
 const MessageForm = () => {
   const dispatch = useAppDispatch();
   const handleCloseOverlay = () => {
-    dispatch(setShowCartOverlay({ activeItem: "", showOverlay: false }));
+    dispatch(setShowCheckoutOverlay({ activeItem: "", showOverlay: false }));
   };
   const form = useForm({
     resolver: zodResolver(messageSchema),
@@ -386,7 +386,7 @@ const MessageForm = () => {
 const EmailForm = () => {
   const dispatch = useAppDispatch();
   const handleCloseOverlay = () => {
-    dispatch(setShowCartOverlay({ activeItem: "", showOverlay: false }));
+    dispatch(setShowCheckoutOverlay({ activeItem: "", showOverlay: false }));
   };
   const form = useForm({
     resolver: zodResolver(emailSchema),
@@ -467,7 +467,7 @@ const EmailForm = () => {
 const PhoneForm = () => {
   const dispatch = useAppDispatch();
   const handleCloseOverlay = () => {
-    dispatch(setShowCartOverlay({ activeItem: "", showOverlay: false }));
+    dispatch(setShowCheckoutOverlay({ activeItem: "", showOverlay: false }));
   };
   const form = useForm({
     resolver: zodResolver(phoneSchema),
