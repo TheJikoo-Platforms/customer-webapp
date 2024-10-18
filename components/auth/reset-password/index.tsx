@@ -10,6 +10,7 @@ export default function ResetPasswordUI() {
     setStep(nextStep);
   }, []);
   const [stepOneData, setStepOneData] = useState("");
+  // const [stepTwoData, setStepTwoData] = useState("");
 
   const submitStepOne = useCallback((data: string) => {
     setStepOneData(data);

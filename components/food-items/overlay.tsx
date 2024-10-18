@@ -6,7 +6,7 @@ import {
   setShowFoodItemOverlay,
 } from "@/redux-store/slices/backdrop/food-items";
 import { RootState } from "@/redux-store/store";
-import { slideUp } from "@/variants";
+import { fadeIn, slideUp } from "@/variants";
 import { AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import Backdrop from "../ui/backdrop";
@@ -227,7 +227,9 @@ export const FoodItemOverlay = () => {
                           handleAddToCart(currentFoodItem?.name ?? "")
                         }
                       >
-                        Add to cart
+                        {currentFoodItem?.addedToCart
+                          ? "Update"
+                          : "Add to cart"}
                       </Button>
                     </div>
                   </div>
@@ -237,24 +239,29 @@ export const FoodItemOverlay = () => {
           </Backdrop>
 
           {isErrorShowing && (
-            <div
-              ref={errorRef}
-              className="fixed inset-0 bg-[#3E383866] backdrop-blur-[2px] w-full h-full z-50 px-6 flex items-center justify-center"
-            >
-              <div className="bg-white p-6 rounded-2xl flex flex-col text-grey-900 font-bold tracking-[-0.4px] w-full sm600:max-w-96">
-                <p className="text-xl tracking-[-0.4px]">Required</p>
-                <p className="text-sm font-normal mt-4 mb-6">
-                  Select a required option
-                </p>
-                <button
-                  onClick={() => setIsErrorShowing(false)}
-                  className="self-end"
-                  type="button"
-                >
-                  Close
-                </button>
+            <Backdrop variants={fadeIn}>
+              <div
+                ref={errorRef}
+                className="px-6 flex h-full w-full items-center justify-center"
+              >
+                <div className="bg-white p-6 rounded-2xl flex flex-col text-grey-900 font-bold tracking-[-0.4px] w-full sm600:max-w-96">
+                  <p className="text-xl tracking-[-0.4px]">Required</p>
+                  <p className="text-sm font-normal mt-4 mb-6">
+                    Select a required option
+                  </p>
+                  <button
+                    onClick={() => {
+                      setIsErrorShowing(false);
+                      setIsRequiredSelected(true);
+                    }}
+                    className="self-end"
+                    type="button"
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
-            </div>
+            </Backdrop>
           )}
         </>
       )}

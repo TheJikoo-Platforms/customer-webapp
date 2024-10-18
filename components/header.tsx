@@ -11,14 +11,18 @@ import { Nav } from "./nav";
 import { ArrowDownIcon, BellIcon } from "./ui/icons";
 import { EnterLocation } from "./home/location";
 import { NavAccountIcon } from "./ui/icons/nav-icons";
-import { useAppDispatch } from "@/redux-store/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { setShowNotificationsOverlay } from "@/redux-store/slices/backdrop/notifications";
+import { RootState } from "@/redux-store/store";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
   const handleShowNotifications = () => {
     dispatch(setShowNotificationsOverlay(true));
   };
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   return (
     <>
       <ScrollWrapper asChild>
@@ -41,11 +45,10 @@ export const Header = () => {
                     priority
                   />
                 </Link>
-
                 <EnterLocation className="hidden lg:flex rounded-full" />
               </div>
 
-              <div className="max-lg:hidden">
+              <div className="hidden md:block">
                 <Nav />
               </div>
 
@@ -54,47 +57,53 @@ export const Header = () => {
                   <ToggleTheme />
                 </div>
 
-                {/* Notifications */}
-                <button
-                  onClick={handleShowNotifications}
-                  type="button"
-                  className="flex items-center"
-                >
-                  <BellIcon />
-                  <div className="bg-jikoo-brand-green px-2 flex items-center rounded-full text-white text-[10px] font-medium font-inter">
-                    2
+                {/* Decide what to display base on authentication */}
+
+                {isAuthenticated ? (
+                  <div className="flex gap-5">
+                    <button
+                      onClick={handleShowNotifications}
+                      type="button"
+                      className="flex items-center"
+                    >
+                      <BellIcon />
+                      <div className="bg-jikoo-brand-green px-2 flex items-center rounded-full text-white text-[10px] font-medium">
+                        2
+                      </div>
+                    </button>
+
+                    <button
+                      type="button"
+                      className="hidden md:flex items-center gap-0.5 text-grey-600"
+                    >
+                      <NavAccountIcon />
+                      <ArrowDownIcon />
+                    </button>
                   </div>
-                </button>
+                ) : (
+                  <>
+                    <div className="hidden md:block">
+                      <Button className="px-4 py-2 rounded-md">
+                        <Link href={"/login"}>Login</Link>
+                      </Button>
+                    </div>
+                    <div className="block md:hidden">
+                      <Link
+                        className="px-4 py-2 tracking-[1px] text-[10px] font-bold uppercase text-jikoo-brand-green"
+                        href={"/login"}
+                      >
+                        Login
+                      </Link>
 
-                <button
-                  type="button"
-                  className="hidden lg:flex items-center gap-0.5 text-grey-600"
-                >
-                  <NavAccountIcon />
-                  <ArrowDownIcon />
-                </button>
-
-                {/* Auth - Mobile and Desktop */}
-                {/* <div className="md:hidden">
-                  <Button variant={"link"} asChild className="">
-                    <Link href={"/login"}>LOGIN</Link>
-                  </Button>
-                  <Button
-                    className=" p-2.5 tracking-[10%] max-sm:rounded"
-                    asChild
-                  >
-                    <Link href={"/register"}>REGISTER</Link>
-                  </Button>
-                </div>
-
-                <div className="hidden md:block">
-                  <Button
-                    className=" px-4 py-2 tracking max-sm:rounded"
-                    asChild
-                  >
-                    <Link href={"/login"}>Login</Link>
-                  </Button>
-                </div> */}
+                      <Button
+                        className=" p-2.5 tracking-[1px] rounded text-[10px]"
+                        asChild
+                      >
+                        <Link href={"/register"}>REGISTER</Link>
+                      </Button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </WideWrapper>

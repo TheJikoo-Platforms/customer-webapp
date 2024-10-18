@@ -49,6 +49,10 @@ const config = {
           "success-75": "#B5E3C4",
           "success-200": "#5FC381",
           "success-600": "#04802E",
+          "error-50": "#FBEAE9",
+          "error-75": "#F2BCBA",
+          "error-200": "#E26E6A",
+          "error-500": "#CB1A14",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

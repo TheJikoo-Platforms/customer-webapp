@@ -80,7 +80,6 @@ export default function RootLayout({
     <ReduxProviders>
       <ViewTransitions>
         <html lang="en" suppressHydrationWarning>
-          {/* <body className={dmSans.className + " min-h-dvh flex flex-col"}> */}
           <body className={"min-h-dvh flex flex-col"}>
             {/* <PWAInstallPrompt/> */}
             <Providers>

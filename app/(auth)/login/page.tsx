@@ -11,7 +11,8 @@ export const metadata: Metadata = {
   description: "Login",
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  await new Promise((resolve, reject) => setTimeout(resolve, 2000));
   return (
     <div>
       <div className="flex items-center justify-center relative">
