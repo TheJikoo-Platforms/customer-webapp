@@ -8,6 +8,7 @@ import searchReducer from "./slices/backdrop/search";
 import foodItemOverlayReducer from "./slices/backdrop/food-items";
 import foodItemDataReducer from "./slices/backdrop/food-items-data";
 import cartOverlayReducer from "./slices/backdrop/cart";
+import authSliceReducer from "./slices/authslice";
 
 const isClient = typeof window !== "undefined";
 // Define the persist configuration
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   foodItemOverlay: foodItemOverlayReducer,
   foodItemData: foodItemDataReducer, // Specify the ones to persist
   cart: cartOverlayReducer,
+  auth: authSliceReducer,
 });
 
 // Create a persisted version of the rootReducer

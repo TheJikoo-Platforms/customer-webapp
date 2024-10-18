@@ -22,6 +22,9 @@ import { UnstyledInput } from "@/components/ui/unstyled-input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "@/components/ui/icons";
 import { StepFourFormData } from "./step-four";
+import { validateOtp, verifyMail } from "@/api/requests";
+import { useMutation } from "@tanstack/react-query";
+import { MdCancel } from "react-icons/md";
 
 interface StepFiveProps {
   stepFourData: StepFourFormData | null;
@@ -38,16 +41,54 @@ export const StepFiveForm = React.memo(
         otp: "",
       },
     });
+    const {
+      mutate: verifyMailMutation,
+      isLoading,
+      isError,
+      data,
+    } = useMutation(verifyMail, {
+      onSuccess: (response) => {
+        console.log("Mail verfied successfully:", response);
+        setTimeout(() => {
+          handleNextStep(6);
+          toast({
+            variant: "fade",
+            title: "We sent you a verification link",
+            description: "Check your email to verify your email",
+          });
+        }, 1000);
+      },
+      onError: (error: any) => {
+        console.error(
+          "Error verifying mail:",
+          error.response?.data || error.message
+        );
+        const errorMessage = !error.response
+          ? "Network error: Please check your internet connection."
+          : error.response.data.errors ||
+            error.response.data.message ||
+            "An unexpected error occurred.";
 
-    const handleOtpSubmit = async (values: z.infer<typeof otpSchema>) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast({
-        variant: "fade",
-        title: "We sent you a verification link",
-        description: "Check your email to verify your email",
-      });
-      console.log("OTP submitted: ", values);
-      handleNextStep(6);
+        toast({
+          title: errorMessage,
+          variant: "error",
+          icon: (
+            <div className="w-6 h-6 bg-state-error-50 border border-state-error-75 flex items-center justify-center rounded">
+              <MdCancel className="text-state-error-500" />
+            </div>
+          ),
+        });
+      },
+    });
+    const handleOtpSubmit = (values: z.infer<typeof otpSchema>) => {
+      if (stepFourData) {
+        const otpData = {
+          email: stepFourData?.email,
+          otp: values.otp,
+        };
+
+        verifyMailMutation(otpData);
+      }
     };
 
     const errors = otpForm.formState.errors;

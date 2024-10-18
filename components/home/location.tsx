@@ -64,7 +64,7 @@ export const LocationOverlay = () => {
   return (
     <AnimatePresence>
       {isOnScreen && (
-        <Backdrop variants={slideUp}>
+        <Backdrop className="z-[100]" variants={slideUp}>
           <div className="h-full flex w-full justify-center items-center ">
             {currentLocationPage === "prompt" && (
               <LocationPrompt
@@ -122,7 +122,7 @@ const LocationPrompt = React.forwardRef<HTMLDivElement, LocationProps>(
   ({ handleCloseBackdrop, handlePageChange }, ref) => {
     return (
       <div
-        className="bg-white p-6 flex flex-col max-md:self-end w-full rounded-t-3xl md:rounded-2xl pb-10 text-center max-w-[450px]"
+        className="bg-white p-6 flex flex-col self-end sm500:self-center w-full rounded-t-3xl sm500:rounded-2xl pb-10 text-center max-w-[550px] sm500:max-w-[450px]"
         ref={ref}
       >
         <h2 className="text-black text-xl font-bold tracking-[-0.4px]">

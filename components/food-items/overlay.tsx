@@ -242,7 +242,7 @@ export const FoodItemOverlay = () => {
             <Backdrop variants={fadeIn}>
               <div
                 ref={errorRef}
-                className="px-6 flex items-center justify-center"
+                className="px-6 flex h-full w-full items-center justify-center"
               >
                 <div className="bg-white p-6 rounded-2xl flex flex-col text-grey-900 font-bold tracking-[-0.4px] w-full sm600:max-w-96">
                   <p className="text-xl tracking-[-0.4px]">Required</p>

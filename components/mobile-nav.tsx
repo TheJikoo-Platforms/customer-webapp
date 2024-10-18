@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
 import { setShowSearchOverlay } from "@/redux-store/slices/backdrop/search";
+import { setShowCartOverlayMobile } from "@/redux-store/slices/backdrop/cart";
 
 export const BottomNav = () => {
   const showSearchOverlay = useAppSelector(
@@ -16,6 +17,7 @@ export const BottomNav = () => {
   const dispatch = useAppDispatch();
   const handleOverlay = () => {
     dispatch(setShowSearchOverlay(true));
+    dispatch(setShowCartOverlayMobile(false));
   };
   const handleLinkClick = () => {
     dispatch(setShowSearchOverlay(false));
@@ -61,7 +63,7 @@ export const BottomNav = () => {
   return (
     <>
       <nav
-        className="fixed bottom-0 left-0 w-full bg-white dark:bg-primary-foreground z-40"
+        className="fixed bottom-0 left-0 w-full bg-white dark:bg-primary-foreground z-[150]"
         style={{
           transform: isKeyboardVisible ? "translateY(50px)" : "translateY(0)",
           boxShadow: "0px -10px 18px -2px #10192812",

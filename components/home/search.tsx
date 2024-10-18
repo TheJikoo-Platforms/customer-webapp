@@ -71,7 +71,7 @@ const SearchUIMobile = () => {
           }}
           animate={{ opacity: 100, y: "0", transition: { type: "tween" } }}
           exit={{ opacity: 0, y: "100%" }}
-          className="bg-white flex pb-20 flex-col gap-6 h-screen overflow-y-auto scrollbar-none fixed inset-0 z-30"
+          className="bg-white flex pb-20 flex-col gap-6 h-screen overflow-y-auto scrollbar-none fixed inset-0 z-[100]"
         >
           <SearchUI />
         </motion.div>
@@ -106,7 +106,7 @@ const SearchUI = () => {
 
   return (
     <>
-      <div className="border-b border-b-[#EBEBEB] pb-3 pt-5 p-4 sm600:hidden sticky top-0 bg-white z-30">
+      <div className="border-b border-b-[#EBEBEB] pb-3 pt-5 p-4 sm600:hidden sticky top-0 bg-white z-[50]">
         <p className="text-2xl font-medium tracking-[-0.48px]">Search</p>
       </div>
 
@@ -212,17 +212,19 @@ export const SearchButton = () => {
     dispatch(setShowSearchOverlay(true));
   };
   return (
-    <button
-      onClick={handleOverlay}
-      className="lg:rounded-xl lg:bg-white p-4 mb-4 flex flex-col gap-6 w-full"
-    >
-      <div className="border border-grey-300 p-4 rounded-full flex items-center gap-2 w-full">
-        <IoSearch className="text-gray-400 text-lg" />
-        <p className="bg-transparent text-grey-400 text-sm outline-none">
-          Search for restaurants or foods
-        </p>
-      </div>
-    </button>
+    <div className="max-lg:hidden">
+      <button
+        onClick={handleOverlay}
+        className="lg:rounded-xl lg:bg-white p-4 mb-4 flex flex-col gap-6 w-full "
+      >
+        <div className="border border-grey-300 p-4 rounded-full flex items-center gap-2 w-full">
+          <IoSearch className="text-gray-400 text-lg" />
+          <p className="bg-transparent text-grey-400 text-sm outline-none">
+            Search for restaurants or foods
+          </p>
+        </div>
+      </button>
+    </div>
   );
 };
 

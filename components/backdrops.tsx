@@ -8,6 +8,7 @@ import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
 import CartOverLayMobile from "./cart/mobile-overlay";
 import { CartBackdrops } from "./cart/cart";
+import { CheckoutBackdrops } from "./cart/checkout";
 
 export default function Backdrops() {
   const showLocationOverlay = useAppSelector(
@@ -28,7 +29,6 @@ export default function Backdrops() {
   const showFoodItemOverlay = useAppSelector(
     (state: RootState) => state.foodItemOverlay.showFoodItemOverlay
   );
-
   return (
     <>
       {showLocationOverlay && <LocationOverlay />}
@@ -36,6 +36,7 @@ export default function Backdrops() {
       {showSearchOverlay && <SearchOverlay />}
       {showCartOverlayMobile && <CartOverLayMobile />}
       {showCartOverlay && <CartBackdrops />}
+      {showCartOverlay && <CheckoutBackdrops />}
       {showFoodItemOverlay && <FoodItemOverlay />}
     </>
   );

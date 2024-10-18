@@ -41,7 +41,7 @@ export const Nav = () => {
             >
               {el.name}
               {el.label === "orders" && (
-                <div className="bg-jikoo-brand-green px-2 flex items-center rounded-full text-white text-[10px] font-medium font-inter">
+                <div className="bg-jikoo-brand-green px-2 flex items-center rounded-full text-white text-[10px] font-medium">
                   2
                 </div>
               )}

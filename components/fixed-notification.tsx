@@ -1,9 +1,10 @@
 "use client";
-import { useAppDispatch } from "@/redux-store/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import {
   setShowCartOverlay,
   setShowCartOverlayMobile,
 } from "@/redux-store/slices/backdrop/cart";
+import { RootState } from "@/redux-store/store";
 import Link from "next/link";
 import React from "react";
 import { IoIosClose } from "react-icons/io";
@@ -31,7 +32,13 @@ export const CancellableNotification = React.memo(
 const WRAPPERCLASSNAMES =
   "bg-[#0A1910F2] py-3 px-4 flex w-full max-sm500:max-w-[calc(100%-30px)] sm500:w-[350px] items-center rounded-md fixed bottom-[72px] lg:bottom-[30px] left-1/2 -translate-x-1/2 max-h-[44px] z-10 text-sm text-white justify-between";
 
-export const AuthNotification = () => {
+export const AuthNotificationContainter = () => {
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  return !isAuthenticated ? <AuthNotification /> : null;
+};
+const AuthNotification = () => {
   return (
     <Link href={"/login"}>
       <div className={WRAPPERCLASSNAMES}>
@@ -48,7 +55,6 @@ export const AuthNotification = () => {
 
 export const CartNotification = () => {
   const dispatch = useAppDispatch();
-
   const handleShowCart = () => {
     dispatch(setShowCartOverlayMobile(true));
   };

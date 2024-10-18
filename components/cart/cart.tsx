@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { GetStarted } from "../orders/orderss";
 import { Button } from "../ui/button";
 import { ArrowLeftIcon, DeleteIcon, PencilEditIcon } from "../ui/icons";
 import { FaMinus, FaPlus } from "react-icons/fa6";
@@ -13,6 +12,7 @@ import {
 } from "@/redux-store/slices/backdrop/food-items";
 import { IFoodItem } from "../types";
 import {
+  setFlowState,
   setShowCartOverlay,
   setShowCartOverlayMobile,
 } from "@/redux-store/slices/backdrop/cart";
@@ -24,12 +24,14 @@ import { z } from "zod";
 import {
   Form,
   FormItem,
-  FormLabel,
   FormControl,
   FormMessage,
   FormField,
 } from "@/components/ui/form";
 import { Textarea } from "../ui/textarea";
+import { IoClose } from "react-icons/io5";
+import { updateAddedToCart } from "@/redux-store/slices/backdrop/food-items-data";
+import { GetStarted } from "../home/get-started";
 
 export default function Cart() {
   const dispatch = useAppDispatch();
@@ -42,9 +44,14 @@ export default function Cart() {
   const handleOverlayMobile = () => {
     dispatch(setShowCartOverlayMobile(false));
   };
-
+  const handleFlowState = () => {
+    dispatch(setFlowState("checkout"));
+  };
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   const cartItems = foodItems.filter((item) => item.addedToCart);
-
+  console.log(isAuthenticated);
   return (
     <>
       <h3 className="text-xl font-bold tracking-[-0.4px] border-b border-b-grey-200 pb-4 hidden lg:block">
@@ -65,52 +72,90 @@ export default function Cart() {
         </p>
       </div>
 
-      {/* Empty State - Unauthenticated */}
-      {/* <div className="flex flex-col items-center mt-[22px] mb-2.5">
-        <Image
-          alt="Empty State"
-          src="/empty-state.png"
-          width={80}
-          height={80}
-        />
-        <p className="text-grey-500 text-sm mb-8">
-          Login or sign up to see your cart
-        </p>
-        <GetStarted />
-      </div> */}
+      {/* Unauthenticated */}
+      {!isAuthenticated ? (
+        <div className="flex flex-col items-center mt-[22px] mb-2.5">
+          <>
+            <Image
+              alt="Empty State"
+              src="/empty-state.png"
+              width={80}
+              height={80}
+            />
 
-      <div className="px-6 lg:px-0">
-        <div className="flex flex-col gap-4 mt-8">
-          {cartItems.map((item, key) => (
-            <CartItem data={item} key={key} />
-          ))}
+            <p className="text-grey-500 text-sm mb-8 max-w-[300px] text-center">
+              Nothing to see here. Login or sign up to add food here.
+            </p>
+          </>
+
+          <GetStarted />
         </div>
+      ) : (
+        <>
+          {/* Empty State */}
+          {cartItems.length === 0 && (
+            <div className="flex flex-col items-center mt-[22px] mb-2.5">
+              <>
+                <Image
+                  alt="Empty State"
+                  src="/empty-state.png"
+                  width={80}
+                  height={80}
+                />
 
-        {/* Form Trigger */}
-        <div className="mt-6">
-          <p className="text-grey-900 font-bold">Add a message</p>
+                <p className="text-grey-500 text-sm mb-8 max-w-[300px] text-center">
+                  Nothing to see here. Add a food here and it will show here
+                </p>
+              </>
 
-          <button
-            type="button"
-            className="text-grey-400 text-xs sm400:text-sm lg:text-xs xl:text-sm text-left font-normal mt-3 flex w-full rounded-sm border border-[#d0d4dd] p-4"
-            onClick={handleCartOverlay}
-          >
-            Type an important message for the vendor
-          </button>
+              <GetStarted />
+            </div>
+          )}
 
-          <div className="mt-5 flex justify-between items-center">
-            <p className="text-grey-500">Subtotal:</p>
-            <p className="text-grey-800 font-bold">₦4,000</p>
+          <div className="px-6 lg:px-0">
+            {cartItems.length > 0 && (
+              <div className="flex flex-col gap-4 mt-8">
+                {cartItems.map((item, key) => (
+                  <CartItem data={item} key={key} />
+                ))}
+              </div>
+            )}
+
+            {/* Form Trigger */}
+            <div className="">
+              {cartItems.length > 0 && (
+                <div className="mt-6">
+                  <p className="text-grey-900 font-bold">Add a message</p>
+
+                  <button
+                    type="button"
+                    className="text-grey-400 text-xs sm400:text-sm lg:text-xs xl:text-sm text-left font-normal mt-3 flex w-full rounded-sm border border-[#d0d4dd] p-4"
+                    onClick={handleCartOverlay}
+                  >
+                    Type an important message for the vendor
+                  </button>
+
+                  <div className="mt-5 flex justify-between items-center">
+                    <p className="text-grey-500">Subtotal:</p>
+                    <p className="text-grey-800 font-bold">₦4,000</p>
+                  </div>
+                </div>
+              )}
+
+              <Button
+                type="button"
+                disabled={cartItems.length === 0}
+                className={`w-full text-base mt-10 ${
+                  cartItems.length === 0 && "bg-grey-300 mt-0"
+                } font-dm-sans`}
+                onClick={handleFlowState}
+              >
+                Checkout
+              </Button>
+            </div>
           </div>
-
-          <Button
-            type="button"
-            className="w-full text-base mt-10 b-grey-300 font-dm-sans"
-          >
-            Checkout
-          </Button>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }
@@ -138,6 +183,12 @@ const CartItem = ({ data }: { data: IFoodItem }) => {
     if (quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
+  };
+  const handleRemoveItem = () => {
+    dispatch(setCurrentFoodItem(data));
+    dispatch(
+      setShowCartOverlay({ showOverlay: true, activeItem: "removeItem" })
+    );
   };
   return (
     <div className="flex flex-col gap-2 border-b border-b-grey-100 pb-4">
@@ -176,6 +227,7 @@ const CartItem = ({ data }: { data: IFoodItem }) => {
           <button
             className="py-1.5 px-3 flex items-center gap-1 rounded-full border border-grey-300 text-sm font-medium max-w-8 max-h-8 justify-center"
             type="button"
+            onClick={handleRemoveItem}
           >
             <DeleteIcon />
           </button>
@@ -213,6 +265,7 @@ export const CartBackdrops = () => {
     <Backdrop variants={fadeIn}>
       <div className="h-full w-full flex items-center justify-center">
         {activeItem === "message" && <MessageForm />}
+        {activeItem === "removeItem" && <RemoveFromCart />}
       </div>
     </Backdrop>
   );
@@ -227,6 +280,7 @@ const messageSchema = z.object({
       message: "Message must be 25 words or less",
     }),
 });
+
 const MessageForm = () => {
   const dispatch = useAppDispatch();
   const handleCloseOverlay = () => {
@@ -297,6 +351,49 @@ const MessageForm = () => {
           </Button>
         </form>
       </Form>
+    </div>
+  );
+};
+
+const RemoveFromCart = () => {
+  const currentItem = useAppSelector(
+    (state: RootState) => state.foodItemOverlay.currentFoodItem
+  );
+  const dispatch = useAppDispatch();
+  const handleCloseModal = () => {
+    dispatch(setShowCartOverlay({ showOverlay: false, activeItem: "" }));
+  };
+  const handleRemove = () => {
+    if (currentItem) {
+      dispatch(
+        updateAddedToCart({ itemName: currentItem.name, addedToCart: false })
+      );
+      handleCloseModal();
+    }
+  };
+  return (
+    <div className="bg-white rounded-2xl py-6 px-4 max-w-[342px] lg:max-w-[420px] lg:px-6 w-full">
+      <div className="flex justify-between">
+        <h2 className="text-xl font-bold tracking-[-0.4px]">
+          Remove from cart
+        </h2>
+        <button onClick={handleCloseModal} className="text-black text-2xl">
+          <IoClose />
+        </button>
+      </div>
+
+      <p className="text-sm mt-8 mb-4">
+        Are you sure you want to remove this item from cart?
+      </p>
+
+      <div className="flex flex-col gap-8">
+        <Button
+          onClick={handleRemove}
+          className="text-white px-6 py-3.5 rounded-md"
+        >
+          Remove from cart
+        </Button>
+      </div>
     </div>
   );
 };
