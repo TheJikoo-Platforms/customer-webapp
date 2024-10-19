@@ -64,7 +64,7 @@ export const LocationOverlay = () => {
   return (
     <AnimatePresence>
       {isOnScreen && (
-        <Backdrop className="z-[100]" variants={slideUp}>
+        <Backdrop variants={slideUp}>
           <div className="h-full flex w-full justify-center items-center ">
             {currentLocationPage === "prompt" && (
               <LocationPrompt

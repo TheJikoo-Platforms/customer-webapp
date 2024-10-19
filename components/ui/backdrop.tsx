@@ -27,7 +27,7 @@ export const Backdrop = ({ children, variants, className }: BackdropProps) => {
       animate="animate"
       exit="exit"
       className={cn(
-        "fixed inset-0 bg-[#3E383866] backdrop-blur-[2px] z-50 w-full h-full",
+        "fixed inset-0 bg-[#3E383866] backdrop-blur-[2px] z-[200] w-full h-full",
         className
       )}
     >
