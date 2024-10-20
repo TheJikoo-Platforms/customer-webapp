@@ -9,13 +9,15 @@ import foodItemOverlayReducer from "./slices/backdrop/food-items";
 import foodItemDataReducer from "./slices/backdrop/food-items-data";
 import cartOverlayReducer from "./slices/backdrop/cart";
 import authSliceReducer from "./slices/authslice";
+import savedAddressReducer from "./slices/saved-address";
+import settingsOverlayReducer from "./slices/settings-slice";
 
 const isClient = typeof window !== "undefined";
 // Define the persist configuration
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["foodItemData"], // Persist only the reducers you want
+  whitelist: ["foodItemData", "savedAddress"], // Persist only the reducers you want
 };
 
 // Combine reducers (if you're persisting multiple reducers, you need to combine them first)
@@ -24,9 +26,11 @@ const rootReducer = combineReducers({
   notifications: notificationsReducer,
   search: searchReducer,
   foodItemOverlay: foodItemOverlayReducer,
-  foodItemData: foodItemDataReducer, // Specify the ones to persist
+  foodItemData: foodItemDataReducer,
   cart: cartOverlayReducer,
   auth: authSliceReducer,
+  savedAddress: savedAddressReducer,
+  settingsOverlay: settingsOverlayReducer,
 });
 
 // Create a persisted version of the rootReducer

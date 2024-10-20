@@ -3,12 +3,13 @@ import React from "react";
 import { NotificationsOverlay } from "@/components/notification/notifications";
 import { SearchOverlay } from "@/components/home/search";
 import { FoodItemOverlay } from "@/components/food-items/overlay";
-import { LocationOverlay } from "@/components/home/location";
 import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
 import CartOverLayMobile from "./cart/mobile-overlay";
 import { CartBackdrops } from "./cart/cart";
 import { CheckoutBackdrops } from "./cart/checkout";
+import { LocationOverlay } from "./location/overlay";
+import SettingsOverlay from "./settings/overlay/overlay";
 
 export default function Backdrops() {
   const showLocationOverlay = useAppSelector(
@@ -32,6 +33,10 @@ export default function Backdrops() {
   const showFoodItemOverlay = useAppSelector(
     (state: RootState) => state.foodItemOverlay.showFoodItemOverlay
   );
+  const showSettingsOverlay = useAppSelector(
+    (state: RootState) => state.settingsOverlay.showSettingsOverlay
+  );
+
   return (
     <>
       {showLocationOverlay && <LocationOverlay />}
@@ -41,6 +46,7 @@ export default function Backdrops() {
       {showCartOverlay && <CartBackdrops />}
       {showCheckoutOverlay && <CheckoutBackdrops />}
       {showFoodItemOverlay && <FoodItemOverlay />}
+      {showSettingsOverlay && <SettingsOverlay />}
     </>
   );
 }

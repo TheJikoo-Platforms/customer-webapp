@@ -13,7 +13,6 @@ const useAuthCheck = () => {
     if (token) {
       dispatch(setIsAuthenticated(true));
     } else {
-      console.log(token);
       dispatch(setIsAuthenticated(false));
     }
   }, [dispatch]);

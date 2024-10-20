@@ -9,11 +9,11 @@ import { ToggleTheme } from "./toggle-theme";
 import { WideWrapper } from "./wrappers";
 import { Nav } from "./nav";
 import { ArrowDownIcon, BellIcon } from "./ui/icons";
-import { EnterLocation } from "./home/location";
 import { NavAccountIcon } from "./ui/icons/nav-icons";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { setShowNotificationsOverlay } from "@/redux-store/slices/backdrop/notifications";
 import { RootState } from "@/redux-store/store";
+import { EnterLocation } from "./location/enter-location-button";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -112,38 +112,3 @@ export const Header = () => {
     </>
   );
 };
-
-{
-  /* {session?.user && (
-                <div className="flex gap-5 md:gap-6 items-center">
-                  <Wallet />
-                  <Link href={"/wishlist"}>
-                    <WishlistButton />
-                  </Link>
-                  <Suspense>
-                    <AccountDropdown />
-                  </Suspense>
-                  <Link href={"/cart"} className="max-sm:hidden">
-                  <BagButton />
-                </Link>
-                </div>
-              )} */
-}
-
-{
-  /* <div className=" flex items-center">
-  <Button variant={"link"} asChild className="text-sm">
-    <Link href={"/login"}>LOGIN</Link>
-  </Button>
-  <Button variant={"link"} asChild className="">
-    <Link href={"/login"}>LOGIN</Link>
-  </Button>
-  <Button className="max-sm:hidden " asChild>
-    <Link href={"/register"} className="">
-      REGISTER
-    </Link>
-  </Button>
-
-  <Wallet />
-</div>; */
-}

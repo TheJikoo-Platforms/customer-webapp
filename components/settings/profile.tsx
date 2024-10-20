@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import { GoSignOut } from "react-icons/go";
 import {
   Form,
   FormControl,
@@ -30,6 +31,8 @@ import BorderedDiv from "../auth/bordered-div";
 import { NGFlag } from "../auth/ui/icons";
 import InnerHeader from "../inner-page-header-mobile";
 import UploadImage from "./upload-image";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { useTransitionRouter } from "next-view-transitions";
 
 const formSchema = z.object({
   firstName: z
@@ -72,6 +75,7 @@ export const Profile = React.memo(
     handleActiveScreen: (screen: string) => void;
   }) => {
     const { toast } = useToast();
+    const router = useTransitionRouter();
     const ref = useRef<HTMLDivElement>(null);
     const [isUpdating, setIsUpdating] = useState(false);
     const [isCalendarFocused, setIsCalendarFocused] = useState(false);
@@ -150,10 +154,28 @@ export const Profile = React.memo(
     return (
       <>
         <InnerHeader
+          className="md:hidden"
           onClick={handleGoBack}
           text={isUpdating ? "Update profile" : "Profile"}
         />
-        <div className="px-5 py-4">
+        <div className="px-5 md:px-6 py-4 bg-white rounded-xl md:pb-20 h-full">
+          {!isUpdating ? (
+            <h3 className="text-black font-bold tracking-[-0.48px] hidden md:block pt-1 pb-[36px]">
+              Profile
+            </h3>
+          ) : (
+            <button
+              onClick={() => setIsUpdating(false)}
+              type="button"
+              className="flex items-center gap-2 pt-1 pb-[36px]"
+            >
+              <ArrowLeftIcon />
+              <h3 className="text-black font-bold tracking-[-0.48px] hidden md:block">
+                Update profile
+              </h3>
+            </button>
+          )}
+
           {isUpdating ? (
             <UploadImage />
           ) : (
@@ -429,6 +451,25 @@ export const Profile = React.memo(
               )}
             </form>
           </Form>
+
+          {!isUpdating && (
+            <div className="mt-6">
+              <button
+                type="button"
+                className="flex items-center gap-2 text-black text-xs py-4"
+                onClick={() => router.push("/login")}
+              >
+                <GoSignOut /> Sign out
+              </button>
+              <button
+                type="button"
+                onClick={() => handleActiveScreen("delete")}
+                className="flex items-center gap-2 text-state-error-300 text-xs py-4"
+              >
+                <RiDeleteBinLine /> Delete account
+              </button>
+            </div>
+          )}
         </div>
       </>
     );

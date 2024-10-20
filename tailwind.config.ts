@@ -52,6 +52,8 @@ const config = {
           "error-50": "#FBEAE9",
           "error-75": "#F2BCBA",
           "error-200": "#E26E6A",
+          "error-300": "#DD524D",
+          "error-400": "#D42620",
           "error-500": "#CB1A14",
         },
         destructive: {
