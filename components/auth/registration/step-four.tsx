@@ -503,7 +503,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
               type="submit"
               disabled={isLoading}
               className={`bg-primary w-full rounded-md font-semibold mt-4 ${
-                form.formState.isSubmitting && "opacity-65 transition-all"
+                isLoading && "opacity-65 transition-all"
               }`}
             >
               {isLoading ? "Submitting..." : "Continue"}

@@ -48,6 +48,8 @@ const config = {
           "success-50": "#E7F6EC",
           "success-75": "#B5E3C4",
           "success-200": "#5FC381",
+          "success-300": "#40B869",
+          "success-400": "#0F973D",
           "success-600": "#04802E",
           "error-50": "#FBEAE9",
           "error-75": "#F2BCBA",

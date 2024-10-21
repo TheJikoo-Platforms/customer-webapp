@@ -480,7 +480,7 @@ export const SignOutIcon = ({ className }: IClassNameOptional) => {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      <g id="icon / sign-out">
+      <g id="icon / signOut">
         <g id="icon">
           <path
             d="M3.75 2C4.02614 2 4.25 1.77614 4.25 1.5C4.25 1.22386 4.02614 1 3.75 1H3C1.89543 1 1 1.89543 1 3V9C1 10.1046 1.89543 11 3 11H3.75C4.02614 11 4.25 10.7761 4.25 10.5C4.25 10.2239 4.02614 10 3.75 10H3C2.44772 10 2 9.55228 2 9L2 3C2 2.44772 2.44772 2 3 2H3.75Z"
@@ -768,7 +768,7 @@ export const AddedToCartIcon = ({ className }: IClassNameOptional) => (
     height="21"
     viewBox="0 0 20 21"
     fill="none"
-    // className="min-w-5 min-h-5"
+    // className="minW-5 min-h-5"
   >
     <g clipPath="url(#clip0_15220_42025)">
       <path
@@ -1031,7 +1031,7 @@ export const ShareIcon = ({ className }: IClassNameOptional) => (
 );
 export const DeleteIcon = ({ className }: IClassNameOptional) => (
   <svg
-    className={cn("min-h-4 min-w-4", className)}
+    className={cn("min-h-4 minW-4", className)}
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
@@ -1098,5 +1098,59 @@ export const RatingStarFilled = ({ className }: IClassNameOptional) => (
       d="M8.55777 2.87592C9.22242 1.81919 10.7782 1.81919 11.4429 2.87592L13.0503 5.43154C13.2841 5.80334 13.6556 6.07015 14.0856 6.17511L17.041 6.89657C18.2631 7.19489 18.7439 8.6576 17.9326 9.60901L15.9706 11.9099C15.6851 12.2447 15.5432 12.6764 15.5751 13.1131L15.7943 16.1146C15.8849 17.3557 14.6262 18.2597 13.4602 17.7909L10.6402 16.6574C10.2299 16.4925 9.77073 16.4925 9.36047 16.6574L6.54047 17.7909C5.37443 18.2597 4.11575 17.3557 4.20637 16.1146L4.42555 13.1131C4.45743 12.6764 4.31553 12.2447 4.03009 11.9099L2.06807 9.60901C1.25679 8.6576 1.73757 7.19489 2.95962 6.89657L5.91506 6.17511C6.34503 6.07015 6.71653 5.80334 6.95038 5.43154L8.55777 2.87592Z"
       fill="#F5B546"
     />
+  </svg>
+);
+export const SuccessfulIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="81"
+    height="80"
+    viewBox="0 0 81 80"
+    fill="none"
+  >
+    <circle cx="40.5" cy="40" r="40" fill="#009933" fillOpacity="0.4" />
+    <circle
+      cx="40.4987"
+      cy="40.0002"
+      r="25.1667"
+      fill="url(#paint0_radial_12883_130862)"
+      fillOpacity="0.5"
+      stroke="#009933"
+      strokeWidth="3"
+    />
+    <circle
+      cx="40.4987"
+      cy="40.0002"
+      r="26.6667"
+      fill="url(#paint1_radial_12883_130862)"
+    />
+    <path
+      d="M51.6256 30.9489C50.5855 30.1124 49.0496 30.2487 48.1877 31.2427L37.3004 43.7699L32.6685 39.3145C31.7138 38.3957 30.1706 38.3957 29.216 39.3145C28.2613 40.2334 28.2613 41.7185 29.216 42.6372L35.7353 48.9114C36.1918 49.3556 36.8146 49.5999 37.4616 49.5999C37.4958 49.5999 37.5325 49.5999 37.5666 49.5952C38.2551 49.567 38.8925 49.2616 39.3319 48.7564L51.9307 34.2575C52.7951 33.2613 52.6608 31.7808 51.6256 30.9489Z"
+      fill="white"
+    />
+    <defs>
+      <radialGradient
+        id="paint0_radial_12883_130862"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(-98.168 -46.9564) rotate(32.5249) scale(237.203 100.55)"
+      >
+        <stop stop-color="white" />
+        <stop offset="1" stop-color="white" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient
+        id="paint1_radial_12883_130862"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="translate(40.4987 40.0002) rotate(90) scale(62.8571)"
+      >
+        <stop stop-color="#009933" />
+        <stop offset="1" stop-color="#009933" stopOpacity="0" />
+      </radialGradient>
+    </defs>
   </svg>
 );

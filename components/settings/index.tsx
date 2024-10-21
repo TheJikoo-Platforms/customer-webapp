@@ -21,7 +21,7 @@ const Settings = () => {
     }
   }, [isMobile]);
   return (
-    <div className="bg-white min-h-screen md:min-h-[700px] pb-[125px] md:grid md:grid-cols-2 md:gap-4 md:bg-transparent md:mt-6 md:px-6 max-w-[972px] justify-center lg:grid-cols-[468px, 480px] mx-auto">
+    <div className="bg-white min-h-screen md:min-h-[700px] pb-[125px] md:grid md:grid-cols-2 md:gap-4 md:bg-transparent md:mt-6 md:px-6 max-w-[972px] justify-center lg:grid-cols-[468px,480px] mx-auto">
       <div
         className={`${
           isMobile && activeScreen === "home" ? "block" : "hidden md:block"

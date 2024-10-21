@@ -10,6 +10,7 @@ import { CartBackdrops } from "./cart/cart";
 import { CheckoutBackdrops } from "./cart/checkout";
 import { LocationOverlay } from "./location/overlay";
 import SettingsOverlay from "./settings/overlay/overlay";
+import WalletOverlay from "./wallet/overlay/overlay";
 
 export default function Backdrops() {
   const showLocationOverlay = useAppSelector(
@@ -36,6 +37,9 @@ export default function Backdrops() {
   const showSettingsOverlay = useAppSelector(
     (state: RootState) => state.settingsOverlay.showSettingsOverlay
   );
+  const showWalletOverlay = useAppSelector(
+    (state: RootState) => state.walletOverlay.showWalletOverlay
+  );
 
   return (
     <>
@@ -47,6 +51,7 @@ export default function Backdrops() {
       {showCheckoutOverlay && <CheckoutBackdrops />}
       {showFoodItemOverlay && <FoodItemOverlay />}
       {showSettingsOverlay && <SettingsOverlay />}
+      {showWalletOverlay && <WalletOverlay />}
     </>
   );
 }

@@ -17,6 +17,7 @@ import { FormLabel } from "@mui/material";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useTransitionRouter } from "next-view-transitions";
+import { ArrowLeftIcon } from "../ui/icons";
 
 const leavingSchema = z.object({
   reason: z.string().min(3, { message: "Please select a reason" }),
@@ -51,14 +52,21 @@ export const DeleteAccount = React.memo(
       <>
         <InnerHeader
           className="md:hidden"
-          onClick={() => handleActiveScreen("home")}
+          onClick={() => handleActiveScreen("profile")}
           text="Delete account"
         />
         <div className="px-5 md:px-6 py-4 bg-white rounded-xl md:pb-20 h-full">
           <div className="">
-            <h3 className="text-black font-bold tracking-[-0.48px] hidden md:block pt-1 pb-2">
-              Delete account
-            </h3>
+            <button
+              onClick={() => handleActiveScreen("profile")}
+              type="button"
+              className="flex items-center gap-2 pt-1 pb-5"
+            >
+              <ArrowLeftIcon />
+              <h3 className="text-black font-bold tracking-[-0.48px] hidden md:block">
+                Delete account
+              </h3>
+            </button>
 
             <div className="flex items-center gap-2.5 text-xs text-grey-900">
               <RiDeleteBinLine className="text-xl" />
