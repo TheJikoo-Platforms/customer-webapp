@@ -1,12 +1,12 @@
 import { IFoodItem } from "@/components/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface foodItemOverlayState {
+interface FoodItemOverlayState {
   showFoodItemOverlay: boolean;
   currentFoodItem: IFoodItem | null;
 }
 
-const initialState: foodItemOverlayState = {
+const initialState: FoodItemOverlayState = {
   showFoodItemOverlay: false,
   currentFoodItem: null,
 };

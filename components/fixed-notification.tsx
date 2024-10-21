@@ -1,32 +1,44 @@
+"use client";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
+import {
+  setShowCartOverlay,
+  setShowCartOverlayMobile,
+} from "@/redux-store/slices/backdrop/cart";
+import { RootState } from "@/redux-store/store";
 import Link from "next/link";
 import React from "react";
 import { IoIosClose } from "react-icons/io";
 
-export const CancellableNotification = ({
-  text,
-  handlePrompt,
-}: {
-  text: string;
-  handlePrompt: () => void;
-}) => {
-  // This prevents the click event from propagating to parent elements
-  const handleClose = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent the event from bubbling up
-    handlePrompt(); // Call handlePrompt to close the notification
-  };
-  return (
-    <div className="bg-grey-900 py-2.5 md:py-3 px-3.5 flex w-full max-sm500:max-w-[calc(100%-40px)] sm500:w-[350px] items-center rounded-md absolute max-h-[44px] top-10 md:top-10 z-10">
-      <div className="absolute -top-1.5 left-4 w-4 h-4 bg-gray-900 rotate-45"></div>
-      <p className="flex-1 text-grey-300 text-sm text-left">{text}</p>
-      <IoIosClose className="text-grey-200 text-3xl" onClick={handleClose} />
-    </div>
-  );
-};
+export const CancellableNotification = React.memo(
+  ({ text, handlePrompt }: { text: string; handlePrompt: () => void }) => {
+    // This prevents the click event from propagating to parent elements
+    const handleClose = (event: React.MouseEvent) => {
+      event.stopPropagation(); // Prevent the event from bubbling up
+      handlePrompt(); // Call handlePrompt to close the notification
+    };
+    return (
+      <div className="bg-grey-900 py-2.5 md:py-3 px-3.5 flex w-full max-sm500:max-w-[calc(100%-40px)] sm500:w-[350px] items-center rounded-md absolute max-h-[44px] top-10 md:top-10 z-10">
+        <div className="absolute -top-1.5 left-4 w-4 h-4 bg-gray-900 rotate-45"></div>
+        <p className="flex-1 text-grey-300 text-sm text-left">{text}</p>
+        <IoIosClose
+          className="text-grey-200 text-3xl cursor-pointer"
+          onClick={handleClose}
+        />
+      </div>
+    );
+  }
+);
 
 const WRAPPERCLASSNAMES =
-  "bg-[#0A1910F2] py-3 px-4 flex w-full max-sm500:max-w-[calc(100%-30px)] sm500:w-[350px] items-center rounded-md fixed bottom-[72px] left-1/2 -translate-x-1/2 max-h-[44px] z-10 text-sm text-white justify-between";
+  "bg-[#0A1910F2] py-3 px-4 flex w-full max-sm500:max-w-[calc(100%-30px)] sm500:w-[350px] items-center rounded-md fixed bottom-[72px] lg:bottom-[30px] left-1/2 -translate-x-1/2 max-h-[44px] z-10 text-sm text-white justify-between";
 
-export const AuthNotification = () => {
+export const AuthNotificationContainter = () => {
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+  return !isAuthenticated ? <AuthNotification /> : null;
+};
+const AuthNotification = () => {
   return (
     <Link href={"/login"}>
       <div className={WRAPPERCLASSNAMES}>
@@ -42,8 +54,12 @@ export const AuthNotification = () => {
 };
 
 export const CartNotification = () => {
+  const dispatch = useAppDispatch();
+  const handleShowCart = () => {
+    dispatch(setShowCartOverlayMobile(true));
+  };
   return (
-    <div className={WRAPPERCLASSNAMES}>
+    <div onClick={handleShowCart} className={WRAPPERCLASSNAMES}>
       <div className="flex items-center gap-2 font-light">
         <CartIcon />
         <p className="flex items-center gap-1">

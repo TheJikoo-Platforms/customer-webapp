@@ -1,0 +1,59 @@
+"use client";
+import { SuccessfulIcon } from "@/components/ui/icons";
+import Spinner from "@/components/ui/spinner";
+import { useAppDispatch } from "@/redux-store/hooks";
+import { setShowWalletOverlay } from "@/redux-store/slices/wallet-slice";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
+
+export const PaymentProcess = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useAppDispatch();
+  const handleCloseBackdrop = () => {
+    dispatch(
+      setShowWalletOverlay({ showWalletOverlay: false, activeScreen: "" })
+    );
+  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+  return (
+    <div className="bg-white p-6 mx-5 w-full rounded-2xl pb-10 text-center max-w-[550px] sm500:max-w-[450px] min-h-[234px]">
+      <div className="flex items-center justify-between sm500:border-b sm500:border-b-grey-100 sm500:mb-6 sm500:pb-6">
+        <h2 className="tracking-[-0.4px] text-xl font-bold">Wallet Topup</h2>
+
+        <IoClose
+          className="text-2xl cursor-pointer"
+          onClick={handleCloseBackdrop}
+        />
+      </div>
+
+      {isLoading ? (
+        <div className="text-center mt-8 ">
+          <Spinner color="text-[#379E66]" />
+          <h2 className="text-[15px] font-bold tracking-[-0.3px]">
+            Redirecting to Paystack
+          </h2>
+        </div>
+      ) : (
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 2 } }}
+            className="flex flex-col justify-center items-center w-full mt-8"
+          >
+            <SuccessfulIcon />
+          </motion.div>
+          <p className="text-[15px] font-bold tracking-[-0.3px] mt-2">
+            Payment Confirmed
+          </p>
+        </AnimatePresence>
+      )}
+    </div>
+  );
+};

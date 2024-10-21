@@ -31,7 +31,7 @@ const TabComponent = () => {
   return (
     <div className="bg-white">
       {/* Tab Navigation */}
-      <div className="pt-1 sticky top-[56px] lg:top-[68px] bg-white z-30 py-3">
+      <div className="pt-1 sticky top-[56px] lg:top-[68px] bg-white z-30 py-3 scrollbar-none w-full overflow-x-auto">
         <div className="flex border-b border-b-grey-200 px-4 lg:px-8 w-fit">
           {tabList.map((tab, index) => (
             <button

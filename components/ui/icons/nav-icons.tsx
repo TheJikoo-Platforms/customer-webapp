@@ -47,7 +47,7 @@ export const NavAccountIcon = () => {
       alt="User Image"
       width={640}
       height={640}
-      className="w-6 h-6 lg:w-[38px] lg:h-[38px] rounded-full border-[2.363px] border-white bg-[#FFE7CC]"
+      className="w-6 h-6 md:w-[38px] md:h-[38px] rounded-full border-[2.363px] border-white bg-[#FFE7CC]"
     />
   ) : (
     <UserIcon />

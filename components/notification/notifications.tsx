@@ -97,7 +97,7 @@ const NotificationOverlayDesktop = () => {
   const [isShowingFilters, setIsShowingFilters] = useState(false);
   const dispatch = useAppDispatch();
   const showNotificationOverlay = useAppSelector(
-    (state: RootState) => state.notificationOverlay.showNotificationsOverlay
+    (state: RootState) => state.notifications.showNotificationsOverlay
   );
   const mainRef = useRef<HTMLDivElement>(null);
   const handleCloseNotifications = () => {
@@ -191,7 +191,7 @@ const NotificationsOverlayMobile = () => {
   const [isShowingFilters, setIsShowingFilters] = useState(false);
   const dispatch = useAppDispatch();
   const showNotificationOverlay = useAppSelector(
-    (state: RootState) => state.notificationOverlay.showNotificationsOverlay
+    (state: RootState) => state.notifications.showNotificationsOverlay
   );
   const handleCloseNotifications = () => {
     dispatch(setShowNotificationsOverlay(false));

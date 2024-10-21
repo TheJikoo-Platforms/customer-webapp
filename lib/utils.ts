@@ -72,3 +72,29 @@ export const getImageDimensions = (
     img.onerror = (error) => reject(error);
   });
 };
+
+export const getFieldClassName = (
+  formState: any,
+  errors: any,
+  fieldName: string
+) => {
+  const isTouched = formState.touchedFields[fieldName];
+  const hasError = errors[fieldName];
+
+  if (isTouched && hasError) {
+    return "border-state-error-200 focus-within:border-state-error-200";
+  } else if (isTouched && !hasError) {
+    return "bg-grey-75";
+  } else {
+    return "";
+  }
+};
+
+export const scrollToTop = (): void => {
+  if (typeof window !== "undefined") {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scrolling
+    });
+  }
+};
