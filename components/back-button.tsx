@@ -1,8 +1,6 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useTransitionRouter } from "next-view-transitions";
 import { cn } from "@/lib/utils";
-import { MotionWrapper } from "./motion-wrapper";
 import { ArrowLeftIcon } from "./ui/icons";
 
 export const BackButton = ({
@@ -29,7 +27,7 @@ export const BackButton = ({
       <button
         onClick={handleClick}
         className={cn(
-          // "flex gap-1.5 items-center text-sm text-gray-600 cursor-pointer rounded",
+          "flex gap-1.5 items-center text-sm text-gray-600 cursor-pointer rounded font-bold",
           className
         )}
       >

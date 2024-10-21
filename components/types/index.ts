@@ -24,3 +24,8 @@ export interface IFoodItem {
   options: FoodItemOption[] | null;
   addedToCart: boolean;
 }
+
+export interface AddressProps {
+  address: string;
+  area: string;
+}

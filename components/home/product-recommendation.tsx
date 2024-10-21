@@ -76,7 +76,9 @@ const PRODUCTRECOMMENDATIONSLIST: RecommendationListProps[] = [
 export const ProductRecommendations = () => {
   return (
     <div className="px-5 lg:px-6 overflow-x-hidden">
-      <HorizontalScroll className={cn("flex gap-4")}>
+      <HorizontalScroll
+        className={cn("flex md:grid md:grid-cols-4 lg:flex gap-4")}
+      >
         {PRODUCTRECOMMENDATIONSLIST.map((el, index) => (
           <RecommendationItem data={el} key={index} />
         ))}

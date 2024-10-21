@@ -6,10 +6,9 @@ import { PiCookingPot } from "react-icons/pi";
 import { PiBicycleThin } from "react-icons/pi";
 import { WishlistButton } from "../wishlist-button";
 import { AddedToCartIcon, AddToCartIcon } from "../ui/icons";
-import { useState } from "react";
 import { IFoodItem } from "../types";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
-import { RootState } from "@/redux-store/store";
+
 import {
   setCurrentFoodItem,
   setShowFoodItemOverlay,
@@ -78,8 +77,8 @@ export const FoodItem = ({ data }: { data: IFoodItem }) => {
             </p>
           </div>
 
-          <div className="mt-2 flex justify-between">
-            <div className="flex flex-col font-inter">
+          <div className="mt-2 flex justify-between max-w-[95%] md:max-w-[245px] lg:max-w-[95%] xl:max-w-[245px]">
+            <div className="flex flex-col">
               <p className="text-jikoo-brand-green font-bold text-lg">
                 {data.discountPrice}
               </p>

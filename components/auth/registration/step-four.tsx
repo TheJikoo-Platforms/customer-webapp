@@ -23,8 +23,17 @@ import { ArrowLeftIcon } from "@/components/ui/icons";
 import AuthHeading from "../auth-heading";
 import BorderedDiv from "../bordered-div";
 import { UnstyledInput } from "@/components/ui/unstyled-input";
-import { HidePasswordIcon, PasswordKey, ShowPasswordIcon } from "../ui/icons";
+import {
+  HidePasswordIcon,
+  NGFlag,
+  PasswordKey,
+  ShowPasswordIcon,
+} from "../ui/icons";
 import { Button } from "@/components/ui/button";
+import { getFieldClassName } from "@/lib/utils";
+import { registerUser } from "@/api/requests";
+import { useMutation } from "@tanstack/react-query";
+import { MdCancel } from "react-icons/md";
 
 export interface StepFourFormData {
   firstName: string;
@@ -59,6 +68,14 @@ const formSchema = z
         "Please enter a valid email"
       )
       .email("Please enter a valid email"),
+    phoneNumber: z
+      .string()
+      .length(10, "Phone number must be at exactly 10 digits")
+      .regex(/^\d+$/, "Phone number must only contain numbers")
+      .regex(
+        /^[789][01]\d{8}$/,
+        "Invalid phone number. Must begin with 7, 8, or 9 then 0 or 1"
+      ),
     password: z
       .string()
       .length(6, { message: "Password must be exactly 6 digits" })
@@ -80,7 +97,7 @@ const formSchema = z
       .regex(/^\d{6}$/, {
         message: "Confirm Password must contain only digits",
       }),
-    dob: z.string(),
+    dob: z.string().min(6, { message: "Enter date of birth" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -118,33 +135,69 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
         firstName: "",
         lastName: "",
         email: "",
+        phoneNumber: "",
         password: "",
         confirmPassword: "",
         dob: "",
       },
     });
-
     const errors = form.formState.errors;
-
     const handleCalendarFocusOutside = () => {
-      setIsCalendarFocused(false);
+      // setIsCalendarFocused(false);
     };
-
     useOnClickOutside(ref, handleCalendarFocusOutside);
 
-    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      toast({
-        title: "OTP Sent",
-        icon: (
-          <div className="w-6 h-6 bg-state-success-50 border border-state-success-75 flex items-center justify-center rounded">
-            <FaCircleCheck className="text-state-success-600" />
-          </div>
-        ),
-      });
+    const {
+      mutate: registerMutation,
+      isLoading,
+      isError,
+      data,
+    } = useMutation(registerUser, {
+      onSuccess: (response) => {
+        toast({
+          title: "OTP Sent",
+          icon: (
+            <div className="w-6 h-6 bg-state-success-50 border border-state-success-75 flex items-center justify-center rounded">
+              <FaCircleCheck className="text-state-success-600" />
+            </div>
+          ),
+        });
+        setTimeout(() => {
+          handleNextStep(5);
+        }, 1000);
+      },
+      onError: (error: any) => {
+        console.error("Error during registration:", error);
+        const errorMessage = !error.response
+          ? "Network error: Please check your internet connection."
+          : error.response.data.errors ||
+            error.response.data.message ||
+            "An unexpected error occurred.";
+
+        toast({
+          title: errorMessage,
+          variant: "error",
+          icon: (
+            <div className="w-6 h-6 bg-state-error-50 border border-state-error-75 flex items-center justify-center rounded">
+              <MdCancel className="text-state-error-500" />
+            </div>
+          ),
+        });
+      },
+    });
+
+    const handleSubmit = (values: z.infer<typeof formSchema>) => {
       console.log(values);
       onSubmit(values);
-      handleNextStep(5);
+      registerMutation({
+        firstname: values.firstName,
+        lastname: values.lastName,
+        email: values.email,
+        phone: "+234" + values.phoneNumber,
+        dob: values.dob,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+      });
     };
 
     return (
@@ -187,12 +240,11 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                   <FormItem className="space-y-0">
                     <FormControl>
                       <BorderedDiv
-                        className={`items-center gap-2 ${
-                          form.formState.touchedFields.firstName &&
-                          !errors.firstName
-                            ? "bg-grey-75"
-                            : ""
-                        }`}
+                        className={`items-center gap-2 ${getFieldClassName(
+                          form.formState,
+                          errors,
+                          "firstName"
+                        )}`}
                       >
                         <CiUser className="text-2xl text-grey-400" />
                         <UnstyledInput
@@ -214,12 +266,11 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                   <FormItem className="space-y-0">
                     <FormControl>
                       <BorderedDiv
-                        className={`items-center gap-2 ${
-                          form.formState.touchedFields.lastName &&
-                          !errors.lastName
-                            ? "bg-grey-75"
-                            : ""
-                        }`}
+                        className={`items-center gap-2 ${getFieldClassName(
+                          form.formState,
+                          errors,
+                          "lastName"
+                        )}`}
                       >
                         <CiUser className="text-2xl text-grey-400" />
                         <UnstyledInput
@@ -243,11 +294,11 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                 <FormItem className="space-y-0">
                   <FormControl>
                     <BorderedDiv
-                      className={`items-center gap-2 ${
-                        form.formState.touchedFields.email && !errors.email
-                          ? "bg-grey-75"
-                          : ""
-                      }`}
+                      className={`items-center gap-2 ${getFieldClassName(
+                        form.formState,
+                        errors,
+                        "email"
+                      )}`}
                     >
                       <CiMail className="text-2xl text-grey-400" />
                       <UnstyledInput
@@ -265,17 +316,49 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
 
             <FormField
               control={form.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <BorderedDiv
+                      className={`items-center gap-2 ${getFieldClassName(
+                        form.formState,
+                        errors,
+                        "phoneNumber"
+                      )}`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <NGFlag />
+                        <span className="font-normal dark:text-white text-sm text-grey-400">
+                          +234
+                        </span>
+                      </div>
+
+                      <UnstyledInput
+                        type="text"
+                        placeholder="9100000000"
+                        className="placeholder:text-grey-400 font-normal text-grey-900"
+                        {...field}
+                      />
+                    </BorderedDiv>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <BorderedDiv
-                      className={`items-center gap-2 ${
-                        form.formState.touchedFields.password &&
-                        !errors.password
-                          ? "bg-grey-75"
-                          : ""
-                      }`}
+                      className={`items-center gap-2 ${getFieldClassName(
+                        form.formState,
+                        errors,
+                        "password"
+                      )}`}
                     >
                       <PasswordKey />
                       <UnstyledInput
@@ -311,12 +394,11 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                 <FormItem>
                   <FormControl>
                     <BorderedDiv
-                      className={`items-center gap-2 ${
-                        form.formState.touchedFields.confirmPassword &&
-                        !errors.confirmPassword
-                          ? "bg-grey-75"
-                          : ""
-                      }`}
+                      className={`items-center gap-2 ${getFieldClassName(
+                        form.formState,
+                        errors,
+                        "confirmPassword"
+                      )}`}
                     >
                       <PasswordKey />
 
@@ -360,11 +442,13 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                     <FormControl>
                       <div className="relative">
                         <BorderedDiv
-                          className={`items-center gap-2 ${
-                            form.formState.touchedFields.dob && !errors.dob
-                              ? "bg-grey-75"
-                              : ""
-                          } ${isCalendarFocused && "border-state-success-200"}`}
+                          className={`items-center gap-2 ${getFieldClassName(
+                            form.formState,
+                            errors,
+                            "dob"
+                          )} ${
+                            isCalendarFocused && "border-state-success-200"
+                          }`}
                           onClick={() =>
                             setIsCalendarFocused(!isCalendarFocused)
                           }
@@ -388,7 +472,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                           )}
                         </BorderedDiv>
                         <Calendar
-                          // ref={ref}
+                          ref={ref}
                           mode="single"
                           captionLayout="dropdown-buttons"
                           className={`bg-white absolute bottom-14 left-1/2 -translate-x-1/2 shadow rounded invisible opacity-0 ${
@@ -417,12 +501,12 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
             />
             <Button
               type="submit"
-              disabled={form.formState.isSubmitting}
+              disabled={isLoading}
               className={`bg-primary w-full rounded-md font-semibold mt-4 ${
-                form.formState.isSubmitting && "opacity-65 transition-all"
+                isLoading && "opacity-65 transition-all"
               }`}
             >
-              {form.formState.isSubmitting ? "Submitting..." : "Continue"}
+              {isLoading ? "Submitting..." : "Continue"}
             </Button>
           </form>
         </Form>
