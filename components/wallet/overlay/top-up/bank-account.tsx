@@ -21,7 +21,7 @@ export const BankAccount: React.FC<BankAccountProps> = ({
         onClick={() => handleCurrentScreen("bank")}
         text="Bank"
       />
-      <div className="hidden mx-6 sm500:flex items-center justify-between border-b border-b-grey-100 mb-6 py-6">
+      <div className="hidden mx-6 sm500:flex items-center justify-between border-b border-b-grey-100 mb-6 py-6 sm500:mb-0">
         <h2 className="tracking-[-0.4px] text-xl font-bold">Topup</h2>
 
         <IoClose

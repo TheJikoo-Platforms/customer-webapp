@@ -52,7 +52,7 @@ export const SettingsHome = React.memo(
       }
     };
     return (
-      <div className="bg-white rounded-xl md:pb-20 h-full">
+      <section className="bg-white rounded-xl md:pb-20 h-full">
         <InnerHeaderMain text="Account" className="md:hidden" />
         <h2 className="text-black text-xl font-bold tracking-[-0.48px] hidden md:block px-5 pt-4">
           Settings
@@ -143,7 +143,7 @@ export const SettingsHome = React.memo(
             </div>
           </div>
         )}
-      </div>
+      </section>
     );
   }
 );

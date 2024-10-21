@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { BankOption } from "./bank-option";
 import { BankAccount } from "./bank-account";
 import { PaymentProcess } from "./payment-process";
+import { CryptoOption } from "./crypto-option";
+import { CryptoPayment } from "./crypto-payment";
 
 export const TopUp = () => {
   const [currentScreen, setCurrentScreen] = useState("bank");
@@ -25,6 +27,12 @@ export const TopUp = () => {
         />
       )}
       {currentScreen === "paymentProcess" && <PaymentProcess />}
+      {currentScreen === "crypto" && (
+        <CryptoOption handleCurrentScreen={handleCurrentScreen} />
+      )}
+      {currentScreen === "cryptoPayment" && (
+        <CryptoPayment handleCurrentScreen={handleCurrentScreen} />
+      )}
     </>
   );
 };

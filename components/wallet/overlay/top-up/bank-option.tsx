@@ -45,7 +45,7 @@ export const BankOption = React.memo(
           onClick={handleCloseBackdrop}
           text="Top up"
         />
-        <div className="hidden mx-6 sm500:flex items-center justify-between border-b border-b-grey-100 mb-6 py-6">
+        <div className="hidden mx-6 sm500:flex items-center justify-between border-b border-b-grey-100 mb-6 py-6 sm500:mb-0">
           <h2 className="tracking-[-0.4px] text-xl font-bold">Topup</h2>
 
           <IoClose
@@ -53,7 +53,7 @@ export const BankOption = React.memo(
             onClick={handleCloseBackdrop}
           />
         </div>
-        <div className="px-5 pt-6">
+        <div className="px-5 sm500:px-6 pt-6">
           <label
             htmlFor="amount"
             className="block font-bold text-grey-900 text-left"
@@ -72,7 +72,7 @@ export const BankOption = React.memo(
             <span className="text-grey-500 text-sm">NGN</span>
           </BorderedDiv>
         </div>
-        <div className="px-5 py-6 mt-6 border-t-4 border-t-grey-100">
+        <div className="px-5 sm500:mx-6 sm500:px-0 py-6 mt-6 border-t-4 border-t-grey-100">
           {/* Payment Method Selection */}
           <div className="">
             <h3 className="text-sm font-bold text-grey-900 text-left mb-6">
