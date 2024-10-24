@@ -182,8 +182,12 @@ const emailSchema = z.object({
 const phoneSchema = z.object({
   phoneNumber: z
     .string()
-    .min(10, "Phone number must be at least 10 digits")
-    .regex(/^\d+$/, "Phone number must only contain numbers"),
+    .length(10, "Phone number must be at exactly 10 digits")
+    .regex(/^\d+$/, "Phone number must only contain numbers")
+    .regex(
+      /^[789][01]\d{8}$/,
+      "Invalid phone number. Must begin with 7, 8, or 9 then 0 or 1"
+    ),
 });
 
 const otpSchema = z.object({

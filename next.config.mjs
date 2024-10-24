@@ -9,12 +9,15 @@ const withPWA = withPWAInit({
   swMinify: true,
   disable: false,
   workboxOptions: {
-    disableDevLogs: true
-  }
+    disableDevLogs: true,
+  },
 });
 
 export default withPWA({
-  output: 'standalone',
+  output: "standalone",
+  images: {
+    domains: ["jikoo-store.s3.eu-north-1.amazonaws.com"], // Add the allowed image domain here
+  },
 });
 
 // export default nextConfig;

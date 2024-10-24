@@ -19,6 +19,11 @@ import { UnstyledInput } from "@/components/ui/unstyled-input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "@/components/ui/icons";
 import { HidePasswordIcon, PasswordKey, ShowPasswordIcon } from "../ui/icons";
+import { FaCircleCheck } from "react-icons/fa6";
+import { MdCancel } from "react-icons/md";
+import { useToast } from "@/components/ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { resetPassword } from "@/api/requests";
 
 interface StepThreeProps {
   stepOneData: string;
@@ -41,6 +46,7 @@ const passwordSchema = z.object({
 
 export const StepThreeForm = React.memo(
   ({ stepOneData, handleNextStep }: StepThreeProps) => {
+    const { toast } = useToast();
     const passwordForm = useForm<z.infer<typeof passwordSchema>>({
       resolver: zodResolver(passwordSchema),
       mode: "onTouched",
@@ -49,10 +55,63 @@ export const StepThreeForm = React.memo(
         confirmPassword: "",
       },
     });
-    const handleOtpSubmit = async (values: z.infer<typeof passwordSchema>) => {
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+    // Helper function for showing toast notifications
+    const showToast = (message: string, variant: any) => {
+      toast({
+        title: message,
+        variant,
+        icon: (
+          <div
+            className={`w-6 h-6 ${
+              variant === "success"
+                ? "bg-state-success-50"
+                : "bg-state-error-50"
+            } border ${
+              variant === "success"
+                ? "border-state-success-75"
+                : "border-state-error-75"
+            } flex items-center justify-center rounded`}
+          >
+            {variant === "success" ? (
+              <FaCircleCheck className="text-state-success-600" />
+            ) : (
+              <MdCancel className="text-state-error-500" />
+            )}
+          </div>
+        ),
+      });
+    };
+
+    const { mutate: resetPasswordMutation, isLoading } = useMutation(
+      resetPassword,
+      {
+        onSuccess: (response) => {
+          showToast(response?.message, "success");
+          setTimeout(() => {
+            handleNextStep(4);
+          }, 1000);
+        },
+        onError: (error: any) => {
+          const errorMessage = !error.response
+            ? "Network error: Please check your internet connection."
+            : error.response.data.errors ||
+              error.response.data.message ||
+              "An unexpected error occurred.";
+          showToast(errorMessage, "error");
+        },
+      }
+    );
+    const handleOtpSubmit = (values: z.infer<typeof passwordSchema>) => {
       console.log("Password Submitted: ", values);
-      handleNextStep(4);
+      if (stepOneData) {
+        const data = {
+          email: stepOneData,
+          // otp: values.otp,
+          password: values.password,
+          confirmPassword: values.confirmPassword,
+        };
+        resetPasswordMutation(data);
+      }
     };
 
     const [passwordVisibility, setPasswordVisibility] = useState({
@@ -185,15 +244,12 @@ export const StepThreeForm = React.memo(
             />
             <Button
               type="submit"
-              disabled={passwordForm.formState.isSubmitting}
+              disabled={isLoading}
               className={`bg-primary w-full rounded-md font-semibold mt-4 ${
-                passwordForm.formState.isSubmitting &&
-                "opacity-65 transition-all"
+                isLoading && "opacity-65 transition-all"
               }`}
             >
-              {passwordForm.formState.isSubmitting
-                ? "Submitting..."
-                : "Change password"}
+              {isLoading ? "Submitting..." : "Change password"}
             </Button>
           </form>
         </Form>

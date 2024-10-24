@@ -1,30 +1,24 @@
-// import { AuthModal } from "@/components/auth/auth-modal";
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+"use client";
+import { AuthNotificationContainter } from "@/components/fixed-notifications/authentication";
+import { CartNotificationContainter } from "@/components/fixed-notifications/cart";
 import { BottomNav } from "@/components/mobile-nav";
-// import { WalletModal } from "@/components/wallet/wallet-modal";
-
-export default function MainLayout({
+import useAuthCheck from "@/hooks/use-auth";
+import React from "react";
+export default function OuterLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  useAuthCheck();
+
   return (
-    <>
-      {/* <WalletModal />
-      <AuthModal /> */}
-      <Header />
-      <div className="sm:container">
-        <main className="flex flex-col flex-1 pt-[68px] xl:pt-[72px] pb-[68px] dark:bg-primary-foreground bg-white max-w-[576px] sm:mt-6  ">
-          {children}
-        </main>
-      </div>
-      <div className="hidden">
-        <Footer />
-      </div>
-      <div className="sm:hidden">
+    <React.Fragment>
+      {children}
+      <AuthNotificationContainter />
+      <div className="lg:hidden">
+        <CartNotificationContainter />
         <BottomNav />
       </div>
-    </>
+    </React.Fragment>
   );
 }

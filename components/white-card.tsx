@@ -14,7 +14,7 @@ export const WhiteCard = ({
   return (
     <Comp
       className={cn(
-        "rounded-[10px] overflow-hidden bg-white dark:bg-secondary-foreground p-3",
+        "rounded-[12px] overflow-hidden bg-white dark:bg-secondary-foreground p-3",
         className
       )}
       children={children}

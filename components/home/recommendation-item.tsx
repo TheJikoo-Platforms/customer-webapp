@@ -20,7 +20,7 @@ export const RecommendationItem = ({
 const ItemComponent = ({ data }: { data: RecommendationListProps }) => {
   return (
     <div
-      className={`rounded-[4px] md:rounded-[4.9px] flex overflow-hidden w-[175px] relative flex-shrink-0 `}
+      className={`rounded-[4px] md:rounded-[4.9px] flex overflow-hidden min-w-[175px] relative flex-shrink-0 `}
       style={{ backgroundColor: data.bg, color: data.color }}
     >
       <div className="space-y-6 pt-5 pb-2.5 px-2 md:px-2.5">

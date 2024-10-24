@@ -1,54 +1,113 @@
 "use client";
-
-import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Minus } from "lucide-react";
-import { useValidSearchParam } from "@/hooks/use-valid-searchParams";
+import React, { useState } from "react";
+import { DeleteIcon, PencilEditIcon } from "../ui/icons";
+import { FaMinus, FaPlus } from "react-icons/fa6";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
+import { IProductItem } from "../types";
+import { setShowCartOverlay } from "@/redux-store/slices/backdrop/cart";
+import {
+  setCurrentProductItem,
+  setShowProductItemOverlay,
+} from "@/redux-store/slices/backdrop/food-items";
+import {
+  decreaseQuantity,
+  ICartItem,
+  increaseQuantity,
+} from "@/redux-store/slices/backdrop/food-items-data";
+interface Item {
+  name: string;
+  price: string;
+}
 
-export const CartItem = ({ item }: { item: any }) => {
-  const remove = useValidSearchParam({
-    name: "remove",
-    validArr: ["cart"],
-  });
+interface Option {
+  name: string;
+  isOptional: boolean;
+  items: Item[];
+}
+
+export const CartItem = ({ data }: { data: ICartItem }) => {
+  const dispatch = useAppDispatch();
+  const handleShowOverlay = () => {
+    dispatch(setShowProductItemOverlay(true));
+    dispatch(setCurrentProductItem(data.product));
+  };
+
+  const incrementQuantity = () => {
+    dispatch(increaseQuantity(data.product._id));
+  };
+  const decrementQuantity = () => {
+    dispatch(decreaseQuantity(data.product._id));
+  };
+  const handleRemoveItem = () => {
+    dispatch(setCurrentProductItem(data.product));
+    dispatch(
+      setShowCartOverlay({ showOverlay: true, activeItem: "removeItem" })
+    );
+  };
   return (
-    <div className="flex items-center gap-2.5">
-      {remove && (
-        <button className="size-[35px] rounded-full bg-[#FFECE5] text-jikoo-error grid place-content-center">
-          <Minus />
-        </button>
-      )}
-      <motion.div
-        className="p-3 flex-1 rounded-md border border-gray-200 dark:border-gray-600 bg-[#E7F6EC] dark:bg-secondary-foreground flex flex-row gap-3"
-        initial={{ width: "calc(100% - 0px)" }} // No button
-        animate={{
-          width: remove ? "calc(100% - 40px)" : "calc(100% - 0px)", // Adjust the width if button is shown
-        }}
-        transition={{ duration: 0.3 }}
-      >
+    <div className="flex flex-col gap-2 border-b border-b-grey-100 pb-4">
+      <div className="flex gap-3 items-center">
         <Image
-          src={"/food/1.png"}
-          alt="Pizza"
-          className="rounded-[4px]"
-          width={126}
+          src={data?.product?.image}
           height={100}
+          width={128}
+          alt="Product Image"
+          className="w-[120px] h-[99px] object-cover rounded-xl"
         />
-        <div className="flex-1">
-          <div className="flex justify-between">
-            <p className="font-medium line-clamp-1">Pizza Livaroca</p>
-            <div className="w-6 h-6 bg-[#f4652f] rounded-full grid place-items-center text-white text-[13px] font-medium leading-[18.85px] shrink-0">
-              <div>
-                <span className="text-[10px] leading-[14.50px]">X</span>3
-              </div>
-            </div>
-          </div>
-          <p className="text-[#475467] text-sm line-clamp-2 mt-2.5">
-            Mixed with vegetables with avocado and cilantro, served with lemon
-            herb
+
+        <div className="flex flex-col gap-1 max-w-[calc(100%-140px)]">
+          <p className="text-sm font-semibold tracking-[-0.35px] text-[#1E1E1E] truncate capitalize">
+            {data?.product?.name}
           </p>
-          <p className="mt-2.5 text-[11px]/[14.32px] font-bold">N3,500</p>
+          {/* {data?.options?.length ? (
+              <p className="font-normal text-xs/[17.4px] text-grey-500 pr-1.5">
+                <span className="font-bold">Options: </span>
+                {extractNamesAsText(data?.options)}
+              </p>
+            ) : null} */}
         </div>
-      </motion.div>
+      </div>
+
+      <div className="flex justify-between gap-2 items-center">
+        <div className="flex gap-3">
+          <button
+            className="py-1.5 px-3 flex items-center gap-1 rounded-full border border-grey-300 text-sm font-medium"
+            type="button"
+            onClick={handleShowOverlay}
+          >
+            <PencilEditIcon />
+            Edit
+          </button>
+          <button
+            className="py-1.5 px-3 flex items-center gap-1 rounded-full border border-grey-300 text-sm font-medium max-w-8 max-h-8 justify-center"
+            type="button"
+            onClick={handleRemoveItem}
+          >
+            <DeleteIcon />
+          </button>
+        </div>
+
+        <div className="bg-grey-50 border border-grey-100 h-[36px] items-center flex justify-between p-2 w-full max-w-[98px] rounded-full text-sm">
+          <button type="button" onClick={decrementQuantity}>
+            <FaMinus className="text-grey-500" />
+          </button>
+          <span>{data?.quantity}</span>
+          <button type="button" onClick={incrementQuantity}>
+            <FaPlus className="text-grey-500" />
+          </button>
+        </div>
+      </div>
     </div>
   );
+};
+
+const extractNamesAsText = (options: Option[]): string => {
+  return options
+    .flatMap((option) => {
+      const optionName = option.name;
+      const itemNames = option.items.map((item) => item.name);
+      return [optionName, ...itemNames];
+    })
+    .join(", ");
 };
