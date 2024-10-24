@@ -9,6 +9,13 @@ import { BsInstagram } from "react-icons/bs";
 import { FaGoogle, FaTwitter } from "react-icons/fa6";
 import TabComponent from "@/components/vendors/tabs";
 import InnerHeader from "@/components/inner-page-header-mobile";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Vendors",
+  description: "Vendors",
+};
+
 export default async function VendorsPage() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (

@@ -30,7 +30,7 @@ import {
   ShowPasswordIcon,
 } from "../ui/icons";
 import { Button } from "@/components/ui/button";
-import { getFieldClassName } from "@/lib/utils";
+import { formatDate, getFieldClassName } from "@/lib/utils";
 import { registerUser } from "@/api/requests";
 import { useMutation } from "@tanstack/react-query";
 import { MdCancel } from "react-icons/md";
@@ -194,7 +194,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
         lastname: values.lastName,
         email: values.email,
         phone: "+234" + values.phoneNumber,
-        dob: values.dob,
+        dob: formatDate(values.dob),
         password: values.password,
         confirmPassword: values.confirmPassword,
       });

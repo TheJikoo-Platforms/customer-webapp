@@ -9,55 +9,55 @@ import { HorizontalScroll } from "@/components/horizontal-scroll";
 import { cn } from "@/lib/utils";
 
 const CATEGORYLIST = [
-  { name: "Pastries", imageUrl: "/categories/1.png" },
-  { name: "Pizzas", imageUrl: "/categories/2.png" },
+  { name: "Pastries", image: "/categories/1.png" },
+  { name: "Pizzas", image: "/categories/2.png" },
   {
     name: "Breakfast",
-    imageUrl: "/categories/3.png",
+    image: "/categories/3.png",
   },
-  { name: "Soups", imageUrl: "/categories/4.png" },
+  { name: "Soups", image: "/categories/4.png" },
   {
     name: "Rice",
-    imageUrl: "/categories/5.png",
+    image: "/categories/5.png",
   },
-  { name: "Protein", imageUrl: "/categories/6.png" },
+  { name: "Protein", image: "/categories/6.png" },
   {
     name: "Chicken",
-    imageUrl: "/categories/7.png",
+    image: "/categories/7.png",
   },
-  { name: "Hotdog", imageUrl: "/categories/8.png" },
-  { name: "Dessert", imageUrl: "/categories/9.png" },
-  { name: "Drinks", imageUrl: "/categories/10.png" },
-  { name: "Pastries.", imageUrl: "/categories/1.png" },
-  { name: "Pizzas.", imageUrl: "/categories/2.png" },
+  { name: "Hotdog", image: "/categories/8.png" },
+  { name: "Dessert", image: "/categories/9.png" },
+  { name: "Drinks", image: "/categories/10.png" },
+  { name: "Pastries.", image: "/categories/1.png" },
+  { name: "Pizzas.", image: "/categories/2.png" },
   {
     name: "Breakfast.",
-    imageUrl: "/categories/3.png",
+    image: "/categories/3.png",
   },
-  { name: "Soups.", imageUrl: "/categories/4.png" },
+  { name: "Soups.", image: "/categories/4.png" },
   {
     name: "Rice.",
-    imageUrl: "/categories/5.png",
+    image: "/categories/5.png",
   },
-  { name: "Protein.", imageUrl: "/categories/6.png" },
+  { name: "Protein.", image: "/categories/6.png" },
   {
     name: "Chicken.",
-    imageUrl: "/categories/7.png",
+    image: "/categories/7.png",
   },
 ];
 
 const RESTAURANTLIST = [
-  { name: "Kinimajaro.", imageUrl: "/vendors/Kinimajaro.png" },
-  { name: "Dominos Pizza", imageUrl: "/vendors/dominos.png" },
-  { name: "Chicken Republic", imageUrl: "/vendors/chicken-repubilc.png" },
-  { name: "Pizza Jungle", imageUrl: "/vendors/pizzaJungle.png" },
-  { name: "Hardy Foodie", imageUrl: "/vendors/hardy-foods.png" },
-  { name: "Kinimajaro", imageUrl: "/vendors/Kinimajaro.png" },
-  { name: "Pizza Dominos ", imageUrl: "/vendors/dominos.png" },
-  { name: "Republic Chicken ", imageUrl: "/vendors/chicken-repubilc.png" },
-  { name: "Jungle Pizza ", imageUrl: "/vendors/pizzaJungle.png" },
-  { name: "Foodie Hardy", imageUrl: "/vendors/hardy-foods.png" },
-  // { name: "Market Square", imageUrl: "/vendors/marketSquare.png" },
+  { name: "Kinimajaro.", image: "/vendors/Kinimajaro.png" },
+  { name: "Dominos Pizza", image: "/vendors/dominos.png" },
+  { name: "Chicken Republic", image: "/vendors/chicken-repubilc.png" },
+  { name: "Pizza Jungle", image: "/vendors/pizzaJungle.png" },
+  { name: "Hardy Foodie", image: "/vendors/hardy-foods.png" },
+  { name: "Kinimajaro", image: "/vendors/Kinimajaro.png" },
+  { name: "Pizza Dominos ", image: "/vendors/dominos.png" },
+  { name: "Republic Chicken ", image: "/vendors/chicken-repubilc.png" },
+  { name: "Jungle Pizza ", image: "/vendors/pizzaJungle.png" },
+  { name: "Foodie Hardy", image: "/vendors/hardy-foods.png" },
+  // { name: "Market Square", image: "/vendors/marketSquare.png" },
 ];
 
 export const Explore = ({ className }: { className?: string }) => {

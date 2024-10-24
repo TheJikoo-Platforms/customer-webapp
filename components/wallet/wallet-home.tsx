@@ -67,7 +67,7 @@ export const WalletHome = React.memo(
     return (
       <div className="bg-white rounded-xl md:pb-20 h-full max-h-[calc(100dvh-125px)] md:max-h-[calc(100dvh-60px)] overflow-auto scrollbar-none">
         <InnerHeaderMain text="Wallet" className="md:hidden" />
-        {isAuthenticated ? (
+        {!isAuthenticated ? (
           <>
             <h2 className="text-black text-xl font-bold tracking-[-0.48px] hidden md:block px-5 pt-4">
               Wallet

@@ -92,7 +92,7 @@ export const BankOption = React.memo(
                 label="Card payment"
                 icon={<CardIcon />}
                 currentScreen={currentScreen}
-                screenName="card"
+                screenName="bank"
               />
               <TopUpOption
                 handleCurrentScreen={handleCurrentScreen}

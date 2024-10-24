@@ -44,6 +44,7 @@ export const BankAccount: React.FC<BankAccountProps> = ({
         {/* Link new account button */}
         <button
           type="button"
+          onClick={() => handleCurrentScreen("linkAccount")}
           className="w-full bg-white border border-grey-300 text-grey-700 rounded-md font-bold py-4 px-6 hover:bg-grey-100 transition"
         >
           Link new account

@@ -5,6 +5,7 @@ import { BankAccount } from "./bank-account";
 import { PaymentProcess } from "./payment-process";
 import { CryptoOption } from "./crypto-option";
 import { CryptoPayment } from "./crypto-payment";
+import { LinkAccount } from "./link-account";
 
 export const TopUp = () => {
   const [currentScreen, setCurrentScreen] = useState("bank");
@@ -32,6 +33,9 @@ export const TopUp = () => {
       )}
       {currentScreen === "cryptoPayment" && (
         <CryptoPayment handleCurrentScreen={handleCurrentScreen} />
+      )}
+      {currentScreen === "linkAccount" && (
+        <LinkAccount handleCurrentScreen={handleCurrentScreen} />
       )}
     </>
   );

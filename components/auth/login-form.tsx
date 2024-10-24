@@ -94,7 +94,6 @@ const LoginForm = () => {
             </div>
           ),
         });
-        console.log(response.data.accessToken);
         if (response.data.accessToken) {
           localStorage.setItem("token", response?.data.accessToken);
           dispatch(setIsAuthenticated(true));

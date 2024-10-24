@@ -5,18 +5,14 @@ export const ExploreItem = ({
   data,
   href = "",
 }: {
-  data: { name: string; imageUrl: string };
+  data: { name: string; image: string };
   href?: string;
 }) => {
   return (
-    <Link
-      href={href}
-      key={data.name}
-      className="items-center gap-2.5 flex flex-col shrink-0"
-    >
+    <Link href={href} className="items-center gap-2.5 flex flex-col shrink-0">
       <div>
         <Image
-          src={data.imageUrl}
+          src={data?.image}
           alt="Category_image"
           className="w-[55px] h-[55px] rounded-full object-cover"
           width={55}
@@ -24,7 +20,9 @@ export const ExploreItem = ({
           unoptimized
         />
       </div>
-      <p className="text-xs line-clamp-2 text-center">{data.name}</p>
+      <p className="text-xs line-clamp-2 text-center capitalize">
+        {data?.name}
+      </p>
     </Link>
   );
 };

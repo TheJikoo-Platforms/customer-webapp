@@ -41,16 +41,21 @@ export default function Checkout() {
   // const [formValues, setformValues] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleFormOverlay = (item: string) => {
-    dispatch(setShowCheckoutOverlay({ showOverlay: true, activeItem: item }));
+    dispatch(
+      setShowCheckoutOverlay({ showCheckoutOverlay: true, activeItem: item })
+    );
   };
   const handleLocationModal = () => {
     dispatch(handleLocationOverlay());
   };
   return (
     <>
-      {/* Mobile top bar */}
       <div className="flex items-center justify-center lg:justify-start p-6 lg:pr-5 lg:p-0 gap-4 bg-white sticky lg:static top-0 z-50 w-full pb-3 border-b border-b-grey-300 lg:border-b-grey-100 lg:pb-4">
-        <button onClick={handleFlowState} type="button">
+        <button
+          onClick={handleFlowState}
+          className="flex self-baseline lg:self-center"
+          type="button"
+        >
           <span className="block lg:hidden ml-1 absolute left-6">
             <ArrowLeftIcon />
           </span>
@@ -164,6 +169,7 @@ export const CheckoutBackdrops = () => {
   const activeItem = useAppSelector(
     (state: RootState) => state.cart.activeItem
   );
+  console.log(activeItem);
   return (
     <Backdrop variants={slideUp}>
       <div className="h-full w-full flex items-center justify-center">
@@ -312,7 +318,9 @@ const messageSchema = z.object({
 const MessageForm = () => {
   const dispatch = useAppDispatch();
   const handleCloseOverlay = () => {
-    dispatch(setShowCheckoutOverlay({ activeItem: "", showOverlay: false }));
+    dispatch(
+      setShowCheckoutOverlay({ activeItem: "", showCheckoutOverlay: false })
+    );
   };
   const form = useForm({
     resolver: zodResolver(messageSchema),
@@ -386,7 +394,9 @@ const MessageForm = () => {
 const EmailForm = () => {
   const dispatch = useAppDispatch();
   const handleCloseOverlay = () => {
-    dispatch(setShowCheckoutOverlay({ activeItem: "", showOverlay: false }));
+    dispatch(
+      setShowCheckoutOverlay({ activeItem: "", showCheckoutOverlay: false })
+    );
   };
   const form = useForm({
     resolver: zodResolver(emailSchema),
@@ -467,7 +477,9 @@ const EmailForm = () => {
 const PhoneForm = () => {
   const dispatch = useAppDispatch();
   const handleCloseOverlay = () => {
-    dispatch(setShowCheckoutOverlay({ activeItem: "", showOverlay: false }));
+    dispatch(
+      setShowCheckoutOverlay({ activeItem: "", showCheckoutOverlay: false })
+    );
   };
   const form = useForm({
     resolver: zodResolver(phoneSchema),

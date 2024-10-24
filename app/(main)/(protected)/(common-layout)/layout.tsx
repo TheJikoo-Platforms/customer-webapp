@@ -1,9 +1,4 @@
 import { Header } from "@/components/header";
-import { BottomNav } from "@/components/mobile-nav";
-import {
-  AuthNotificationContainter,
-  CartNotification,
-} from "@/components/fixed-notification";
 import Backdrops from "@/components/backdrops";
 import { PromoBanner } from "@/components/home/promo-banner";
 import { NormalWrapper } from "@/components/wrappers";
@@ -41,11 +36,6 @@ export default function MainLayout({
           </div>
         </NormalWrapper>
         <div className="mt-6">{/* <Footer /> */}</div>
-        {/* <AuthNotificationContainter /> */}
-        <div className="lg:hidden">
-          <CartNotification />
-          <BottomNav />
-        </div>
       </div>
     </>
   );

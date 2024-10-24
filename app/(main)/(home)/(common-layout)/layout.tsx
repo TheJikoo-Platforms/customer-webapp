@@ -1,6 +1,4 @@
 import { Header } from "@/components/header";
-import { BottomNav } from "@/components/mobile-nav";
-import { CartNotification } from "@/components/fixed-notification";
 import Backdrops from "@/components/backdrops";
 import { PromoBanner } from "@/components/home/promo-banner";
 import { NormalWrapper } from "@/components/wrappers";
@@ -21,13 +19,13 @@ export default function MainLayout({
         <div className="hidden lg:block">
           <Header />
         </div>
-        <div className="hidden lg:block mt-[57px] xl:mt-[72px]">
+        <div className="hidden lg:block mt-[68px] xl:mt-[72px]">
           <PromoBanner />
         </div>
         <NormalWrapper>
           <div className="lg:grid lg:grid-cols-[calc(68%-24px),32%] lg:gap-6 lg:mt-6 lg:mb-0 items-start">
             <main className="flex flex-col flex-1">{children}</main>
-            <div className="max-lg:hidden space-y-4 sticky top-[80px]">
+            <div className="max-lg:hidden space-y-4">
               <WhiteCard className="p-4">
                 <OrdersHome />
               </WhiteCard>
@@ -38,11 +36,6 @@ export default function MainLayout({
           </div>
         </NormalWrapper>
         <div className="mt-6">{/* <Footer /> */}</div>
-        {/* <AuthNotification /> */}
-        <div className="lg:hidden">
-          <CartNotification />
-          <BottomNav />
-        </div>
       </div>
     </>
   );

@@ -37,6 +37,7 @@ export const customStyles = {
   control: (provided: any) => ({
     ...provided,
     padding: "8px",
+    fontSize: "14px",
     borderColor: "#D0D5DD",
     borderRadius: "6px",
     boxShadow: "none",

@@ -35,9 +35,12 @@ const cartOverlaySlice = createSlice({
     },
     setShowCheckoutOverlay(
       state,
-      action: PayloadAction<{ showOverlay: boolean; activeItem: string }>
+      action: PayloadAction<{
+        showCheckoutOverlay: boolean;
+        activeItem: string;
+      }>
     ) {
-      state.showCartOverlay = action.payload.showOverlay;
+      state.showCheckoutOverlay = action.payload.showCheckoutOverlay;
       state.activeItem = action.payload.activeItem;
     },
   },
