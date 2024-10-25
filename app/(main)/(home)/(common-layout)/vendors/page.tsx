@@ -62,7 +62,7 @@ export default async function VendorsPage() {
           </p>
 
           <div className="text-sm flex items-center mb-4 mt-1 gap-3">
-            <p className="text-jikoo-brand-green font-medium">Open till 8pm</p>
+            <p className="text-jikoo-brand-green font-medium">Open till 9pm</p>
 
             <div className="flex items-center text-grey-500 text-xs">
               <p className="flex gap-1 items-center">
