@@ -4,14 +4,18 @@ import { CategoryContainer } from "../explore/category-list";
 import { useCategories, useSingleCategory } from "./hooks/use-categories";
 
 export function CategoriesList() {
-  const { data, error, isLoading } = useCategories(1, 30);
+  const { data, isError, isLoading } = useCategories(1, 30);
 
   console.log(data);
   return (
-    <CategoryContainer
-      data={data?.data?.categories}
-      className="py-6 border-y border-y-grey-300"
-    />
+    <>
+      {data?.data?.categories && (
+        <CategoryContainer
+          data={data?.data?.categories}
+          className="py-6 border-y border-y-grey-300"
+        />
+      )}
+    </>
   );
 }
 

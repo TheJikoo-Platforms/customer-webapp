@@ -2,18 +2,17 @@ import { Header } from "@/components/header";
 import Backdrops from "@/components/backdrops";
 import { OrdersHome } from "@/components/orders/orders";
 import { CartFlow } from "@/components/cart/mobile-overlay";
-import { Explore } from "@/components/explore/explore";
 import Carousel from "@/components/home/carousel";
 import { Guarantee } from "@/components/home/guarantee";
 import { HandpickedForYou } from "@/components/home/handpicked";
 import { ProductRecommendations } from "@/components/home/product-recommendation";
 import { PromoBanner } from "@/components/home/promo-banner";
-import { SearchButton } from "@/components/home/search";
 import { WhiteCard } from "@/components/white-card";
 import { NormalWrapper } from "@/components/wrappers";
 import { EnterLocation } from "@/components/location/enter-location-button";
 import { CategoriesList } from "@/components/home/categories";
 import { VendorsList } from "@/components/home/vendors";
+import { SearchButton } from "@/components/home/search/search-button";
 
 export default async function Home() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));

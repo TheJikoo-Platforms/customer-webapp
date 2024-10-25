@@ -20,6 +20,10 @@ const foodItemSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action: PayloadAction<IProductItem>) {
+      //Remove after 2 weeks
+      if (state.cartItems[0]?.quantity) {
+        clearCart();
+      }
       const product = action.payload;
       const existingCartItem = state.cartItems.find(
         (cartItem) => cartItem.product._id === product._id

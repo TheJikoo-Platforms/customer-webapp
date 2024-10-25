@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { NotificationsOverlay } from "@/components/notification/notifications";
-import { SearchOverlay } from "@/components/home/search";
 import { FoodItemOverlay } from "@/components/food-items/overlay";
 import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
@@ -11,6 +10,7 @@ import { LocationOverlay } from "./location/overlay";
 import SettingsOverlay from "./settings/overlay/overlay";
 import WalletOverlay from "./wallet/overlay/overlay";
 import { CartBackdrops } from "./cart/cart-backdrops/cart-backdrops";
+import { SearchUIOverlay } from "./home/search/search-ui-overlay";
 
 export default function Backdrops() {
   const showLocationOverlay = useAppSelector(
@@ -45,7 +45,7 @@ export default function Backdrops() {
     <>
       {showLocationOverlay && <LocationOverlay />}
       {showNotificationOverlay && <NotificationsOverlay />}
-      {showSearchOverlay && <SearchOverlay />}
+      {showSearchOverlay && <SearchUIOverlay />}
       {showCartOverlayMobile && <CartOverLayMobile />}
       {showCartOverlay && <CartBackdrops />}
       {showCheckoutOverlay && <CheckoutBackdrops />}

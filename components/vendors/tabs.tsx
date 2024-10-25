@@ -1,6 +1,4 @@
 "use client";
-import { useAppSelector } from "@/redux-store/hooks";
-import { RootState } from "@/redux-store/store";
 import React, { useRef, useState } from "react";
 import FoodItemContainer from "../food-items/food-items-container";
 import { useProducts } from "../home/hooks/use-products";
@@ -57,8 +55,10 @@ const TabComponent = () => {
             ref={(el) => (sectionRefs.current[index] = el)} // Attach the ref to each section
           >
             <p className="py-4 font-bold text-sm">{tab}</p>
-            {/* Assuming FoodItemContainer is a component that lists food items */}
-            <FoodItemContainer foodItems={data?.data?.products} />
+
+            {data?.data?.products && (
+              <FoodItemContainer foodItems={data?.data?.products} />
+            )}
           </div>
         ))}
       </div>
