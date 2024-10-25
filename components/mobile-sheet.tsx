@@ -15,7 +15,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { SideBar } from "./home/side-bar";
+// import { SideBar } from "./home/side-bar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {

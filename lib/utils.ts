@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { format, isValid, parse, parseISO } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -71,4 +72,77 @@ export const getImageDimensions = (
     };
     img.onerror = (error) => reject(error);
   });
+};
+
+export const getFieldClassName = (
+  formState: any,
+  errors: any,
+  fieldName: string
+) => {
+  const isTouched = formState.touchedFields[fieldName];
+  const hasError = errors[fieldName];
+
+  if (isTouched && hasError) {
+    return "border-state-error-200 focus-within:border-state-error-200";
+  } else if (isTouched && !hasError) {
+    return "bg-grey-75";
+  } else {
+    return "";
+  }
+};
+
+export const scrollToTop = (): void => {
+  if (typeof window !== "undefined") {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scrolling
+    });
+  }
+};
+
+export function formatDate(
+  dateString: string | null | undefined | Date
+): string {
+  if (!dateString) return ""; // Handle case where dateString is null or undefined
+
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}
+
+export const formatDateForSubmission = (dateString: string | Date): string => {
+  // Convert the input to a Date object
+  const date =
+    typeof dateString === "string" ? parseISO(dateString) : dateString;
+
+  // Ensure the date is valid before formatting
+  if (date instanceof Date && !isNaN(date.getTime())) {
+    return format(date, "dd-MM-yyyy");
+  }
+
+  // Return an empty string or handle invalid date case
+  return "";
+};
+
+export const formatDateForDisplay = (dateString: string) => {
+  let date;
+
+  // Check if the date is in ISO format
+  if (dateString.includes("T")) {
+    date = parseISO(dateString); // Handle ISO format
+  } else {
+    // Handle dd-MM-yyyy format
+    date = parse(dateString, "dd-MM-yyyy", new Date());
+  }
+
+  // Ensure the date is valid before formatting
+  if (isValid(date)) {
+    return format(date, "dd-MM-yyyy"); // Format to dd-MM-yyyy
+  }
+
+  // Return an empty string or handle invalid date case
+  return "";
 };

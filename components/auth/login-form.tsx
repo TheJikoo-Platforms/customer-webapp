@@ -28,9 +28,19 @@ import Image from "next/image";
 import GOOGLEICON from "@/public/google-icon.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { loginUserMail, loginUserNumber } from "@/api/requests";
+import { getFieldClassName } from "@/lib/utils";
+import { MdCancel } from "react-icons/md";
+import { useToast } from "../ui/use-toast";
+import { FaCircleCheck } from "react-icons/fa6";
+import { useAppDispatch } from "@/redux-store/hooks";
+import { setIsAuthenticated } from "@/redux-store/slices/authslice";
 
 const LoginForm = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(true);
   const [isEnteringNumber, setIsEnteringNumber] = useState(false);
 
@@ -57,8 +67,64 @@ const LoginForm = () => {
     mode: "onTouched",
     defaultValues: combinedDefaultValues,
   });
-
   const errors = form.formState.errors;
+  const {
+    mutate: loginMutation,
+    isLoading,
+    isError,
+  } = useMutation(
+    (values: z.infer<typeof formSchema>) => {
+      if ("phoneNumber" in values) {
+        return loginUserNumber({
+          phone: "+234" + values.phoneNumber,
+          password: values.password,
+        });
+      } else {
+        return loginUserMail({ email: values.mail, password: values.password });
+      }
+    },
+    {
+      onSuccess: (response) => {
+        console.log("Login successful:", response);
+        toast({
+          title: response?.message,
+          icon: (
+            <div className="w-6 h-6 bg-state-success-50 border border-state-success-75 flex items-center justify-center rounded">
+              <FaCircleCheck className="text-state-success-600" />
+            </div>
+          ),
+        });
+        if (response.data.accessToken) {
+          localStorage.setItem("token", response?.data.accessToken);
+          dispatch(setIsAuthenticated(true));
+          setTimeout(() => {
+            router.push("/");
+          }, 500);
+        }
+      },
+      onError: (error: any) => {
+        console.error(
+          "Error during login:",
+          error.response?.data || error.message
+        );
+        const errorMessage = !error.response
+          ? "Network error: Please check your internet connection."
+          : error.response.data.errors ||
+            error.response.data.message ||
+            "An unexpected error occurred.";
+
+        toast({
+          title: errorMessage,
+          variant: "error",
+          icon: (
+            <div className="w-6 h-6 bg-state-error-50 border border-state-error-75 flex items-center justify-center rounded">
+              <MdCancel className="text-state-error-500" />
+            </div>
+          ),
+        });
+      },
+    }
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -68,16 +134,8 @@ const LoginForm = () => {
     }
   };
   // Submit handler
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await new Promise((resolve, reject) => setTimeout(resolve, 5000));
-    router.push("/");
-    if ("phoneNumber" in values) {
-      // Handle phone number submission
-      console.log(values.phoneNumber, values.password);
-    } else {
-      // Handle email submission
-      console.log(values.mail, values.password);
-    }
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    loginMutation(values);
   };
 
   return (
@@ -89,24 +147,19 @@ const LoginForm = () => {
             name={isEnteringNumber ? "phoneNumber" : "mail"}
             render={({ field }) => (
               <FormItem className="space-y-0">
-                <FormLabel className="text-sm font-medium">
+                <FormLabel className="text-sm font-medium mb-1">
                   Email/Phone number
                 </FormLabel>
                 <FormControl>
                   <BorderedDiv
-                    // React Form Library Error.
                     className={`items-center gap-2 ${
                       isEnteringNumber
-                        ? // @ts-ignore
-                          form.formState.touchedFields?.phoneNumber &&
-                          // @ts-ignore
-                          !errors?.phoneNumber &&
-                          "bg-grey-75"
-                        : // @ts-ignore
-                          form.formState.touchedFields?.mail &&
-                          // @ts-ignore
-                          !errors?.mail &&
-                          "bg-grey-75"
+                        ? getFieldClassName(
+                            form.formState,
+                            errors,
+                            "phoneNumber"
+                          )
+                        : getFieldClassName(form.formState, errors, "mail")
                     }`}
                   >
                     {isEnteringNumber && (
@@ -118,13 +171,14 @@ const LoginForm = () => {
                       </div>
                     )}
                     <UnstyledInput
+                      // type={!isEnteringNumber ? "text" : "number"}
                       type="text"
-                      placeholder=""
+                      placeholder="Enter email or phone number"
                       className="placeholder:text-grey-400 font-normal"
                       {...field}
                       onChange={(e) => {
-                        field.onChange(e); // Keep the form field updated
-                        handleInputChange(e); // Check input type
+                        field.onChange(e);
+                        handleInputChange(e);
                       }}
                     />
                   </BorderedDiv>
@@ -142,16 +196,16 @@ const LoginForm = () => {
               <FormItem>
                 <FormControl>
                   <BorderedDiv
-                    className={`items-center gap-2 ${
-                      form.formState.touchedFields.password &&
-                      !errors.password &&
-                      "bg-grey-75"
-                    }`}
+                    className={`items-center gap-2 ${getFieldClassName(
+                      form.formState,
+                      errors,
+                      "password"
+                    )}`}
                   >
                     <PasswordKey />
                     <UnstyledInput
                       type={showPassword ? "number" : "password"}
-                      placeholder="Confirm password"
+                      placeholder="Enter password"
                       className="placeholder:text-grey-400 font-normal"
                       {...field}
                     />
@@ -175,7 +229,7 @@ const LoginForm = () => {
 
           <Link
             href={"/reset-password"}
-            className="font-inter text-sm font-normal text-[10px] sm:text-sm text-primary underline-offset-4 underline py-0"
+            className="text-sm font-normal text-[10px] sm:text-sm text-primary underline-offset-4 underline py-0"
             type="button"
           >
             Reset Password
@@ -184,12 +238,12 @@ const LoginForm = () => {
           <div className="flex flex-col space-y-3">
             <Button
               type="submit"
-              disabled={form.formState.isSubmitting}
+              disabled={isLoading}
               className={`bg-primary w-full rounded-md font-semibold mt-4 ${
-                form.formState.isSubmitting && "opacity-65 transition-all"
+                isLoading && "opacity-65 transition-all"
               }`}
             >
-              {form.formState.isSubmitting ? "Signing in..." : "Sign In"}
+              {isLoading ? "Signing in..." : "Sign In"}
             </Button>
 
             <p

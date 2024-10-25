@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback } from "react";
 import {
   emailSchema,
   Form,
@@ -20,6 +20,11 @@ import BorderedDiv from "../bordered-div";
 import { UnstyledInput } from "@/components/ui/unstyled-input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "@/components/ui/icons";
+import { MdCancel } from "react-icons/md";
+import { useMutation } from "@tanstack/react-query";
+import { sendOtpToMail, validateOtp, verifyMail } from "@/api/requests";
+import { useToast } from "@/components/ui/use-toast";
+import { FaCircleCheck } from "react-icons/fa6";
 
 interface StepTwoProps {
   stepOneData: string;
@@ -28,6 +33,7 @@ interface StepTwoProps {
 
 export const StepTwoForm = React.memo(
   ({ stepOneData, handleNextStep }: StepTwoProps) => {
+    const { toast } = useToast();
     const otpForm = useForm<z.infer<typeof otpSchema>>({
       resolver: zodResolver(otpSchema),
       mode: "onTouched",
@@ -36,16 +42,83 @@ export const StepTwoForm = React.memo(
       },
     });
 
-    const handleOtpSubmit = async (values: z.infer<typeof otpSchema>) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      //   toast({
-      //     variant: "fade",
-      //     title: "We sent you a verification link",
-      //     description: "Check your email to verify your email",
-      //   });
-      console.log("OTP submitted: ", values);
-      handleNextStep(3);
+    // Helper function for showing toast notifications
+    const showToast = (message: string, variant: any) => {
+      toast({
+        title: message,
+        variant,
+        icon: (
+          <div
+            className={`w-6 h-6 ${
+              variant === "success"
+                ? "bg-state-success-50"
+                : "bg-state-error-50"
+            } border ${
+              variant === "success"
+                ? "border-state-success-75"
+                : "border-state-error-75"
+            } flex items-center justify-center rounded`}
+          >
+            {variant === "success" ? (
+              <FaCircleCheck className="text-state-success-600" />
+            ) : (
+              <MdCancel className="text-state-error-500" />
+            )}
+          </div>
+        ),
+      });
     };
+
+    const { mutate: sendOtp, isLoading: isResendLoading } = useMutation(
+      sendOtpToMail,
+      {
+        onSuccess: () => {
+          showToast("OTP Sent", "success");
+        },
+        onError: (error: any) => {
+          const errorMessage = !error.response
+            ? "Network error: Please check your internet connection."
+            : error.response.data.errors ||
+              error.response.data.message ||
+              "An unexpected error occurred.";
+
+          showToast(errorMessage, "error");
+        },
+      }
+    );
+
+    const { mutate: verifyMailMutation, isLoading } = useMutation(validateOtp, {
+      onSuccess: (response) => {
+        showToast(response?.message, "success");
+        setTimeout(() => {
+          handleNextStep(3);
+        }, 1000);
+      },
+      onError: (error: any) => {
+        const errorMessage = !error.response
+          ? "Network error: Please check your internet connection."
+          : error.response.data.errors ||
+            error.response.data.message ||
+            "An unexpected error occurred.";
+
+        showToast(errorMessage, "error");
+      },
+    });
+
+    const handleOtpSubmit = (values: z.infer<typeof otpSchema>) => {
+      if (stepOneData) {
+        const otpData = {
+          email: stepOneData,
+          otp: values.otp,
+        };
+        verifyMailMutation(otpData);
+      }
+    };
+
+    // Memoize the handleNextStep function
+    const handleResendOtp = useCallback(() => {
+      sendOtp(stepOneData);
+    }, [stepOneData, sendOtp]);
 
     const errors = otpForm.formState.errors;
 
@@ -112,19 +185,29 @@ export const StepTwoForm = React.memo(
             />
             <Button
               type="submit"
-              disabled={otpForm.formState.isSubmitting}
+              disabled={isLoading || isResendLoading}
               className={`bg-primary w-full rounded-md font-semibold mt-4 ${
-                otpForm.formState.isSubmitting && "opacity-65 transition-all"
+                (otpForm.formState.isSubmitting ||
+                  isLoading ||
+                  isResendLoading) &&
+                "opacity-65 transition-all"
               }`}
             >
-              {otpForm.formState.isSubmitting ? "Submitting..." : "Confirm"}
+              {isLoading ? "Submitting..." : "Confirm"}
             </Button>
           </form>
         </Form>
         <div className="text-center flex gap-2 justify-center mt-8">
           <span className="text-sm text-grey-500 ">Didn’t receive?</span>
-          <button type="button" className="text-[#036B26] text-sm font-medium">
-            Resend
+          <button
+            type="button"
+            className={`${
+              isLoading || isResendLoading ? "text-grey-500" : "text-[#036B26]"
+            } text-sm font-medium transition-all`}
+            onClick={handleResendOtp}
+            disabled={isLoading || isResendLoading}
+          >
+            {isResendLoading ? "Resending..." : "Resend"}
           </button>
         </div>
       </div>

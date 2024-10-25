@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface searchOverlayState {
+interface SearchOverlayState {
   showsearchOverlay: boolean;
 }
 
-const initialState: searchOverlayState = {
+const initialState: SearchOverlayState = {
   showsearchOverlay: false,
 };
 

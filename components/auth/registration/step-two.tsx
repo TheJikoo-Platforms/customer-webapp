@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  emailSchema,
   Form,
   FormControl,
   FormField,
@@ -15,7 +14,6 @@ import { z } from "zod";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/public/logo.png";
-import { ArrowLeft } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import AuthHeading from "../auth-heading";
 import BorderedDiv from "../bordered-div";
@@ -24,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "@/components/ui/icons";
 import { NGFlag } from "../ui/icons";
 import { FaCircleCheck } from "react-icons/fa6";
+import { getFieldClassName } from "@/lib/utils";
 
 interface StepTwoProps {
   onSubmit: (data: string) => void;
@@ -37,9 +36,10 @@ export const StepTwoForm = React.memo(
       resolver: zodResolver(phoneSchema),
       mode: "onTouched",
       defaultValues: {
-        phoneNumber: "", // Initialize with an empty string
+        phoneNumber: "",
       },
     });
+
     const handlestepTwoSubmit = async (values: z.infer<typeof phoneSchema>) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       toast({
@@ -80,7 +80,8 @@ export const StepTwoForm = React.memo(
             </Link>
           </div>
           <AuthHeading
-            text={"Enter your phone number or email"}
+            text={"Enter your phone number"}
+            // text={"Enter your email address"}
             className="w-[280px] mx-auto"
           />
           <Form {...stepTwoForm}>
@@ -95,12 +96,11 @@ export const StepTwoForm = React.memo(
                   <FormItem>
                     <FormControl>
                       <BorderedDiv
-                        className={`items-center gap-2 ${
-                          stepTwoForm.formState.touchedFields.phoneNumber &&
-                          !errors.phoneNumber
-                            ? "bg-grey-75"
-                            : ""
-                        }`}
+                        className={`items-center gap-2  ${getFieldClassName(
+                          stepTwoForm.formState,
+                          errors,
+                          "phoneNumber"
+                        )}`}
                       >
                         <div className="flex items-center gap-2">
                           <NGFlag />
@@ -110,9 +110,11 @@ export const StepTwoForm = React.memo(
                         </div>
 
                         <UnstyledInput
+                          // type="text"
                           type="number"
-                          placeholder=""
-                          className="placeholder:text-grey-400 font-normal"
+                          // placeholder="jondoe@mail.com"
+                          placeholder="9100000000"
+                          className="placeholder:text-grey-400 font-normal text-grey-900"
                           {...field}
                         />
                       </BorderedDiv>
@@ -132,7 +134,7 @@ export const StepTwoForm = React.memo(
               >
                 {stepTwoForm.formState.isSubmitting
                   ? "Submitting..."
-                  : "Sign in"}
+                  : "Proceed"}
               </Button>
             </form>
           </Form>

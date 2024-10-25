@@ -1,7 +1,4 @@
-"use client";
 import { FaUser } from "react-icons/fa6";
-import Image from "next/image";
-import { useState } from "react";
 
 const UserIcon = () => (
   <svg
@@ -37,22 +34,6 @@ const UserIcon = () => (
     </defs>
   </svg>
 );
-
-export const NavAccountIcon = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  return isAuthenticated ? (
-    <Image
-      src="/avatar.png"
-      alt="User Image"
-      width={640}
-      height={640}
-      className="w-6 h-6 lg:w-[38px] lg:h-[38px] rounded-full border-[2.363px] border-white bg-[#FFE7CC]"
-    />
-  ) : (
-    <UserIcon />
-  );
-};
 
 export const HomeIcon = () => {
   return (

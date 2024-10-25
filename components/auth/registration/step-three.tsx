@@ -21,6 +21,7 @@ import BorderedDiv from "../bordered-div";
 import { UnstyledInput } from "@/components/ui/unstyled-input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "@/components/ui/icons";
+import { getFieldClassName } from "@/lib/utils";
 
 interface StepThreeProps {
   stepTwoData: string;
@@ -75,6 +76,7 @@ export const StepThreeForm = React.memo(
         </div>
         <AuthHeading
           text={"Paste OTP sent to your phone number"}
+          // text={"Paste OTP sent to your email address"}
           className="mx-auto"
         />
         <Form {...otpForm}>
@@ -89,11 +91,11 @@ export const StepThreeForm = React.memo(
                 <FormItem>
                   <FormControl>
                     <BorderedDiv
-                      className={`items-center gap-2 ${
-                        otpForm.formState.touchedFields.otp && !errors.otp
-                          ? "bg-grey-75"
-                          : ""
-                      }`}
+                      className={`items-center gap-2 ${getFieldClassName(
+                        otpForm.formState,
+                        errors,
+                        "otp"
+                      )}`}
                     >
                       <UnstyledInput
                         type="number"

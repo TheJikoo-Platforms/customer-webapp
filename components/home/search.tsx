@@ -19,6 +19,8 @@ import { createFilledArray } from "@/lib/utils";
 import { FoodItem } from "../food-items/food-item";
 import { useMediaQuery } from "react-responsive";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
+import { useSearchProducts } from "./hooks/use-products";
+import { IProductItem } from "../types";
 
 const RECENTSEARCHES = ["Amala", "Jollof rice", "Rice"];
 
@@ -30,7 +32,7 @@ export const SearchOverlay = () => {
 const SearchUIDesktop = () => {
   const dispatch = useAppDispatch();
   const showSearchOverlay = useAppSelector(
-    (state: RootState) => state.searchOverlay.showsearchOverlay
+    (state: RootState) => state.search.showsearchOverlay
   );
   const mainRef = useRef<HTMLDivElement>(null);
   const handleCloseSearch = () => {
@@ -57,7 +59,7 @@ const SearchUIDesktop = () => {
 
 const SearchUIMobile = () => {
   const showSearchOverlay = useAppSelector(
-    (state: RootState) => state.searchOverlay.showsearchOverlay
+    (state: RootState) => state.search.showsearchOverlay
   );
   return (
     <AnimatePresence>
@@ -71,7 +73,7 @@ const SearchUIMobile = () => {
           }}
           animate={{ opacity: 100, y: "0", transition: { type: "tween" } }}
           exit={{ opacity: 0, y: "100%" }}
-          className="bg-white flex pb-20 flex-col gap-6 h-screen overflow-y-auto scrollbar-none fixed inset-0 z-30"
+          className="bg-white flex pb-20 flex-col gap-6 h-screen overflow-y-auto scrollbar-none fixed inset-0 z-[100]"
         >
           <SearchUI />
         </motion.div>
@@ -81,21 +83,22 @@ const SearchUIMobile = () => {
 };
 
 const SearchUI = () => {
-  const foodItems = useAppSelector(
-    (state: RootState) => state.foodItemData.foodItems
-  );
+  const [query, setQuery] = useState<string>("");
+  const { data, isLoading, error } = useSearchProducts(query);
+  const [isSearching, setIsSearching] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const searchForm = useForm({
     defaultValues: {
       query: "",
     },
   });
-  const [isSearching, setIsSearching] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const handleSubmit = async () => {
+  const handleSubmit = (formData: { query: string }) => {
     setIsSearching(true);
     setIsSubmitted(false);
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    setIsSubmitted(true);
+    setQuery(formData.query);
+    if (data?.data?.data) {
+      setIsSubmitted(true);
+    }
   };
 
   const handleClear = () => {
@@ -106,7 +109,7 @@ const SearchUI = () => {
 
   return (
     <>
-      <div className="border-b border-b-[#EBEBEB] pb-3 pt-5 p-4 sm600:hidden sticky top-0 bg-white z-30">
+      <div className="border-b border-b-[#EBEBEB] pb-3 pt-5 p-4 sm600:hidden sticky top-0 bg-white z-[50]">
         <p className="text-2xl font-medium tracking-[-0.48px]">Search</p>
       </div>
 
@@ -186,14 +189,16 @@ const SearchUI = () => {
           </div>
         )}
 
-        {searchForm.formState.isSubmitting && <LoadingState />}
+        {isLoading && <LoadingState />}
 
         {/* Products */}
         {isSubmitted && (
           <>
-            <p className="text-[#1E1E1E]">75 results for “Amala”</p>
+            <p className="text-[#1E1E1E]">
+              {data?.data?.data.length} results for “{query}”
+            </p>
             <ul className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-12">
-              {foodItems.map((foodItem, index) => (
+              {data?.data?.data.map((foodItem: IProductItem, index: number) => (
                 <li key={index}>
                   <FoodItem data={foodItem} />
                 </li>
@@ -212,17 +217,19 @@ export const SearchButton = () => {
     dispatch(setShowSearchOverlay(true));
   };
   return (
-    <button
-      onClick={handleOverlay}
-      className="lg:rounded-xl lg:bg-white p-4 mb-4 flex flex-col gap-6 w-full"
-    >
-      <div className="border border-grey-300 p-4 rounded-full flex items-center gap-2 w-full">
-        <IoSearch className="text-gray-400 text-lg" />
-        <p className="bg-transparent text-grey-400 text-sm outline-none">
-          Search for restaurants or foods
-        </p>
-      </div>
-    </button>
+    <div className="max-lg:hidden">
+      <button
+        onClick={handleOverlay}
+        className="lg:rounded-xl lg:bg-white p-4 mb-4 flex flex-col gap-6 w-full "
+      >
+        <div className="border border-grey-300 p-4 rounded-full flex items-center gap-2 w-full">
+          <IoSearch className="text-gray-400 text-lg" />
+          <p className="bg-transparent text-grey-400 text-sm outline-none">
+            Search for restaurants or foods
+          </p>
+        </div>
+      </button>
+    </div>
   );
 };
 

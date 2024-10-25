@@ -1,111 +1,105 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import React from "react";
+import { Button } from "../ui/button";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
+import { RootState } from "@/redux-store/store";
+import {
+  setFlowState,
+  setShowCartOverlay,
+  setShowCartOverlayMobile,
+} from "@/redux-store/slices/backdrop/cart";
+import InnerHeader from "../inner-page-header-mobile";
+import { CartItem } from "./cart-item";
 
-import { useState } from "react";
-import { CartList } from "./cart-list";
-import { DeliveryOption } from "./delivery-option";
+export default function Cart() {
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector(
+    (state: RootState) => state.foodItemData.cartItems
+  );
 
-const STEPS = [
-  {
-    id: "step 1",
-    name: "Basket",
-    complete: false,
-  },
-  {
-    id: "step 2",
-    name: "Delivery Options",
-    complete: false,
-  },
-  {
-    id: "step 3",
-    name: "Payment",
-    complete: false,
-  },
-];
-
-export const Cart = () => {
-  const router = useRouter();
-  const [steps, setSteps] = useState(STEPS);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [prevStep, setPrevStep] = useState(0);
-  const delta = currentStep - prevStep;
-
-  const next = async () => {
-    if (currentStep < STEPS.length - 1) {
-      // if(currentStep === STEPS.length - 1)
-      setSteps((prev) => {
-        const state = [...prev];
-        state[currentStep].complete = true;
-        return [...state];
-      });
-      setPrevStep(currentStep);
-      setCurrentStep((prev) => prev + 1);
-    }
-  };
-  const prev = () => {
-    if (currentStep > 0) {
-      // if(currentStep === STEPS.length - 1)
-      setPrevStep(currentStep);
-      setCurrentStep((prev) => prev - 1);
-    }
+  const handleCartOverlay = () => {
+    dispatch(setShowCartOverlay({ showOverlay: true, activeItem: "message" }));
   };
 
-  const onSubmit = () => {
-    router.push("/profile");
+  const handleOverlayMobile = () => {
+    dispatch(setShowCartOverlayMobile(false));
+  };
+
+  const handleFlowState = () => {
+    dispatch(setFlowState("checkout"));
   };
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-[10px] text-[8px] sm:text-xs md:text-base lg:text-xl  py-6">
-        {steps.map((el, i) => (
-          <div
-            role="button"
-            onClick={() => {
-              setCurrentStep(i);
-              setPrevStep(currentStep);
-            }}
-            className={` shadow-[2px_-2px_1px_0px_rgba(0,0,0,0.15)]  ${
-              currentStep !== i
-                ? !el.complete
-                  ? "text-black/50 dark:text-[#8A8A8B]"
-                  : "text-primary"
-                : "text-black dark:text-white text-[10px] sm:text-sm md:text-lg lg:text-[22px] -translate-y-2"
-            }`}
-          >
-            <div
-              className={`${
-                currentStep !== i
-                  ? !el.complete
-                    ? "bg-black/50 dark:bg-[#8A8A8B]"
-                    : "bg-primary"
-                  : "bg-jikoo-red"
-              } h-[3px]`}
-            />
-            <h2 className="text-center py-1">
-              {i + 1}.{el.name}
-            </h2>
+      <h3 className="text-xl font-bold tracking-[-0.4px] border-b border-b-grey-200 pb-4 hidden lg:block">
+        My Cart
+      </h3>
+
+      {/* Mobile top bar */}
+      <InnerHeader
+        text="Cart"
+        onClick={handleOverlayMobile}
+        className="lg:hidden"
+      />
+
+      <>
+        {/* Empty State */}
+        {(!cartItems || cartItems.length === 0) && <EmptyCart />}
+
+        <div className="px-6 lg:px-0">
+          {cartItems?.length > 0 && (
+            <div className="flex flex-col gap-4 mt-8">
+              {cartItems.map((item, key) => (
+                <CartItem data={item} key={key} />
+              ))}
+            </div>
+          )}
+
+          {/* Form Trigger */}
+          <div className="">
+            {cartItems?.length > 0 && (
+              <div className="mt-6">
+                <p className="text-grey-900 font-bold">Add a message</p>
+
+                <button
+                  type="button"
+                  className="text-grey-400 text-xs sm400:text-sm lg:text-xs xl:text-sm text-left font-normal mt-3 flex w-full rounded-sm border border-[#d0d4dd] p-4"
+                  onClick={handleCartOverlay}
+                >
+                  Type an important message for the vendor
+                </button>
+
+                <div className="mt-5 flex justify-between items-center">
+                  <p className="text-grey-500">Subtotal:</p>
+                  <p className="text-grey-800 font-bold">₦4,000</p>
+                </div>
+              </div>
+            )}
+
+            <Button
+              type="button"
+              disabled={!cartItems || cartItems.length === 0}
+              className={`w-full text-base mt-6 font-dm-sans disabled:bg-grey-300`}
+              onClick={handleFlowState}
+            >
+              Checkout
+            </Button>
           </div>
-        ))}
-      </div>
-      {currentStep === 0 && (
-        <motion.div
-          initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-        >
-          <CartList next={next} />
-        </motion.div>
-      )}
-      {currentStep === 1 && (
-        <motion.div
-          initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-        >
-          <DeliveryOption next={next} />
-        </motion.div>
-      )}
+        </div>
+      </>
     </>
+  );
+}
+
+const EmptyCart = () => {
+  return (
+    <div className="flex flex-col items-center mt-6 px-6 lg:px-0">
+      <Image alt="Empty State" src="/empty-state.png" width={80} height={80} />
+
+      <p className="text-grey-500 text-sm max-w-[300px] text-center">
+        Nothing to see here. Add a food here and it will show here
+      </p>
+    </div>
   );
 };
