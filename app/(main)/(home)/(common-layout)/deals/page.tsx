@@ -1,6 +1,12 @@
 import { BackButton } from "@/components/back-button";
 import { DealsSection } from "@/components/deals/deals-section";
 import InnerHeader from "@/components/inner-page-header-mobile";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Deals of the day",
+  description: "Deals of the day",
+};
 
 export default async function Deals() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));

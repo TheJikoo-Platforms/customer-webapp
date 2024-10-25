@@ -5,6 +5,7 @@ import { RootState } from "@/redux-store/store";
 import { slideUp } from "@/variants";
 import { Filter } from "./filter";
 import { TopUp } from "./top-up";
+import { LinkAccount } from "./top-up/link-account";
 
 export default function WalletOverlay() {
   const activeScreen = useAppSelector(

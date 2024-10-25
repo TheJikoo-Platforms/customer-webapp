@@ -12,6 +12,7 @@ import authSliceReducer from "./slices/authslice";
 import savedAddressReducer from "./slices/saved-address";
 import settingsOverlayReducer from "./slices/settings-slice";
 import walletReducer from "./slices/wallet-slice";
+import userReducer from "./slices/user-slice";
 
 const isClient = typeof window !== "undefined";
 // Define the persist configuration
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   savedAddress: savedAddressReducer,
   settingsOverlay: settingsOverlayReducer,
   walletOverlay: walletReducer,
+  user: userReducer,
 });
 
 // Create a persisted version of the rootReducer

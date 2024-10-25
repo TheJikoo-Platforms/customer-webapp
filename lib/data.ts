@@ -1,6 +1,6 @@
-import { IFoodItem } from "@/components/types";
+// import { IFoodItem } from "@/components/types";
 
-export const FOODITEMS: IFoodItem[] = [
+export const FOODITEMS = [
   {
     name: "Chicken Pasta and salad indomie",
     imageUrl: "/handpicked/1.png",

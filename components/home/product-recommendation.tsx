@@ -75,7 +75,7 @@ const PRODUCTRECOMMENDATIONSLIST: RecommendationListProps[] = [
 
 export const ProductRecommendations = () => {
   return (
-    <div className="px-5 lg:px-6 overflow-x-hidden">
+    <div className="px-5 lg:px-6">
       <HorizontalScroll
         className={cn("flex md:grid md:grid-cols-4 lg:flex gap-4")}
       >

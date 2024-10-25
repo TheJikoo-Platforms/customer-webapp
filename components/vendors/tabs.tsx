@@ -3,14 +3,13 @@ import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
 import React, { useRef, useState } from "react";
 import FoodItemContainer from "../food-items/food-items-container";
+import { useProducts } from "../home/hooks/use-products";
 
 const TabComponent = () => {
   const tabList = ["Main", "Protein", "Swallow", "Fish", "Dessert"];
   const [activeTab, setActiveTab] = useState(tabList[0]);
 
-  const foodItems = useAppSelector(
-    (state: RootState) => state.foodItemData.foodItems
-  );
+  const { data, isLoading, isError, error } = useProducts(1, 8);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const handleTabClick = (tab: string, index: number) => {
     setActiveTab(tab);
@@ -59,7 +58,7 @@ const TabComponent = () => {
           >
             <p className="py-4 font-bold text-sm">{tab}</p>
             {/* Assuming FoodItemContainer is a component that lists food items */}
-            <FoodItemContainer foodItems={foodItems} />
+            <FoodItemContainer foodItems={data?.data?.products} />
           </div>
         ))}
       </div>

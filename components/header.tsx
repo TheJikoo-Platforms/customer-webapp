@@ -9,11 +9,11 @@ import { ToggleTheme } from "./toggle-theme";
 import { WideWrapper } from "./wrappers";
 import { Nav } from "./nav";
 import { ArrowDownIcon, BellIcon } from "./ui/icons";
-import { NavAccountIcon } from "./ui/icons/nav-icons";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { setShowNotificationsOverlay } from "@/redux-store/slices/backdrop/notifications";
 import { RootState } from "@/redux-store/store";
 import { EnterLocation } from "./location/enter-location-button";
+import { NavAccountIcon } from "./ui/icons/avatar";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +23,7 @@ export const Header = () => {
   const isAuthenticated = useAppSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+
   return (
     <>
       <ScrollWrapper asChild>
@@ -74,7 +75,7 @@ export const Header = () => {
 
                     <button
                       type="button"
-                      className="hidden md:flex items-center gap-0.5 text-grey-600"
+                      className="hidden lg:flex items-center gap-0.5 text-grey-600"
                     >
                       <NavAccountIcon />
                       <ArrowDownIcon />

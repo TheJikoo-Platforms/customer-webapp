@@ -1,9 +1,14 @@
-"use client";
 import { BackButton } from "@/components/back-button";
 import InnerHeader from "@/components/inner-page-header-mobile";
 import { RatingStar, RatingStarFilled } from "@/components/ui/icons";
-import { useTransitionRouter } from "next-view-transitions";
 import Image from "next/image";
+import { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Vendors Near you",
+  description: "Vendors Near you",
+};
 
 const dummyVendors = [
   {
@@ -42,7 +47,6 @@ const dummyVendors = [
     stars: "4.5",
   },
 ];
-
 export default async function NearYouPage() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
@@ -89,12 +93,8 @@ const VendorsCards = ({
   distance,
   stars,
 }: IVendorsCards) => {
-  const router = useTransitionRouter();
   return (
-    <div
-      onClick={() => router.push("/vendors")}
-      className="space-y-4 cursor-pointer"
-    >
+    <Link href="/vendors" className="space-y-4 cursor-pointer">
       <Image
         src={image}
         width={1000}
@@ -117,7 +117,7 @@ const VendorsCards = ({
         <div className="space-y-1.5 w-full">
           <p className="font-bold">{name}</p>
           <div className="flex gap-6 lg:justify-between w-full">
-            <p className="">{distance}</p>
+            <p>{distance}</p>
 
             <p className="flex items-center gap-0.5">
               {stars} <RatingStarFilled className="w-5 h-5" />
@@ -125,6 +125,6 @@ const VendorsCards = ({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

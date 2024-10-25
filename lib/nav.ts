@@ -1,3 +1,4 @@
+import { NavAccountIcon } from "@/components/ui/icons/avatar";
 import {
   AccountIcon,
   BasketIcon,
@@ -6,7 +7,6 @@ import {
   CartIcon,
   NotificationIcon,
   WalletIcon,
-  NavAccountIcon,
 } from "@/components/ui/icons/nav-icons";
 
 export const NAVLIST = [
@@ -15,13 +15,13 @@ export const NAVLIST = [
   { name: "My Orders", path: "/orders", icon: CartIcon, label: "orders" },
   {
     name: "Wallet",
-    path: "/",
+    path: "/wallet",
     icon: WalletIcon,
     label: "wallet",
   },
   {
     name: "Profile",
-    path: "/",
+    path: "/settings",
     icon: NavAccountIcon,
     label: "profile",
   },

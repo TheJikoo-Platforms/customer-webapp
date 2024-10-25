@@ -6,11 +6,11 @@ import { FoodItemOverlay } from "@/components/food-items/overlay";
 import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
 import CartOverLayMobile from "./cart/mobile-overlay";
-import { CartBackdrops } from "./cart/cart";
 import { CheckoutBackdrops } from "./cart/checkout";
 import { LocationOverlay } from "./location/overlay";
 import SettingsOverlay from "./settings/overlay/overlay";
 import WalletOverlay from "./wallet/overlay/overlay";
+import { CartBackdrops } from "./cart/cart-backdrops/cart-backdrops";
 
 export default function Backdrops() {
   const showLocationOverlay = useAppSelector(
@@ -31,8 +31,8 @@ export default function Backdrops() {
   const showCheckoutOverlay = useAppSelector(
     (state: RootState) => state.cart.showCheckoutOverlay
   );
-  const showFoodItemOverlay = useAppSelector(
-    (state: RootState) => state.foodItemOverlay.showFoodItemOverlay
+  const showProductItemOverlay = useAppSelector(
+    (state: RootState) => state.foodItemOverlay.showProductItemOverlay
   );
   const showSettingsOverlay = useAppSelector(
     (state: RootState) => state.settingsOverlay.showSettingsOverlay
@@ -49,7 +49,7 @@ export default function Backdrops() {
       {showCartOverlayMobile && <CartOverLayMobile />}
       {showCartOverlay && <CartBackdrops />}
       {showCheckoutOverlay && <CheckoutBackdrops />}
-      {showFoodItemOverlay && <FoodItemOverlay />}
+      {showProductItemOverlay && <FoodItemOverlay />}
       {showSettingsOverlay && <SettingsOverlay />}
       {showWalletOverlay && <WalletOverlay />}
     </>

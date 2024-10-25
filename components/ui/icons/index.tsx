@@ -1031,7 +1031,7 @@ export const ShareIcon = ({ className }: IClassNameOptional) => (
 );
 export const DeleteIcon = ({ className }: IClassNameOptional) => (
   <svg
-    className={cn("min-h-4 minW-4", className)}
+    className={cn("min-h-4 min-w-4", className)}
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"

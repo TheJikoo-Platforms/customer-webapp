@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { IoIosArrowDown } from "react-icons/io";
 import { useAppDispatch } from "@/redux-store/hooks";
 import { handleLocationOverlay } from "@/redux-store/slices/backdrop/location";
-import { CancellableNotification } from "../fixed-notification";
+import { CancellableNotification } from "../fixed-notifications/location";
 
 export const EnterLocation = ({ className }: { className: string }) => {
   const [isShowingPrompt, setIsShowingPrompt] = useState(true);

@@ -21,7 +21,7 @@ export const BankAccount: React.FC<BankAccountProps> = ({
         onClick={() => handleCurrentScreen("bank")}
         text="Bank"
       />
-      <div className="hidden mx-6 sm500:flex items-center justify-between border-b border-b-grey-100 mb-6 py-6">
+      <div className="hidden mx-6 sm500:flex items-center justify-between border-b border-b-grey-100 mb-6 py-6 sm500:mb-0">
         <h2 className="tracking-[-0.4px] text-xl font-bold">Topup</h2>
 
         <IoClose
@@ -44,6 +44,7 @@ export const BankAccount: React.FC<BankAccountProps> = ({
         {/* Link new account button */}
         <button
           type="button"
+          onClick={() => handleCurrentScreen("linkAccount")}
           className="w-full bg-white border border-grey-300 text-grey-700 rounded-md font-bold py-4 px-6 hover:bg-grey-100 transition"
         >
           Link new account

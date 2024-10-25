@@ -9,6 +9,13 @@ import { BsInstagram } from "react-icons/bs";
 import { FaGoogle, FaTwitter } from "react-icons/fa6";
 import TabComponent from "@/components/vendors/tabs";
 import InnerHeader from "@/components/inner-page-header-mobile";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Vendors",
+  description: "Vendors",
+};
+
 export default async function VendorsPage() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
@@ -55,7 +62,7 @@ export default async function VendorsPage() {
           </p>
 
           <div className="text-sm flex items-center mb-4 mt-1 gap-3">
-            <p className="text-jikoo-brand-green font-medium">Open till 8pm</p>
+            <p className="text-jikoo-brand-green font-medium">Open till 9pm</p>
 
             <div className="flex items-center text-grey-500 text-xs">
               <p className="flex gap-1 items-center">

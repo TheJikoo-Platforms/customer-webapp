@@ -52,12 +52,12 @@ export const SettingsHome = React.memo(
       }
     };
     return (
-      <div className="bg-white rounded-xl md:pb-20 h-full">
+      <section className="bg-white rounded-xl md:pb-20 h-full">
         <InnerHeaderMain text="Account" className="md:hidden" />
         <h2 className="text-black text-xl font-bold tracking-[-0.48px] hidden md:block px-5 pt-4">
           Settings
         </h2>
-        {isAuthenticated ? (
+        {!isAuthenticated ? (
           <div className="px-5 py-4 h-[calc(100dvh-61px)] min-h-[420px] flex items-center">
             <div className="w-full space-y-5">
               <div>
@@ -143,7 +143,7 @@ export const SettingsHome = React.memo(
             </div>
           </div>
         )}
-      </div>
+      </section>
     );
   }
 );

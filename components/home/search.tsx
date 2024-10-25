@@ -19,6 +19,8 @@ import { createFilledArray } from "@/lib/utils";
 import { FoodItem } from "../food-items/food-item";
 import { useMediaQuery } from "react-responsive";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
+import { useSearchProducts } from "./hooks/use-products";
+import { IProductItem } from "../types";
 
 const RECENTSEARCHES = ["Amala", "Jollof rice", "Rice"];
 
@@ -81,21 +83,22 @@ const SearchUIMobile = () => {
 };
 
 const SearchUI = () => {
-  const foodItems = useAppSelector(
-    (state: RootState) => state.foodItemData.foodItems
-  );
+  const [query, setQuery] = useState<string>("");
+  const { data, isLoading, error } = useSearchProducts(query);
+  const [isSearching, setIsSearching] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const searchForm = useForm({
     defaultValues: {
       query: "",
     },
   });
-  const [isSearching, setIsSearching] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const handleSubmit = async () => {
+  const handleSubmit = (formData: { query: string }) => {
     setIsSearching(true);
     setIsSubmitted(false);
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    setIsSubmitted(true);
+    setQuery(formData.query);
+    if (data?.data?.data) {
+      setIsSubmitted(true);
+    }
   };
 
   const handleClear = () => {
@@ -186,14 +189,16 @@ const SearchUI = () => {
           </div>
         )}
 
-        {searchForm.formState.isSubmitting && <LoadingState />}
+        {isLoading && <LoadingState />}
 
         {/* Products */}
         {isSubmitted && (
           <>
-            <p className="text-[#1E1E1E]">75 results for “Amala”</p>
+            <p className="text-[#1E1E1E]">
+              {data?.data?.data.length} results for “{query}”
+            </p>
             <ul className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-12">
-              {foodItems.map((foodItem, index) => (
+              {data?.data?.data.map((foodItem: IProductItem, index: number) => (
                 <li key={index}>
                   <FoodItem data={foodItem} />
                 </li>

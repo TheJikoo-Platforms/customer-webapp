@@ -1,39 +1,31 @@
-import { IFoodItem } from "@/components/types";
+import { IProductItem } from "@/components/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface FoodItemOverlayState {
-  showFoodItemOverlay: boolean;
-  currentFoodItem: IFoodItem | null;
+  showProductItemOverlay: boolean;
+  currentProductItem: IProductItem | null;
 }
 
 const initialState: FoodItemOverlayState = {
-  showFoodItemOverlay: false,
-  currentFoodItem: null,
+  showProductItemOverlay: false,
+  currentProductItem: null,
 };
 
 const foodItemOverlaySlice = createSlice({
   name: "foodItemOverlay",
   initialState,
   reducers: {
-    setShowFoodItemOverlay(state, action: PayloadAction<boolean>) {
-      state.showFoodItemOverlay = action.payload;
+    setShowProductItemOverlay(state, action: PayloadAction<boolean>) {
+      state.showProductItemOverlay = action.payload;
     },
-    setAddedToCart(state, action: PayloadAction<boolean>) {
-      console.log("hrer");
-      if (state.currentFoodItem) {
-        state.currentFoodItem = {
-          ...state.currentFoodItem,
-          addedToCart: action.payload,
-        };
-      }
-    },
-    setCurrentFoodItem(state, action: PayloadAction<IFoodItem | null>) {
-      state.currentFoodItem = action.payload;
+
+    setCurrentProductItem(state, action: PayloadAction<IProductItem | null>) {
+      state.currentProductItem = action.payload;
     },
   },
 });
 
-export const { setShowFoodItemOverlay, setCurrentFoodItem, setAddedToCart } =
+export const { setShowProductItemOverlay, setCurrentProductItem } =
   foodItemOverlaySlice.actions;
 
 export default foodItemOverlaySlice.reducer;

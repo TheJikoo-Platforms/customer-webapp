@@ -119,7 +119,7 @@ const NotificationOverlayDesktop = () => {
               className="bg-white rounded-xl h-screen w-full rounded-l-2xl max-w-[520px] overflow-y-auto scrollbar-none"
             >
               {/* Top Bar */}
-              <div className="flex items-center justify-between p-6 gap-6 bg-white sticky top-0 w-full z-30 pb-3 rounded-tl-2xl">
+              <div className="flex items-center justify-between p-6 gap-6 bg-white sticky top-0 w-full z-50 pb-3 rounded-tl-2xl">
                 <p className="text-grey-900 text-xl font-bold tracking-[-0.4px]">
                   Notifications
                 </p>
@@ -205,10 +205,10 @@ const NotificationsOverlayMobile = () => {
   return (
     <AnimatePresence>
       {showNotificationOverlay && (
-        <Backdrop className="z-[100]" variants={slideUp}>
+        <Backdrop variants={slideUp}>
           <div className="flex w-full justify-end items-center relative">
             <div className="bg-white rounded-xl h-screen w-full overflow-y-auto scrollbar-none">
-              <div className="flex items-center justify-between p-6 gap-6 bg-white sticky top-0 w-full z-30 pb-3 ">
+              <div className="flex items-center justify-between p-6 gap-6 bg-white sticky top-0 w-full z-50 pb-3 ">
                 <button
                   className=""
                   onClick={handleCloseNotifications}

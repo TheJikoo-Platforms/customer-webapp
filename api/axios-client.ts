@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// Request Interceptor
+// Request Interceptor to attach token to every request
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -17,46 +17,25 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response Interceptor for Refresh Token Logic
+// Response Interceptor to handle expired or invalid tokens
 axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
+  (response) => response, // Return response if it's successful
+  (error) => {
     const originalRequest = error.config;
 
-    // Check if the error is due to expired token (usually a 401 Unauthorized status)
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true; // Avoid infinite loop
-      try {
-        // Request a new access token using the refresh token
-        const refreshToken = localStorage.getItem("refreshToken");
-        const response = await axios.post(
-          "https://your-api-endpoint.com/refresh-token",
-          { refreshToken }
-        );
+    // If the token has expired or is invalid (401 Unauthorized)
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true; // Prevent infinite retry loop
 
-        // Store the new access token
-        localStorage.setItem("accessToken", response.data.accessToken);
+      // Log out the user, clear tokens, and redirect to login page
+      console.error("Token expired or invalid. Logging out...");
+      localStorage.clear(); // Clear all stored tokens
+      window.location.href = "/login"; // Redirect to login page
 
-        // Update the authorization header with the new token
-        axiosInstance.defaults.headers[
-          "Authorization"
-        ] = `Bearer ${response.data.accessToken}`;
-        originalRequest.headers[
-          "Authorization"
-        ] = `Bearer ${response.data.accessToken}`;
-
-        // Retry the original request with the new access token
-        return axiosInstance(originalRequest);
-      } catch (refreshError) {
-        // Handle refresh token expiration (e.g., log out the user)
-        console.error("Refresh token expired or invalid. Logging out.");
-        localStorage.clear(); // Clear tokens
-        window.location.href = "/login"; // Redirect to login
-        return Promise.reject(refreshError);
-      }
+      return Promise.reject(error); // Reject the error to stop further execution
     }
 
-    return Promise.reject(error);
+    return Promise.reject(error); // Handle other errors as usual
   }
 );
 
