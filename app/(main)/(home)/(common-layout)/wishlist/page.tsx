@@ -2,7 +2,7 @@ import InnerHeader from "@/components/inner-page-header-mobile";
 import { WishlistContainer } from "@/components/wishlist/wishlist-container";
 
 export default async function WishlistPage() {
-  await new Promise((resolve, reject) => setTimeout(resolve, 500));
+  await new Promise((resolve, reject) => setTimeout(resolve, 1000));
   return (
     <div className="bg-white min-h-screen lg:bg-transparent">
       <div className="bg-white py-3 px-6 mt-[57px] md:mt-0 lg:mb-4 lg:rounded-xl items-center gap-2 hidden lg:flex">
