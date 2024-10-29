@@ -6,20 +6,22 @@ import locationReducer from "./slices/backdrop/location";
 import notificationsReducer from "./slices/backdrop/notifications";
 import searchReducer from "./slices/backdrop/search";
 import foodItemOverlayReducer from "./slices/backdrop/food-items";
-import foodItemDataReducer from "./slices/backdrop/food-items-data";
+import foodItemDataReducer from "./slices/backdrop/cart-items";
 import cartOverlayReducer from "./slices/backdrop/cart";
 import authSliceReducer from "./slices/authslice";
 import savedAddressReducer from "./slices/saved-address";
 import settingsOverlayReducer from "./slices/settings-slice";
 import walletReducer from "./slices/wallet-slice";
 import userReducer from "./slices/user-slice";
+import recentSearchReducer from "./slices/recent-search-slice";
+import wishlistReducer from "./slices/wishlist-items";
 
 const isClient = typeof window !== "undefined";
 // Define the persist configuration
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["foodItemData", "savedAddress"], // Persist only the reducers you want
+  whitelist: ["foodItemData", "savedAddress", "recentSearch", "wishlist"], // Persist only the reducers you want
 };
 
 // Combine reducers (if you're persisting multiple reducers, you need to combine them first)
@@ -35,6 +37,8 @@ const rootReducer = combineReducers({
   settingsOverlay: settingsOverlayReducer,
   walletOverlay: walletReducer,
   user: userReducer,
+  recentSearch: recentSearchReducer,
+  wishlist: wishlistReducer,
 });
 
 // Create a persisted version of the rootReducer

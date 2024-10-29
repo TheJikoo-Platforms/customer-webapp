@@ -6,7 +6,8 @@ export const metadata: Metadata = {
   description: "Wallet",
 };
 
-export default function WalletPage() {
+export default async function WalletPage() {
+  await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
     <>
       <Wallet />

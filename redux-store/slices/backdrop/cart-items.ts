@@ -19,15 +19,22 @@ const foodItemSlice = createSlice({
   name: "foodItems",
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<IProductItem>) {
-      const product = action.payload;
+    addToCart(
+      state,
+      action: PayloadAction<{ product: IProductItem; quantity: number }>
+    ) {
+      const { product, quantity } = action.payload;
+
       const existingCartItem = state.cartItems.find(
         (cartItem) => cartItem.product._id === product._id
       );
+
       if (existingCartItem) {
-        existingCartItem.quantity += 1; // Increment quantity if product exists in the cart
+        // If the product already exists, increase its quantity by the specified amount
+        existingCartItem.quantity = quantity;
       } else {
-        state.cartItems.push({ product, quantity: 1 }); // Add new item with quantity 1
+        // Add a new item with the specified quantity
+        state.cartItems.push({ product, quantity });
       }
     },
 

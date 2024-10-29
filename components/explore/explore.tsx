@@ -79,7 +79,7 @@ export const CategoryList = ({
   headingSize?: string;
 }) => {
   return (
-    <div className="px-5 lg:px-0 overflow-x-hidden">
+    <>
       <Text className={cn("text-xl mb-3 tracking-[-0.4px]", headingSize)}>
         Categories
       </Text>
@@ -93,7 +93,7 @@ export const CategoryList = ({
           <ExploreItem href="/vendors" data={el} key={key} />
         ))}
       </HorizontalScroll>
-    </div>
+    </>
   );
 };
 
