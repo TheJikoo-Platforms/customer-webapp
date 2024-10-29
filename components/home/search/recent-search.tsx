@@ -5,11 +5,17 @@ import { LuClock3 } from "react-icons/lu";
 import { Text } from "../../ui/text";
 import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
+import { useCategories } from "../hooks/use-categories";
+import { HorizontalScroll } from "@/components/horizontal-scroll";
+import { ExploreItem } from "@/components/explore/explore-item";
+import { ICategory } from "@/components/types";
 
 export const RecentSearch = () => {
   const searches = useAppSelector(
     (state: RootState) => state.recentSearch.searches
   );
+  const { data } = useCategories(1, 30);
+  console.log(data);
   return (
     <div className="">
       <div className="flex items-center justify-between ">
@@ -38,11 +44,17 @@ export const RecentSearch = () => {
           <p className="text-sm text-grey-400">No recent search</p>
         )}
       </div>
-      <div className="-translate-x-6 lg:translate-x-0 mt-4">
-        <CategoryList
-          headingSize="text-base tracking-normal py-4 border-t border-t-grey-100"
-          className="flex flex-wrap px-0 py-4 border-b border-b-grey-100"
-        />
+      <div className="mt-4">
+        {data?.data?.categories && (
+          <>
+            <Text className="text-base mb-3 tracking-[-0.4px]">Categories</Text>
+            <div className="gap-6 flex flex-wrap">
+              {data?.data?.categories?.map((el: ICategory) => (
+                <ExploreItem data={el} key={el.index} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

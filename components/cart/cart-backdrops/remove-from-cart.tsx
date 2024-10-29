@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { setShowCartOverlay } from "@/redux-store/slices/backdrop/cart";
-import { removeFromCart } from "@/redux-store/slices/backdrop/food-items-data";
+import { removeFromCart } from "@/redux-store/slices/backdrop/cart-items";
 import { RootState } from "@/redux-store/store";
 import { IoClose } from "react-icons/io5";
 

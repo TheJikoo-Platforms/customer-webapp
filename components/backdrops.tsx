@@ -10,7 +10,7 @@ import { LocationOverlay } from "./location/overlay";
 import SettingsOverlay from "./settings/overlay/overlay";
 import WalletOverlay from "./wallet/overlay/overlay";
 import { CartBackdrops } from "./cart/cart-backdrops/cart-backdrops";
-import { SearchUIOverlay } from "./home/search/search-ui-overlay";
+import { SearchUIOverlay } from "./home/search/search-ui-overlay-container";
 
 export default function Backdrops() {
   const showLocationOverlay = useAppSelector(

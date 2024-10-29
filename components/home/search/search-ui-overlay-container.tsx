@@ -7,7 +7,7 @@ import { slideUp } from "@/variants";
 import { setShowSearchOverlay } from "@/redux-store/slices/backdrop/search";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 import Backdrop from "@/components/ui/backdrop";
-import { SearchUI } from "./search-ui";
+import { SearchUIDesktopOverlay } from "./search-ui-overlay-desktop";
 
 export const SearchUIOverlay = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +29,7 @@ export const SearchUIOverlay = () => {
                 ref={mainRef}
                 className="sm600:rounded-xl bg-white mb-4 flex flex-col gap-6 sm600:w-[599px] lg:w-[800px] h-[calc(100vh-68px)] sm600:max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-none"
               >
-                <SearchUI />
+                <SearchUIDesktopOverlay />
               </div>
             </div>
           </Backdrop>

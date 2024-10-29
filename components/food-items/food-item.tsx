@@ -37,7 +37,10 @@ export const FoodItem = ({ data }: { data: IProductItem }) => {
             className="w-full min-w-[102px] object-cover rounded-md rounded-br-[32px] h-full max-h-[120px]"
             quality={100}
           />
-          <WishlistButton className="absolute top-[8px] left-[5px]" />
+          <WishlistButton
+            product={data}
+            className="absolute top-[8px] left-[5px]"
+          />
           {/* Exclusive */}
           <div className="bg-[#4A1AAD] text-xs text-white pl-[11px] pr-[15px] pt-[1px] pb-[2px] absolute bottom-3 left-0 text-nowrap rounded-r-full">
             Exclusive ✨

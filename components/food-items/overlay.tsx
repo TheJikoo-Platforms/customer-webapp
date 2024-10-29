@@ -5,7 +5,7 @@ import { setShowProductItemOverlay } from "@/redux-store/slices/backdrop/food-it
 import { RootState } from "@/redux-store/store";
 import { fadeIn, slideUp } from "@/variants";
 import { AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Backdrop from "../ui/backdrop";
 import Image from "next/image";
 import { TiStarFullOutline } from "react-icons/ti";
@@ -14,7 +14,7 @@ import { LuDot } from "react-icons/lu";
 import { IoIosClose } from "react-icons/io";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { Button } from "../ui/button";
-import { addToCart } from "@/redux-store/slices/backdrop/food-items-data";
+import { addToCart } from "@/redux-store/slices/backdrop/cart-items";
 
 export const FoodItemOverlay = () => {
   const [isRequiredSelected, setIsRequiredSelected] = useState(false);
@@ -39,10 +39,18 @@ export const FoodItemOverlay = () => {
   const isAddedToCart = currentProductItem
     ? cartItems?.some((item) => item.product._id === currentProductItem._id)
     : false;
-
+  const existingCartItem =
+    isAddedToCart && currentProductItem
+      ? cartItems.find((item) => item.product._id === currentProductItem._id)
+      : null;
   useOnClickOutside(innerErrorRef, handleCloseError);
   useOnClickOutside([productRef, outerErrorRef], handleCloseFoodItems);
   const [quantity, setQuantity] = useState(1);
+  useEffect(() => {
+    if (existingCartItem) {
+      setQuantity(existingCartItem.quantity);
+    }
+  }, [existingCartItem]);
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () => {
     if (quantity > 1) {
@@ -55,7 +63,7 @@ export const FoodItemOverlay = () => {
     //   return;
     // }
     if (currentProductItem) {
-      dispatch(addToCart(currentProductItem));
+      dispatch(addToCart({ product: currentProductItem, quantity: quantity }));
       handleCloseFoodItems();
     }
   };

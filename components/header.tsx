@@ -8,12 +8,18 @@ import { ScrollWrapper } from "@/components/scroll-shadow";
 import { ToggleTheme } from "./toggle-theme";
 import { WideWrapper } from "./wrappers";
 import { Nav } from "./nav";
-import { ArrowDownIcon, BellIcon } from "./ui/icons";
+import {
+  ArrowDownIcon,
+  BellIcon,
+  WishListIconFilled,
+  WishListIconStroke,
+} from "./ui/icons";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { setShowNotificationsOverlay } from "@/redux-store/slices/backdrop/notifications";
 import { RootState } from "@/redux-store/store";
 import { EnterLocation } from "./location/enter-location-button";
 import { NavAccountIcon } from "./ui/icons/avatar";
+import { usePathname } from "next/navigation";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +29,8 @@ export const Header = () => {
   const isAuthenticated = useAppSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
-
+  const pathname = usePathname();
+  const activePath = pathname.slice(1).split("/").at(0);
   return (
     <>
       <ScrollWrapper asChild>
@@ -61,7 +68,14 @@ export const Header = () => {
                 {/* Decide what to display base on authentication */}
 
                 {isAuthenticated ? (
-                  <div className="flex gap-5">
+                  <div className="flex gap-5 items-center">
+                    <Link href="/wishlist" className="mt-0.5">
+                      {activePath === "wishlist" ? (
+                        <WishListIconFilled />
+                      ) : (
+                        <WishListIconStroke />
+                      )}
+                    </Link>
                     <button
                       onClick={handleShowNotifications}
                       type="button"
