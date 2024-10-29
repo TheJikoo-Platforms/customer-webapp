@@ -6,7 +6,8 @@ export const metadata: Metadata = {
   description: "Orders",
 };
 
-export default function OrdersPage() {
+export default async function OrdersPage() {
+  await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
     <>
       <OrderContainer />

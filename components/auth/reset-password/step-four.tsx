@@ -1,24 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/public/logo.png";
 import AuthHeading from "../auth-heading";
-import BorderedDiv from "../bordered-div";
-import { UnstyledInput } from "@/components/ui/unstyled-input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "@/components/ui/icons";
-import { HidePasswordIcon, PasswordKey, ShowPasswordIcon } from "../ui/icons";
 import { useTransitionRouter } from "next-view-transitions";
 
 interface StepFourProps {

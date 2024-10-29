@@ -6,7 +6,8 @@ export const metadata: Metadata = {
   description: "Settings",
 };
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  await new Promise((resolve, reject) => setTimeout(resolve, 500));
   return (
     <>
       <Settings />

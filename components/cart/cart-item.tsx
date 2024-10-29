@@ -14,7 +14,7 @@ import {
   decreaseQuantity,
   ICartItem,
   increaseQuantity,
-} from "@/redux-store/slices/backdrop/food-items-data";
+} from "@/redux-store/slices/backdrop/cart-items";
 interface Item {
   name: string;
   price: string;

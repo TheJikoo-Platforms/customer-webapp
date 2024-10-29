@@ -10,15 +10,15 @@ interface BackdropProps {
 }
 
 export const Backdrop = ({ children, variants, className }: BackdropProps) => {
-  useEffect(() => {
-    // Prevent body from scrolling when the backdrop is visible
-    document.body.classList.add("overflow-hidden");
+  // useEffect(() => {
+  //   // Prevent body from scrolling when the backdrop is visible
+  //   document.body.classList.add("overflow-hidden");
 
-    return () => {
-      // Restore body scroll when the backdrop is hidden
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, []);
+  //   return () => {
+  //     // Restore body scroll when the backdrop is hidden
+  //     document.body.classList.remove("overflow-hidden");
+  //   };
+  // }, []);
 
   return (
     <motion.div
@@ -27,7 +27,7 @@ export const Backdrop = ({ children, variants, className }: BackdropProps) => {
       animate="animate"
       exit="exit"
       className={cn(
-        "fixed inset-0 bg-[#3E383866] backdrop-blur-[2px] z-[200] w-full h-full",
+        "fixed inset-0 bg-[#3E383866] backdrop-blur-[2px] z-[200] w-full h-full overscroll-contain overflow-hidden",
         className
       )}
     >
