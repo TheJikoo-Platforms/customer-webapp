@@ -149,7 +149,7 @@ export const updateUserProfile = async ({
   if (dob) formData.append("dob", dob);
   if (imageFile) formData.append("photo", imageFile);
 
-  const response = await axiosInstance.put("users/upload/profile", formData, {
+  const response = await axiosInstance.put("/users/update/profile", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
