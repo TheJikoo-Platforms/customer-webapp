@@ -8,18 +8,22 @@ import { Promo } from "./promo";
 import { DeleteAccount } from "./delete-account";
 
 const Settings = () => {
-  const [activeScreen, setActiveScreen] = useState("home");
+  const [activeScreen, setActiveScreen] = useState<string | null>(null); // Initially null to avoid SSR mismatch
+  const [isMounted, setIsMounted] = useState(false); // Tracks if the component has mounted
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+
+  useEffect(() => {
+    setIsMounted(true); // Component has mounted
+    setActiveScreen(isMobile ? "home" : "profile");
+  }, [isMobile]);
+
   const handleActiveScreen = (screen: string) => {
     setActiveScreen(screen);
   };
-  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
-  useEffect(() => {
-    if (isMobile) {
-      setActiveScreen("home");
-    } else {
-      setActiveScreen("profile");
-    }
-  }, [isMobile]);
+
+  // Render nothing until the component is mounted
+  if (!isMounted) return null;
+
   return (
     <section className="bg-white min-h-screen md:min-h-[700px] pb-[125px] md:grid md:grid-cols-2 md:gap-4 md:bg-transparent md:mt-6 md:px-6 max-w-[972px] justify-center lg:grid-cols-[468px,480px] mx-auto">
       <div

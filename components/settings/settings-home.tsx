@@ -9,6 +9,7 @@ import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
 import { CiLocationOn, CiUser } from "react-icons/ci";
 import { PiGiftLight } from "react-icons/pi";
+import Skeleton from "../ui/skeleton";
 
 const LINKS = [
   {
@@ -41,6 +42,7 @@ export const SettingsHome = React.memo(
     const isAuthenticated = useAppSelector(
       (state: RootState) => state.auth.isAuthenticated
     );
+    const user = useAppSelector((state: RootState) => state.user.user);
     const handleNavigate = (linkName: string) => {
       if (
         linkName.toLowerCase() === "support" ||
@@ -98,32 +100,45 @@ export const SettingsHome = React.memo(
         ) : (
           <div className="px-5 py-4 md:pt-5">
             <div className="md:flex md:items-center gap-4">
-              <Image
-                src="/avatar.png"
-                height={100}
-                width={100}
-                alt="User Picture"
-                className="w-16 h-16 rounded-full"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(0deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.40)), url(<path-to-image>)",
-                  backgroundColor: "",
-                  backgroundPosition: "50%",
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                }}
-              />
+              {user ? (
+                <Image
+                  src={user.image || "/avatar-settings.png"}
+                  height={100}
+                  width={100}
+                  alt="User Picture"
+                  className="w-16 h-16 rounded-full object-cover"
+                />
+              ) : (
+                <Skeleton className="w-16 h-16 rounded-full bg-grey-200" />
+              )}
 
-              <div className="">
-                <p className="text-xl md:text-base text-black font-bold tracking-[-0.4px] md:tracking-normal mt-6 md:mt-0 uppercase md:capitalize">
-                  Adewale Adedamola
-                </p>
-                <p className="hidden md:block text-grey-500 text-sm">
-                  adewale@gmail.com
-                </p>
-                <p className="text-black mb-5 md:mb-0 md:text-grey-500 md:text-sm">
-                  +2348103567483
-                </p>
+              <div>
+                {/* Name Skeleton */}
+                {user?.firstname ? (
+                  <p className="text-xl md:text-base text-black font-bold uppercase">
+                    {user.firstname + "" + " " + user.lastname}
+                  </p>
+                ) : (
+                  <Skeleton className="h-3 w-40 bg-grey-200 mb-2" />
+                )}
+
+                {/* Email Skeleton */}
+                {user?.email ? (
+                  <p className="hidden md:block text-grey-500 text-sm">
+                    {user.email}
+                  </p>
+                ) : (
+                  <Skeleton className="h-3 w-32 bg-grey-200 hidden md:block mb-2" />
+                )}
+
+                {/* Phone Skeleton */}
+                {user?.phone ? (
+                  <p className="text-black md:text-grey-500 md:text-sm">
+                    {user.phone}
+                  </p>
+                ) : (
+                  <Skeleton className="h-3 w-24 bg-grey-200" />
+                )}
               </div>
             </div>
 

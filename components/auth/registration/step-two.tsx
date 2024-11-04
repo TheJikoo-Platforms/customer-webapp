@@ -1,11 +1,13 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  emailSchema,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
+  passwordSchema,
   phoneSchema,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +25,9 @@ import { ArrowLeftIcon } from "@/components/ui/icons";
 import { NGFlag } from "../ui/icons";
 import { FaCircleCheck } from "react-icons/fa6";
 import { getFieldClassName } from "@/lib/utils";
+import Tab, { ITabOptions } from "../tab";
+import { useMutation } from "@tanstack/react-query";
+import { verifyMail } from "@/api/requests";
 
 interface StepTwoProps {
   onSubmit: (data: string) => void;
@@ -32,29 +37,73 @@ interface StepTwoProps {
 export const StepTwoForm = React.memo(
   ({ onSubmit, handleNextStep }: StepTwoProps) => {
     const { toast } = useToast();
-    const stepTwoForm = useForm<z.infer<typeof phoneSchema>>({
-      resolver: zodResolver(phoneSchema),
-      mode: "onTouched",
-      defaultValues: {
-        phoneNumber: "",
-      },
-    });
+    const [authOption, setAuthOption] = useState("mail");
+    // Combined schemas
 
-    const handlestepTwoSubmit = async (values: z.infer<typeof phoneSchema>) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast({
-        title: "OTP Sent",
-        icon: (
-          <div className="w-6 h-6 bg-state-success-50 border border-state-success-75 flex items-center justify-center rounded">
-            <FaCircleCheck className="text-state-success-600" />
-          </div>
-        ),
-      });
-      console.log("stepTwo submitted: ", values);
-      handleNextStep(3);
-      onSubmit(values.phoneNumber);
-    };
+    const formSchema = authOption === "phone" ? phoneSchema : emailSchema;
+    const combinedDefaultValues = authOption
+      ? { phoneNumber: "", password: "" }
+      : { mail: "", password: "" };
+    const stepTwoForm = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+      mode: "onTouched",
+      defaultValues: combinedDefaultValues,
+    });
     const errors = stepTwoForm.formState.errors;
+    // const {
+    //   mutate: verifyMutation,
+    //   isLoading,
+    //   isError,
+    // } = useMutation(
+    //   (values: z.infer<typeof formSchema>) => {
+    //     if ("phoneNumber" in values) {
+    //       return loginUserNumber({
+    //         phone: "+234" + values.phoneNumber,
+    //         password: values.password,
+    //       });
+    //     } else {
+    //       return verifyMail({ email: values.mail });
+    //     }
+    //   },
+    //   {
+    //     onSuccess: (response) => {
+    //       console.log("Login successful:", response);
+    //       toast({
+    //         title: response?.message,
+    //         icon: (
+    //           <div className="w-6 h-6 bg-state-success-50 border border-state-success-75 flex items-center justify-center rounded">
+    //             <FaCircleCheck className="text-state-success-600" />
+    //           </div>
+    //         ),
+    //       });
+    //     },
+    //     onError: (error: any) => {
+    //       console.error(
+    //         "Error during login:",
+    //         error.response?.data || error.message
+    //       );
+    //       const errorMessage = !error.response
+    //         ? "Network error: Please check your internet connection."
+    //         : error.response.data.errors ||
+    //           error.response.data.message ||
+    //           "An unexpected error occurred.";
+
+    //       toast({
+    //         title: errorMessage,
+    //         variant: "error",
+    //         icon: (
+    //           <div className="w-6 h-6 bg-state-error-50 border border-state-error-75 flex items-center justify-center rounded">
+    //             <MdCancel className="text-state-error-500" />
+    //           </div>
+    //         ),
+    //       });
+    //     },
+    //   }
+    // );
+
+    const handleFormSubmit = (values: z.infer<typeof formSchema>) => {
+      onSubmit("");
+    };
 
     return (
       <div className="flex flex-col min-h-[calc(100dvh-100px)] md:min-h-[initial]">
@@ -63,7 +112,7 @@ export const StepTwoForm = React.memo(
             <button
               type="button"
               onClick={() => handleNextStep(1)}
-              className={"cursor-pointer absolute left-0"}
+              className="cursor-pointer absolute left-0"
             >
               <ArrowLeftIcon />
             </button>
@@ -79,14 +128,11 @@ export const StepTwoForm = React.memo(
               />
             </Link>
           </div>
-          <AuthHeading
-            text={"Enter your phone number"}
-            // text={"Enter your email address"}
-            className="w-[280px] mx-auto"
-          />
+          <AuthHeading text="Create your account" className="my-14" />
+
           <Form {...stepTwoForm}>
             <form
-              onSubmit={stepTwoForm.handleSubmit(handlestepTwoSubmit)}
+              onSubmit={stepTwoForm.handleSubmit(handleFormSubmit)}
               className="space-y-3"
             >
               <FormField

@@ -82,18 +82,18 @@ export const BankOption = React.memo(
             <ul className="space-y-0">
               <TopUpOption
                 handleCurrentScreen={handleCurrentScreen}
-                label="Bank"
+                label="Fiat (Naira)"
                 icon={<CardIcon />}
                 currentScreen={currentScreen}
                 screenName="bank"
               />
-              <TopUpOption
+              {/* <TopUpOption
                 handleCurrentScreen={handleCurrentScreen}
                 label="Card payment"
                 icon={<CardIcon />}
                 currentScreen={currentScreen}
                 screenName="bank"
-              />
+              /> */}
               <TopUpOption
                 handleCurrentScreen={handleCurrentScreen}
                 label="Crypto (USDT and USDC)"

@@ -37,7 +37,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import { UnstyledInput } from "../ui/unstyled-input";
 import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
-import axiosInstance from "@/api/axios-client";
+import { useUpdateUserProfile } from "./use-update-profile";
 
 const formSchema = z.object({
   firstName: z
@@ -77,16 +77,18 @@ export const ProfileForm = React.memo(
   ({
     isUpdating,
     setIsUpdating,
+    file,
   }: {
     isUpdating: boolean;
     setIsUpdating: React.Dispatch<React.SetStateAction<boolean>>;
+    file: File | null;
   }) => {
     const { toast } = useToast();
     const router = useTransitionRouter();
     const ref = useRef<HTMLDivElement>(null);
     const [isCalendarFocused, setIsCalendarFocused] = useState(false);
     const user = useAppSelector((state: RootState) => state.user.user);
-    // console.log(user);
+    console.log(user);
     const profileForm = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       mode: "onTouched",
@@ -115,73 +117,19 @@ export const ProfileForm = React.memo(
     useOnClickOutside(ref, handleCalendarFocusOutside);
 
     const {
-      mutate: updateMutation,
+      mutate: updateProfileMutation,
       isLoading,
       isError,
       data,
-    } = useMutation(
-      async (values: any) => {
-        const promises = [];
-        // Check if fields are updated and push corresponding requests
-        if (
-          values.firstname !== user?.firstname ||
-          values.lastname !== user?.lastname
-        ) {
-          promises.push(updateUserName(values.firstname, values.lastname));
-        }
-
-        if (values.email !== user?.email) {
-          promises.push(updateUserEmail(values.email));
-        }
-
-        if (values.dob !== formatDate(user?.dob)) {
-          promises.push(updateUserDob(values.dob));
-        }
-
-        // Add more checks for other fields as necessary
-        if (promises.length === 0) {
-          // Return a rejected promise to prevent onSuccess from being called
-          return Promise.reject(new Error("Nothing was changed"));
-        }
-
-        // Execute all promises in parallel
-        return Promise.all(promises);
-      },
-      {
-        onSuccess: (response: any) => {
-          console.log(response);
-          toast({
-            title: "Profile updated successfully!",
-            icon: (
-              <div className="w-6 h-6 bg-state-success-50 border border-state-success-75 flex items-center justify-center rounded">
-                <FaCircleCheck className="text-state-success-600" />
-              </div>
-            ),
-          });
-        },
-        onError: (error: any) => {
-          console.error("Error during update:", error);
-          toast({
-            title: "Update failed",
-            description: error.message || "An unexpected error occurred.",
-            variant: "error",
-            icon: (
-              <div className="w-6 h-6 bg-state-error-50 border border-state-error-75 flex items-center justify-center rounded">
-                <MdCancel className="text-state-error-500" />
-              </div>
-            ),
-          });
-        },
-      }
-    );
+    } = useUpdateUserProfile();
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-      // console.log({ ...values, dob: formatDate(values.dob) });
-      updateMutation({
+      updateProfileMutation({
         firstname: values.firstName,
         lastname: values.lastName,
         email: values.email,
-        phone: "+234" + values.phoneNumber,
+        // phone: "+234" + values.phoneNumber,
+        imageFile: file,
         dob: formatDate(values.dob),
       });
     };
