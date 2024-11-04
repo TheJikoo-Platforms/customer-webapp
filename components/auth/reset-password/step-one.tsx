@@ -6,6 +6,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -114,13 +115,16 @@ export const StepOneForm = React.memo(
         <Form {...mailForm}>
           <form
             onSubmit={mailForm.handleSubmit(handleMailSubmit)}
-            className="space-y-3"
+            className="space-y-4"
           >
             <FormField
               control={mailForm.control}
               name="mail"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel className="text-sm font-medium mb-1">
+                    Email
+                  </FormLabel>
                   <FormControl>
                     <BorderedDiv
                       className={`items-center gap-2 ${
@@ -131,7 +135,7 @@ export const StepOneForm = React.memo(
                     >
                       <UnstyledInput
                         type="text"
-                        placeholder="Email Address"
+                        placeholder="Enter email address"
                         className="placeholder:text-grey-400 font-normal"
                         {...field}
                       />
@@ -144,11 +148,11 @@ export const StepOneForm = React.memo(
             <Button
               type="submit"
               disabled={isLoading}
-              className={`bg-primary w-full rounded-md font-semibold mt-4 ${
+              className={`bg-primary w-full rounded-md font-semibold ${
                 isLoading && "opacity-65 transition-all"
               }`}
             >
-              {isLoading ? "Confirming..." : "Confirm email"}
+              {isLoading ? "Confirming..." : "Continue"}
             </Button>
           </form>
         </Form>

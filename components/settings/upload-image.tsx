@@ -1,11 +1,16 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
+import { useToast } from "../ui/use-toast";
+import { MdCancel } from "react-icons/md";
+import { UploadImageProps } from "./profile";
+import { RootState } from "@/redux-store/store";
+import { useAppSelector } from "@/redux-store/hooks";
 
-const UploadImage = () => {
+const UploadImage = ({ file, setFile }: UploadImageProps) => {
+  const { toast } = useToast();
+  const user = useAppSelector((state: RootState) => state.user.user);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [file, setFile] = useState<File | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState("");
   const handleButtonClick = () => {
     inputRef.current?.click();
@@ -15,9 +20,18 @@ const UploadImage = () => {
     if (!selectedFile) {
       return; // No file selected
     }
-    const MAX_IMAGE_SIZE = 1024 * 1024; // 1MB
+    const MAX_IMAGE_SIZE = 3 * 1024 * 1024; // 3MB
     if (selectedFile.size > MAX_IMAGE_SIZE) {
-      setError("Image size exceeds maximum limit (1MB)");
+      toast({
+        // title: "Update failed",
+        description: "Image size exceeds maximum limit (3MB)",
+        variant: "error",
+        icon: (
+          <div className="w-6 h-6 bg-state-error-50 border border-state-error-75 flex items-center justify-center rounded">
+            <MdCancel className="text-state-error-500" />
+          </div>
+        ),
+      });
       return;
     }
 
@@ -30,7 +44,6 @@ const UploadImage = () => {
     };
 
     setFile(selectedFile);
-    setError(null);
   };
 
   const handleCancel = () => {
@@ -52,19 +65,11 @@ const UploadImage = () => {
           <PreviewImage url={previewUrl} />
         ) : (
           <Image
-            src="/avatar.png"
+            src={user?.image || "/avatar-settings.png"}
             height={100}
             width={100}
             alt="User Picture"
-            className="w-16 h-16 rounded-full object-cover"
-            style={{
-              backgroundImage:
-                "linear-gradient(0deg, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.40)), url(<path-to-image>)",
-              backgroundColor: "#D4AFBD",
-              backgroundPosition: "50%",
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-            }}
+            className="w-16 h-16 rounded-full mx-auto object-cover"
           />
         )}
         <span className="absolute bottom-px -right-1">

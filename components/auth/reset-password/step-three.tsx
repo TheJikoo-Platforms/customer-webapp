@@ -33,15 +33,20 @@ interface StepThreeProps {
 const passwordSchema = z.object({
   password: z
     .string()
-    .length(6, { message: "Password must be exactly 6 digits" })
-    .regex(/^\d{6}$/, { message: "Password must contain only digits" }),
-
+    .min(8, { message: "Password must be more than 8 character" })
+    .regex(/[a-z]/, {
+      message: "Password must contain at least one lowercase letter",
+    })
+    .regex(/[A-Z]/, {
+      message: "Password must contain at least one uppercase letter",
+    })
+    .regex(/\d/, { message: "Password must contain at least one number" })
+    .regex(/[\W_]/, {
+      message: "Password must contain at least one special character",
+    }),
   confirmPassword: z
     .string()
-    .length(6, { message: "Confirm Password must be exactly 6 digits" })
-    .regex(/^\d{6}$/, {
-      message: "Confirm Password must contain only digits",
-    }),
+    .min(8, { message: "Confirm Password must be exactly 8 digits" }),
 });
 
 export const StepThreeForm = React.memo(
@@ -216,7 +221,7 @@ export const StepThreeForm = React.memo(
                       <UnstyledInput
                         type={
                           passwordVisibility.confirmPassword
-                            ? "number"
+                            ? "text"
                             : "password"
                         }
                         placeholder="Confirm your password"

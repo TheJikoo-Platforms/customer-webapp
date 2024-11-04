@@ -24,7 +24,7 @@ export const NavAccountIcon = ({
         width={640}
         height={640}
         className={cn(
-          "rounded-full border-[2.363px] border-white bg-[#FFE7CC]",
+          "rounded-full border-[2px] border-white bg-[#FFE7CC] object-cover",
           className
         )}
       />

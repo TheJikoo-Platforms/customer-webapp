@@ -182,11 +182,12 @@ const emailSchema = z.object({
 const phoneSchema = z.object({
   phoneNumber: z
     .string()
-    .length(10, "Phone number must be at exactly 10 digits")
+    .min(10, "Phone number must be at least 10 digits")
+    .max(11, "Phone number can be at most 11 digits if it starts with 0")
     .regex(/^\d+$/, "Phone number must only contain numbers")
     .regex(
-      /^[789][01]\d{8}$/,
-      "Invalid phone number. Must begin with 7, 8, or 9 then 0 or 1"
+      /^0?[789][01]\d{8}$/,
+      "Invalid phone number. Must be 10 digits, starting with an optional 0, followed by 7, 8, or 9, and then 0 or 1"
     ),
 });
 
@@ -200,8 +201,17 @@ const otpSchema = z.object({
 const passwordSchema = z.object({
   password: z
     .string()
-    .length(6, { message: "Pasword must be exactly 6 digits" }) // Ensures length of 6
-    .regex(/^\d{6}$/, { message: "Password must contain only digits" }), // Ensures it is numeric
+    .min(8, { message: "Password must be more than 8 character" })
+    .regex(/[a-z]/, {
+      message: "Password must contain at least one lowercase letter",
+    })
+    .regex(/[A-Z]/, {
+      message: "Password must contain at least one uppercase letter",
+    })
+    .regex(/\d/, { message: "Password must contain at least one number" })
+    .regex(/[\W_]/, {
+      message: "Password must contain at least one special character",
+    }),
 });
 export {
   useFormField,

@@ -70,33 +70,29 @@ const formSchema = z
       .email("Please enter a valid email"),
     phoneNumber: z
       .string()
-      .length(10, "Phone number must be at exactly 10 digits")
+      .min(10, "Phone number must be at least 10 digits")
+      .max(11, "Phone number can be at most 11 digits if it starts with 0")
       .regex(/^\d+$/, "Phone number must only contain numbers")
       .regex(
-        /^[789][01]\d{8}$/,
-        "Invalid phone number. Must begin with 7, 8, or 9 then 0 or 1"
+        /^0?[789][01]\d{8}$/,
+        "Invalid phone number. Must be 10 digits, starting with an optional 0, followed by 7, 8, or 9, and then 0 or 1"
       ),
     password: z
       .string()
-      .length(6, { message: "Password must be exactly 6 digits" })
-      .regex(/^\d{6}$/, { message: "Password must contain only digits" }),
-
-    // .regex(/[a-z]/, {
-    //   message: "Password must contain at least one lowercase letter",
-    // })
-    // .regex(/[A-Z]/, {
-    //   message: "Password must contain at least one uppercase letter",
-    // })
-    // .regex(/\d/, { message: "Password must contain at least one number" })
-    // .regex(/[\W_]/, {
-    //   message: "Password must contain at least one special character",
-    // }),
+      .min(8, { message: "Password must be more than 8 character" })
+      .regex(/[a-z]/, {
+        message: "Password must contain at least one lowercase letter",
+      })
+      .regex(/[A-Z]/, {
+        message: "Password must contain at least one uppercase letter",
+      })
+      .regex(/\d/, { message: "Password must contain at least one number" })
+      .regex(/[\W_]/, {
+        message: "Password must contain at least one special character",
+      }),
     confirmPassword: z
       .string()
-      .length(6, { message: "Confirm Password must be exactly 6 digits" })
-      .regex(/^\d{6}$/, {
-        message: "Confirm Password must contain only digits",
-      }),
+      .min(8, { message: "Confirm Password must be exactly 8 digits" }),
     dob: z.string().min(6, { message: "Enter date of birth" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -303,7 +299,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                       <CiMail className="text-2xl text-grey-400" />
                       <UnstyledInput
                         type="text"
-                        placeholder="Email address"
+                        placeholder="Enter email address"
                         className="placeholder:text-grey-400 text-grey-900 font-normal"
                         {...field}
                       />
@@ -362,9 +358,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                     >
                       <PasswordKey />
                       <UnstyledInput
-                        type={
-                          passwordVisibility.password ? "number" : "password"
-                        }
+                        type={passwordVisibility.password ? "text" : "password"}
                         placeholder="Create a password"
                         className="placeholder:text-grey-400 font-normal"
                         {...field}
@@ -405,7 +399,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                       <UnstyledInput
                         type={
                           passwordVisibility.confirmPassword
-                            ? "number"
+                            ? "text"
                             : "password"
                         }
                         placeholder="Confirm your password"
@@ -442,7 +436,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
                     <FormControl>
                       <div className="relative">
                         <BorderedDiv
-                          className={`items-center gap-2 ${getFieldClassName(
+                          className={`items-center gap-2 cursor-pointer ${getFieldClassName(
                             form.formState,
                             errors,
                             "dob"

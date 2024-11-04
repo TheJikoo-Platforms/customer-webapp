@@ -42,7 +42,7 @@ const LoginForm = () => {
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(true);
-  const [isEnteringNumber, setIsEnteringNumber] = useState(false);
+  const [isUsingNumber, setIsUsingNumber] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -56,10 +56,10 @@ const LoginForm = () => {
     | z.infer<typeof emailAndPasswordSchema>
     | z.infer<typeof phoneAndPasswordSchema>;
 
-  const formSchema = isEnteringNumber
+  const formSchema = isUsingNumber
     ? phoneAndPasswordSchema
     : emailAndPasswordSchema;
-  const combinedDefaultValues = isEnteringNumber
+  const combinedDefaultValues = isUsingNumber
     ? { phoneNumber: "", password: "" }
     : { mail: "", password: "" };
   const form = useForm<z.infer<typeof formSchema>>({
@@ -126,14 +126,14 @@ const LoginForm = () => {
     }
   );
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    // Check if the first character is a number
-    if (value.length > 0) {
-      setIsEnteringNumber(/^\d/.test(value));
-    }
-  };
-  // Submit handler
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   // Check if the first character is a number
+  //   if (value.length > 0) {
+  //     setIsUsingNumber(/^\d/.test(value));
+  //   }
+  // };
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     loginMutation(values);
   };
@@ -144,16 +144,16 @@ const LoginForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
-            name={isEnteringNumber ? "phoneNumber" : "mail"}
+            name={isUsingNumber ? "phoneNumber" : "mail"}
             render={({ field }) => (
               <FormItem className="space-y-0">
-                <FormLabel className="text-sm font-medium mb-1">
-                  Email/Phone number
+                <FormLabel className="text-sm font-medium mb-1 transition-all">
+                  {isUsingNumber ? "Phone" : "Email"}
                 </FormLabel>
                 <FormControl>
                   <BorderedDiv
                     className={`items-center gap-2 ${
-                      isEnteringNumber
+                      isUsingNumber
                         ? getFieldClassName(
                             form.formState,
                             errors,
@@ -162,7 +162,7 @@ const LoginForm = () => {
                         : getFieldClassName(form.formState, errors, "mail")
                     }`}
                   >
-                    {isEnteringNumber && (
+                    {isUsingNumber && (
                       <div className="flex items-center gap-2">
                         <NGFlag />
                         <span className="font-normal dark:text-white text-sm text-grey-400">
@@ -171,15 +171,17 @@ const LoginForm = () => {
                       </div>
                     )}
                     <UnstyledInput
-                      // type={!isEnteringNumber ? "text" : "number"}
-                      type="text"
-                      placeholder="Enter email or phone number"
-                      className="placeholder:text-grey-400 font-normal"
+                      type={!isUsingNumber ? "text" : "number"}
+                      // type="text"
+                      placeholder={
+                        isUsingNumber ? "09100000000" : "Enter email address"
+                      }
+                      className="placeholder:text-grey-400 font-normal placeholder:transition-all"
                       {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                        handleInputChange(e);
-                      }}
+                      // onChange={(e) => {
+                      //   field.onChange(e);
+                      //   handleInputChange(e);
+                      // }}
                     />
                   </BorderedDiv>
                 </FormControl>
@@ -194,6 +196,9 @@ const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
+                <FormLabel className="text-sm font-medium mb-1">
+                  Password
+                </FormLabel>
                 <FormControl>
                   <BorderedDiv
                     className={`items-center gap-2 ${getFieldClassName(
@@ -204,7 +209,7 @@ const LoginForm = () => {
                   >
                     <PasswordKey />
                     <UnstyledInput
-                      type={showPassword ? "number" : "password"}
+                      type={showPassword ? "text" : "password"}
                       placeholder="Enter password"
                       className="placeholder:text-grey-400 font-normal"
                       {...field}
@@ -227,13 +232,23 @@ const LoginForm = () => {
             )}
           />
 
-          <Link
-            href={"/reset-password"}
-            className="text-sm font-normal text-[10px] sm:text-sm text-primary underline-offset-4 underline py-0"
-            type="button"
-          >
-            Reset Password
-          </Link>
+          <div className="flex justify-between">
+            <Link
+              href={"/reset-password"}
+              className="text-sm font-normal text-[10px] sm:text-sm text-primary underline-offset-4 underline py-0"
+              type="button"
+            >
+              Reset Password
+            </Link>
+
+            <button
+              onClick={() => setIsUsingNumber((prev) => !prev)}
+              className="text-sm text-grey-500 font-bold transition-all mr-1"
+              type="button"
+            >
+              {isUsingNumber ? "Use Email" : "Use Phone"}
+            </button>
+          </div>
 
           <div className="flex flex-col space-y-3">
             <Button

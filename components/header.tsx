@@ -20,6 +20,11 @@ import { RootState } from "@/redux-store/store";
 import { EnterLocation } from "./location/enter-location-button";
 import { NavAccountIcon } from "./ui/icons/avatar";
 import { usePathname } from "next/navigation";
+import { TbSettings } from "react-icons/tb";
+import { GoSignOut } from "react-icons/go";
+import { useTransitionRouter } from "next-view-transitions";
+import { useRef, useState } from "react";
+import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 
 export const Header = () => {
   const dispatch = useAppDispatch();
@@ -29,8 +34,12 @@ export const Header = () => {
   const isAuthenticated = useAppSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
+  const [isAccountDropped, setIsAccountDropped] = useState(false);
+  const mainRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(mainRef, () => setIsAccountDropped(false));
   const pathname = usePathname();
   const activePath = pathname.slice(1).split("/").at(0);
+  const router = useTransitionRouter();
   return (
     <>
       <ScrollWrapper asChild>
@@ -89,10 +98,40 @@ export const Header = () => {
 
                     <button
                       type="button"
-                      className="hidden lg:flex items-center gap-0.5 text-grey-600"
+                      className="hidden lg:flex items-center gap-0.5 text-grey-600 relative cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsAccountDropped((prev) => !prev);
+                      }}
                     >
                       <NavAccountIcon />
                       <ArrowDownIcon />
+                      {isAccountDropped && (
+                        <div
+                          ref={mainRef}
+                          className="bg-white p-4 space-y-2 w-[150px] rounded-md absolute top-[56px] right-0 shadow-soft-large"
+                        >
+                          <Link
+                            className="flex gap-3 text-sm text-grey-900 items-center"
+                            href="/settings"
+                          >
+                            <TbSettings className="text-xl text-grey-500" />
+                            Settings
+                          </Link>
+
+                          <button
+                            type="button"
+                            className="flex items-center gap-3 text-state-error-400 text-sm py-2"
+                            onClick={() => {
+                              localStorage.clear();
+                              router.push("/login");
+                            }}
+                          >
+                            <GoSignOut className="text-lg" />
+                            Log out
+                          </button>
+                        </div>
+                      )}
                     </button>
                   </div>
                 ) : (

@@ -8,7 +8,7 @@ import { StepFiveForm } from "./step-five";
 import { AccountCreated } from "./account-created";
 
 export default function RegistrationFlow() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(4);
   const handleNextStep = useCallback((nextStep: number) => {
     setStep(nextStep);
   }, []);
