@@ -36,7 +36,6 @@ export const OrdersHome: React.FC<OrdersProps> = ({ a }) => {
           <p className="text-grey-500 text-sm mb-8">
             Login or sign up to see your on-going orders
           </p>
-          <GetStarted />
         </div>
       ) : (
         <OrderItemHome />

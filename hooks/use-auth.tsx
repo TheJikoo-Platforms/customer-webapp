@@ -27,6 +27,7 @@ const useAuthCheck = () => {
   // Fetch user data if authenticated
   const { data, error, isLoading } = useQuery(["user"], getUser, {
     enabled: typeof window !== "undefined" && !!localStorage.getItem("token"),
+    retry: 1,
     onError: (error: any) => {
       const errorMessage = !error?.response
         ? "Network error: Please check your internet connection."

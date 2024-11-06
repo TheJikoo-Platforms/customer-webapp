@@ -20,6 +20,7 @@ export const useSearchProducts = (searchTerm: string) => {
     () => searchProducts(searchTerm), // Function to fetch products based on search term
     {
       enabled: !!searchTerm, // Only run the query if searchTerm is not empty
+      retry: 3,
       onError: (error: any) => {
         console.error("Error during product search:", error);
         // You can show a toast or handle errors here
