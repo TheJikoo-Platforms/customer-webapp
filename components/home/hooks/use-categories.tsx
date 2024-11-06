@@ -31,7 +31,8 @@ export const useSearchCategories = (searchTerm: string) => {
       return searchCategories(searchTerm); // Call the API with the search term
     },
     {
-      enabled: !!searchTerm, // Fetch data only if searchTerm is valid (non-null or undefined)
+      enabled: !!searchTerm,
+      retry: 3,
       onError: (error) => {
         console.error("Error searching categories:", error);
       },

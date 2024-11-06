@@ -75,12 +75,15 @@ const LoginForm = () => {
   } = useMutation(
     (values: z.infer<typeof formSchema>) => {
       if ("phoneNumber" in values) {
-        return loginUserNumber({
-          phone: "+234" + values.phoneNumber,
+        return loginUserMail({
+          emailOrPhone: "+234" + values.phoneNumber,
           password: values.password,
         });
       } else {
-        return loginUserMail({ email: values.mail, password: values.password });
+        return loginUserMail({
+          emailOrPhone: values.mail,
+          password: values.password,
+        });
       }
     },
     {
@@ -125,14 +128,6 @@ const LoginForm = () => {
       },
     }
   );
-
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value;
-  //   // Check if the first character is a number
-  //   if (value.length > 0) {
-  //     setIsUsingNumber(/^\d/.test(value));
-  //   }
-  // };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     loginMutation(values);

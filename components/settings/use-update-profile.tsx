@@ -7,7 +7,6 @@ import { updateUserProfile } from "@/api/requests";
 export const useUpdateUserProfile = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient(); // Access query client for invalidation
-
   return useMutation(
     async (values: {
       firstname?: string;
@@ -19,6 +18,7 @@ export const useUpdateUserProfile = () => {
       return updateUserProfile(values);
     },
     {
+      retry: 3,
       onSuccess: () => {
         // Invalidate the "user" query to refresh data across components
         queryClient.invalidateQueries(["user"]);

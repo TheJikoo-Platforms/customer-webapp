@@ -45,14 +45,14 @@ export const sendOtpToMail = async (email: string) => {
 };
 
 export const loginUserMail = async (loginData: {
-  email: string;
+  emailOrPhone: string;
   password: string;
 }) => {
   const response = await axiosInstance.post("auth/user/login", loginData);
   return response.data;
 };
 export const loginUserNumber = async (loginData: {
-  phone: string;
+  emailOrPhone: string;
   password: string;
 }) => {
   const response = await axiosInstance.post("auth/user/phone/login", loginData);
@@ -149,7 +149,7 @@ export const updateUserProfile = async ({
   if (dob) formData.append("dob", dob);
   if (imageFile) formData.append("photo", imageFile);
 
-  const response = await axiosInstance.put("/users/update/profile", formData, {
+  const response = await axiosInstance.put("/users/profile", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

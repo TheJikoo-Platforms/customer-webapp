@@ -17,20 +17,7 @@ import { format, isValid, parse, parseISO } from "date-fns";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import {
-  formatDate,
-  formatDateForDisplay,
-  formatDateForSubmission,
-  getFieldClassName,
-} from "@/lib/utils";
-import {
-  registerUser,
-  updateUserDob,
-  updateUserEmail,
-  updateUserName,
-} from "@/api/requests";
-import { useMutation } from "@tanstack/react-query";
-import { MdCancel } from "react-icons/md";
+import { formatDate, getFieldClassName } from "@/lib/utils";
 import BorderedDiv from "../auth/bordered-div";
 import { NGFlag } from "../auth/ui/icons";
 import { useTransitionRouter } from "next-view-transitions";
@@ -55,13 +42,6 @@ const formSchema = z.object({
     .regex(/^[A-Za-z]+$/, {
       message: "Last name must only contain alphabets",
     }),
-  email: z
-    .string()
-    .regex(
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      "Please enter a valid email"
-    )
-    .email("Please enter a valid email"),
   phoneNumber: z
     .string()
     .length(10, "Phone number must be at exactly 10 digits")
@@ -95,7 +75,6 @@ export const ProfileForm = React.memo(
       defaultValues: {
         firstName: user?.firstname || "",
         lastName: user?.lastname || "",
-        email: user?.email || "",
         phoneNumber: user?.phone || "",
         dob: user?.dob || "",
       },
@@ -105,7 +84,6 @@ export const ProfileForm = React.memo(
       profileForm.reset({
         firstName: user?.firstname || "",
         lastName: user?.lastname || "",
-        email: user?.email || "",
         phoneNumber: user?.phone.slice(-10) || "",
         dob: user?.dob || "",
       });
@@ -127,7 +105,6 @@ export const ProfileForm = React.memo(
       updateProfileMutation({
         firstname: values.firstName,
         lastname: values.lastName,
-        email: values.email,
         // phone: "+234" + values.phoneNumber,
         imageFile: file,
         dob: formatDate(values.dob),
@@ -201,36 +178,6 @@ export const ProfileForm = React.memo(
                 )}
               />
             </div>
-
-            <FormField
-              control={profileForm.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="space-y-0">
-                  <FormControl>
-                    <BorderedDiv
-                      className={`items-center gap-2 ${
-                        !isUpdating && "bg-[#F7F9FC]"
-                      }${getFieldClassName(
-                        profileForm.formState,
-                        errors,
-                        "email"
-                      )}`}
-                    >
-                      <CiMail className="text-2xl text-grey-400" />
-                      <UnstyledInput
-                        disabled={!isUpdating}
-                        type="text"
-                        placeholder="Email address"
-                        className="placeholder:text-grey-400 text-grey-900 font-normal"
-                        {...field}
-                      />
-                    </BorderedDiv>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             <FormField
               control={profileForm.control}
@@ -385,15 +332,12 @@ export const ProfileForm = React.memo(
             {isUpdating && (
               <Button
                 type="submit"
-                disabled={profileForm.formState.isSubmitting}
+                disabled={isLoading}
                 className={`bg-primary w-full rounded-md font-semibold mt-4 ${
-                  profileForm.formState.isSubmitting &&
-                  "opacity-65 transition-all"
+                  isLoading && "opacity-65 transition-all"
                 }`}
               >
-                {profileForm.formState.isSubmitting
-                  ? "Saving..."
-                  : "Save changes"}
+                {isLoading ? "Saving..." : "Save changes"}
               </Button>
             )}
 
