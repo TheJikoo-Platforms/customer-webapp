@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { ArrowLeftIcon, BicycleIcon, CartCheckIcon } from "../ui/icons";
+import { ArrowLeftIcon, BicycleIcon } from "../ui/icons";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import {
   setFlowState,
@@ -125,7 +125,7 @@ export default function Checkout() {
 
           <div className="flex items-center justify-between text-grey-600 text-sm mt-4">
             <div className="flex items-center gap-2.5">
-              <CartCheckIcon className="" /> <p className="">Sub Total</p>
+              {/* <CartCheckIcon className="" /> <p className="">Sub Total</p> */}
             </div>
             <p className="text-medium">₦549.00</p>
           </div>

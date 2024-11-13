@@ -9,7 +9,10 @@ export const ExploreItem = ({
   href?: string;
 }) => {
   return (
-    <Link href={href} className="items-center gap-2.5 flex flex-col shrink-0">
+    <Link
+      href={href}
+      className="items-center gap-2.5 flex flex-col shrink-0 max-w-[60px]"
+    >
       <div>
         <Image
           src={data?.image}
@@ -20,7 +23,7 @@ export const ExploreItem = ({
           unoptimized
         />
       </div>
-      <p className="text-xs line-clamp-2 text-center capitalize">
+      <p className="text-xs md:text-sm font-medium line-clamp-2 text-center capitalize text-black-charcoal">
         {data?.name}
       </p>
     </Link>

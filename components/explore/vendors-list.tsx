@@ -3,21 +3,19 @@ import Link from "next/link";
 import { HorizontalScroll } from "../horizontal-scroll";
 import { Text } from "../ui/text";
 import { ExploreItem } from "./explore-item";
+import { Divider } from "../home/divider";
 
 export const VendorsContainer = ({ data }: { data: any[] }) => {
   return (
-    <div className="mt-6 border-b border-b-grey-300 pb-7 pl-5 lg:pl-6">
-      <div className="flex justify-between items-center mb-5 pr-5 lg:pr-6">
-        <Text className="text-xl tracking-[-0.4px]">Near You</Text>
-        <Link
-          href={"/near-you"}
-          className="flex gap-1 items-center text-sm text-primary"
-        >
-          See More <ChevronRight size={18} className="text-primary " />
-        </Link>
+    <div className="pt-2 px-6">
+      <div className="flex items-center mb-3 gap-3">
+        <Text className="text-xl text-black-charcoal tracking-[-0.4px]">
+          Restaurants
+        </Text>
+        <Divider className="bg-[#eee]" />
       </div>
-      <HorizontalScroll className="gap-6 flex">
-        {data.map((el, key) => (
+      <HorizontalScroll className="gap-[60px] flex items-center pl-2">
+        {data?.map((el, key) => (
           <ExploreItem href="vendors" data={el} key={key} />
         ))}
       </HorizontalScroll>

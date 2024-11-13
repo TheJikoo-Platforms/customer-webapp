@@ -1,11 +1,16 @@
 "use client";
 import Image from "next/image";
 import { LuDot } from "react-icons/lu";
+import { CgShoppingCart } from "react-icons/cg";
 import { TiStarFullOutline } from "react-icons/ti";
 import { PiCookingPot } from "react-icons/pi";
-import { PiBicycleThin } from "react-icons/pi";
 import { WishlistButton } from "../wishlist-button";
-import { AddedToCartIcon, AddToCartIcon } from "../ui/icons";
+import {
+  AddedToCartIcon,
+  AddToCartIcon,
+  CartIcon,
+  NairaIcon,
+} from "../ui/icons";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 
 import {
@@ -41,15 +46,11 @@ export const FoodItem = ({ data }: { data: IProductItem }) => {
             product={data}
             className="absolute top-[8px] left-[5px]"
           />
-          {/* Exclusive */}
-          <div className="bg-[#4A1AAD] text-xs text-white pl-[11px] pr-[15px] pt-[1px] pb-[2px] absolute bottom-3 left-0 text-nowrap rounded-r-full">
-            Exclusive ✨
-          </div>
         </div>
 
         {/* Right */}
-        <div className="ml-3 w-[66%] overflow-x-auto scrollbar-none text-nowrap">
-          <p className="w-full truncate overflow-hidden whitespace-nowrap text-left text-sm font-semibold capitalize">
+        <div className="ml-3 w-[66%] overflow-x-auto scrollbar-none text-nowrap tracking-[-0.4px]">
+          <p className="w-full truncate overflow-hidden whitespace-nowrap text-left text-sm font-extrabold capitalize">
             {data.name}
           </p>
 
@@ -64,35 +65,32 @@ export const FoodItem = ({ data }: { data: IProductItem }) => {
               unoptimized
             />
 
-            <div className="ml-1 flex text-xs items-center text-grey-500">
+            <div className="ml-1 flex text-[13px] tracking-[-0.4px] items-center text-[#787D78E5]">
               <p className="truncate max-w-32 sm500:max-w-full lg:max-w-32">
                 {data?.store?.name}
               </p>
-              <LuDot className="mx-1 text-[#667185]" />
-              <span className="mr-1">{234} sold</span>
+              <LuDot className="mx-0.5" />
+              <span className="mr-1">{data?.sold} sold</span>
             </div>
           </div>
 
-          <div className="mt-1.5 flex items-center text-grey-500 text-xs">
+          <div className="mt-1.5 flex items-center text-[#787D78E5] text-[13px]">
             <p className="flex gap-2 items-center">
               <TiStarFullOutline /> <span>{"4.5"}</span>
             </p>
-            <LuDot className="mx-0.5 text-[#667185]" />
+            <LuDot className="mx-0.5" />
             <p className="flex gap-1 items-center">
-              <PiCookingPot /> <span>{"40-50mins"}</span>
-            </p>
-            <LuDot className="mx-0.5 text-[#667185]" />
-            <p className="flex gap-1 items-center">
-              <PiBicycleThin /> <span>{"₦3,500"}</span>
+              <PiCookingPot /> <span>{data?.cookingTime}</span>
             </p>
           </div>
 
-          <div className="mt-2 flex justify-between max-w-[95%] md:max-w-[245px] lg:max-w-[95%] xl:max-w-[245px]">
+          <div className="mt-2 flex justify-between max-w-[95%] md:max-w-[240px] lg:max-w-[95%] xl:max-w-[230px]">
             <div className="flex flex-col">
-              <p className="text-jikoo-brand-green font-bold text-lg">
-                ₦{data?.price - data?.discount}
+              <p className="text-jikoo-brand-green font-extrabold text-xl flex items-center">
+                <NairaIcon className="size-4 fill-jikoo-brand-green mb-px" />{" "}
+                {data?.price - data?.discount}
               </p>
-              <p className="line-through text-xs text-grey-400">
+              <p className="line-through text-xs text-[#787D78E5]">
                 ₦{data?.price}
               </p>
             </div>
@@ -104,7 +102,11 @@ export const FoodItem = ({ data }: { data: IProductItem }) => {
                   : "border border-jikoo-brand-green"
               } rounded-full w-10 h-10 flex items-center justify-center transition-all duration-200`}
             >
-              {isAddedToCart ? <AddedToCartIcon /> : <AddToCartIcon />}
+              <CgShoppingCart
+                className={`text-xl ${
+                  isAddedToCart ? "text-white" : "text-jikoo-brand-green"
+                }`}
+              />
             </span>
           </div>
         </div>

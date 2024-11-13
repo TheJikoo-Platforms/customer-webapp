@@ -10,10 +10,7 @@ export function CategoriesList() {
   return (
     <>
       {data?.data?.categories && (
-        <CategoryContainer
-          data={data?.data?.categories}
-          className="py-6 border-y border-y-grey-300"
-        />
+        <CategoryContainer data={data?.data?.categories} className="py-2" />
       )}
     </>
   );

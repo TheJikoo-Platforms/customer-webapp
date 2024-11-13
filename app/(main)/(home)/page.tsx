@@ -13,6 +13,9 @@ import { EnterLocation } from "@/components/location/enter-location-button";
 import { CategoriesList } from "@/components/home/categories";
 import { VendorsList } from "@/components/home/vendors";
 import { SearchButton } from "@/components/home/search/search-button";
+import WalletAndSlider from "@/components/home/wallet-and-sliders";
+import Features from "@/components/home/features";
+import { Divider } from "@/components/home/divider";
 
 export default async function Home() {
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
@@ -25,16 +28,21 @@ export default async function Home() {
           <PromoBanner />
         </div>
         <NormalWrapper>
-          <div className="lg:grid lg:grid-cols-[calc(68%-24px),32%] lg:gap-6 lg:mt-6 lg:mb-0 items-start">
+          <div className="lg:grid lg:grid-cols-[calc(68%-24px),32%] lg:gap-6 lg:mt-4 lg:mb-0 items-start">
             <main className="flex flex-col flex-1 sticky top-[80px]">
               <EnterLocation className="flex lg:hidden py-6 px-[18px]" />
               <SearchButton />
-              <div className="space-y-5 sm:space-y-8 lg:space-y-9 min-w-0 lg:rounded-xl bg-white lg:py-3">
-                <Carousel />
-                <Guarantee />
-                <ProductRecommendations />
+              <div className="space-y-4 lg:rounded-xl bg-white lg:py-3">
+                <WalletAndSlider />
+                <Features />
+                <div className="px-6">
+                  <Divider />
+                </div>
                 <CategoriesList />
                 <VendorsList />
+                <div className="px-6">
+                  <Divider />
+                </div>
                 <HandpickedForYou />
               </div>
             </main>

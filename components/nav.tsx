@@ -16,7 +16,7 @@ const NAVLIST = [
   { name: "Home", path: "/", label: "" },
   { name: "Wallet", path: "/wallet", label: "wallet" },
   { name: "My Orders", path: "/orders", label: "orders" },
-  { name: "Contact", path: "/contact", label: "contact" },
+  // { name: "Contact", path: "/contact", label: "contact" },
 ];
 
 const SUPPORT = [

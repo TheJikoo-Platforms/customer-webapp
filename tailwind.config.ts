@@ -78,6 +78,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "black-charcoal": "#1E1E1E",
         grey: {
           "50": "#F9FAFB",
           "100": "#F2F4F7",

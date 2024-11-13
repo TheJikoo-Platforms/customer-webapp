@@ -88,10 +88,10 @@ export const Header = () => {
                     <button
                       onClick={handleShowNotifications}
                       type="button"
-                      className="flex items-center"
+                      className="flex items-center relative"
                     >
                       <BellIcon />
-                      <div className="bg-jikoo-brand-green px-2 flex items-center rounded-full text-white text-[10px] font-medium">
+                      <div className="bg-[#BA3337] border border-[#121212] px-2 flex items-center rounded-full text-white text-[10px] font-medium absolute -top-1 -right-2">
                         2
                       </div>
                     </button>

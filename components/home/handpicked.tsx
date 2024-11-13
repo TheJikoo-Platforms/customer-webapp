@@ -6,8 +6,8 @@ import { useProducts } from "./hooks/use-products";
 export const HandpickedForYou = () => {
   const { data, isLoading, error } = useProducts(1, 8);
   return (
-    <section className="px-5 lg:px-[36px] pt-2 pb-[125px] lg:pb-0">
-      <h2 className="font-bold text-xl mb-3 tracking-[-0.4px]">
+    <section className="px-6 pt-2 pb-[125px]">
+      <h2 className="font-bold text-xl mb-4 tracking-[-0.4px]">
         Handpicked for you
       </h2>
       {data?.data.products && (
