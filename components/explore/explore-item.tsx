@@ -23,7 +23,7 @@ export const ExploreItem = ({
           unoptimized
         />
       </div>
-      <p className="text-xs md:text-sm font-medium line-clamp-2 text-center capitalize text-black-charcoal">
+      <p className="text-[14px] font-medium leading-[16px] tracking-[-0.3px] line-clamp-2 text-center capitalize text-black-charcoal">
         {data?.name}
       </p>
     </Link>

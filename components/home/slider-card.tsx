@@ -77,8 +77,8 @@ const SliderCard: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col">
-      <div className="relative w-[358px] h-[164px] overflow-hidden">
+    <div className="flex flex-col w-full md:w-1/2 px-6 md:px-0">
+      <div className="relative w-full lg:w-[358px] h-[164px] overflow-hidden">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={slides[currentSlide].id}

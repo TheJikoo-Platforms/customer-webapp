@@ -43,6 +43,7 @@ const config = {
           footer: "var(--footer)",
           error: "#DD524D",
           "brand-green": "#009933",
+          "dark-green": "#242E25",
         },
         state: {
           "success-50": "#E7F6EC",

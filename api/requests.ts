@@ -75,59 +75,6 @@ export const getUser = async () => {
   const response = await axiosInstance.get("users");
   return response.data;
 };
-export const updateUserName = async (firstname: string, lastname: string) => {
-  const formData = new FormData();
-  formData.append("firstname", firstname);
-  formData.append("lastname", lastname);
-
-  const response = await axiosInstance.patch("users/name", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-
-  return response.data;
-};
-
-export const updateUserEmail = async (email: string) => {
-  const formData = new FormData();
-  formData.append("email", email);
-
-  const response = await axiosInstance.patch("users/email", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-
-  return response.data;
-};
-
-export const updateUserDob = async (dob: string) => {
-  const formData = new FormData();
-  formData.append("dob", dob);
-
-  const response = await axiosInstance.patch("users/dob", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-
-  return response.data;
-};
-
-export const updateUserImage = async (imageFile: File) => {
-  const formData = new FormData();
-  formData.append("photo", imageFile);
-
-  const response = await axiosInstance.put(`users/image`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-
-  return response.data;
-};
-
 export const updateUserProfile = async ({
   firstname,
   lastname,
@@ -187,7 +134,7 @@ export const searchCategories = async (searchTerm: string) => {
   return response.data; // Assuming the response data contains the list of matching categories
 };
 export const getAllProducts = async (page: number = 1, limit: number = 20) => {
-  const response = await axiosInstance.get("user/products", {
+  const response = await axiosInstance.get("products", {
     params: {
       page,
       limit,

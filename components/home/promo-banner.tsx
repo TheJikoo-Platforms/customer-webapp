@@ -3,7 +3,7 @@ import { WideWrapper } from "../wrappers";
 
 export const PromoBanner = () => {
   return (
-    <div className="bg-[#004617]">
+    <div className="bg-[#004617] hidden md:block">
       <WideWrapper>
         <div className="py-3 items-center gap-3 flex">
           <ChevronLeft size={16} className="text-white shrink-0" />

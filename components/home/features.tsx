@@ -21,7 +21,7 @@ const FEATURES = [
 
 const Features = () => {
   return (
-    <div className="grid grid-cols-3 gap-6 px-6 pb-2">
+    <div className="grid grid-cols-3 gap-3 md:gap-6 px-6 pb-2">
       {FEATURES.map((item) => (
         <div
           className="text-black-charcoal bg-[#F4F4F4] rounded-xl p-4"
@@ -33,7 +33,7 @@ const Features = () => {
             quality={100}
             alt={item.text}
             src={item.image}
-            className="w-8 h-8 mx-auto"
+            className="w-7 md:w-8 h-7 md:h-8 mx-auto"
           />
           <p className="font-extrabold text-sm tracking-[-0.4px] text-center">
             {item.bold}

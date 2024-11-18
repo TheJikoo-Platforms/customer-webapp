@@ -5,8 +5,6 @@ import { useCategories, useSingleCategory } from "./hooks/use-categories";
 
 export function CategoriesList() {
   const { data, isError, isLoading } = useCategories(1, 30);
-
-  console.log(data);
   return (
     <>
       {data?.data?.categories && (
@@ -15,11 +13,3 @@ export function CategoriesList() {
     </>
   );
 }
-
-// Single Category
-// const { data, error, isLoading } = useSingleCategory(
-//     "66f4ba0d6931bee129617aea"
-//   );
-
-// Search for Category
-// const { data, error, isLoading } = useSearchCategories("b");

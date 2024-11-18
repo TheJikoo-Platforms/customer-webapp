@@ -32,7 +32,7 @@ export default function Cart() {
 
   return (
     <>
-      <h3 className="text-xl font-bold tracking-[-0.4px] border-b border-b-grey-200 pb-4 hidden lg:block">
+      <h3 className="text-xl font-bold tracking-[-0.4px] border-b border-b-grey-200 pb-2 hidden lg:block">
         My Cart
       </h3>
 
@@ -60,7 +60,7 @@ export default function Cart() {
           <div className="">
             {cartItems?.length > 0 && (
               <div className="mt-6">
-                <p className="text-grey-900 font-bold">Add a message</p>
+                {/* <p className="text-grey-900 font-bold">Add a message</p>
 
                 <button
                   type="button"
@@ -68,7 +68,7 @@ export default function Cart() {
                   onClick={handleCartOverlay}
                 >
                   Type an important message for the vendor
-                </button>
+                </button> */}
 
                 <div className="mt-5 flex justify-between items-center">
                   <p className="text-grey-500">Subtotal:</p>
@@ -80,10 +80,10 @@ export default function Cart() {
             <Button
               type="button"
               disabled={!cartItems || cartItems.length === 0}
-              className={`w-full text-base mt-6 font-dm-sans disabled:bg-grey-300`}
+              className={`w-full text-base mt-6 font-dm-sans font-bold tracking-normal disabled:bg-grey-300`}
               onClick={handleFlowState}
             >
-              Checkout
+              Proceed to Checkout
             </Button>
           </div>
         </div>
