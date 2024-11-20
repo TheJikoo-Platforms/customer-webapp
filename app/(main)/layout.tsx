@@ -6,9 +6,9 @@ import useAuthCheck from "@/hooks/use-auth";
 import React from "react";
 export default function OuterLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   useAuthCheck();
 
   return (

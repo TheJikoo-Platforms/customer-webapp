@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/public/logo.png";
 import { Button } from "@/components/ui/button";
-import { MobileSheet } from "@/components/mobile-sheet";
 import { ScrollWrapper } from "@/components/scroll-shadow";
 import { ToggleTheme } from "./toggle-theme";
 import { WideWrapper } from "./wrappers";
@@ -43,15 +42,11 @@ export const Header = () => {
   return (
     <>
       <ScrollWrapper asChild>
-        <header className=" py-4 bg-primary-foreground fixed top-0 z-20 w-full left-0">
+        <header className="py-4 bg-jikoo-dark-green md:bg-primary-foreground fixed top-0 z-20 w-full left-0">
           <WideWrapper>
             <div className="flex items-center justify-between gap-3 md:gap-4 xl:gap-5">
-              {/* <div className="lg:hidden">
-                <MobileSheet />
-              </div> */}
-
               <div className="flex items-center gap-10">
-                <Link href={"/"} className="">
+                <Link href={"/"} className="hidden md:block">
                   <Image
                     alt="logo"
                     height={Logo.height}
@@ -62,7 +57,7 @@ export const Header = () => {
                     priority
                   />
                 </Link>
-                <EnterLocation className="hidden lg:flex rounded-full" />
+                <EnterLocation className="flex rounded-full" />
               </div>
 
               <div className="hidden md:block">
@@ -82,16 +77,16 @@ export const Header = () => {
                       {activePath === "wishlist" ? (
                         <WishListIconFilled />
                       ) : (
-                        <WishListIconStroke />
+                        <WishListIconStroke strokeFill=" fill-white md:fill-[#141414]" />
                       )}
                     </Link>
                     <button
                       onClick={handleShowNotifications}
                       type="button"
-                      className="flex items-center"
+                      className="flex items-center relative"
                     >
-                      <BellIcon />
-                      <div className="bg-jikoo-brand-green px-2 flex items-center rounded-full text-white text-[10px] font-medium">
+                      <BellIcon strokeFill=" fill-white md:fill-[#141414]" />
+                      <div className="bg-[#BA3337] px-2 flex items-center rounded-full text-white text-[10px] font-medium absolute -top-1 -right-2">
                         2
                       </div>
                     </button>
@@ -143,7 +138,7 @@ export const Header = () => {
                     </div>
                     <div className="block md:hidden">
                       <Link
-                        className="px-4 py-2 tracking-[1px] text-[10px] font-bold uppercase text-jikoo-brand-green"
+                        className="px-4 py-2 tracking-[1px] text-[10px] font-bold uppercase text-white md:text-jikoo-brand-green"
                         href={"/login"}
                       >
                         Login

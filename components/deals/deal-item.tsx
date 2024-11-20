@@ -27,14 +27,14 @@ export const DealItem = ({ data }: { data: IProductItem }) => {
           <div className="items-center gap-1.5 flex">
             <Image
               className="size-6 rounded-full"
-              src={data?.store.photo}
+              src={data?.store?.photo}
               width={1000}
               quality={100}
               height={1000}
               alt="Vendor Logo"
             />
             <p className="text-white text-xs truncate w-[60%] capitalize">
-              {data?.store.name}
+              {data?.store?.name}
             </p>
           </div>
           <div className="space-y-1.5">

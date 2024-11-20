@@ -63,4 +63,6 @@ export interface IProductItem {
   isPreOrder: boolean;
   status: string;
   stockStatus: string;
+  sold: number;
+  cookingTime: string;
 }

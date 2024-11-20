@@ -4,9 +4,7 @@ export interface ChildrenProps {
 
 export const WideWrapper = ({ children }: ChildrenProps) => {
   return (
-    <div className="px-5 lg:px-6 w-full 2xl:max-w-[1440px] 2xl:mx-auto">
-      {children}
-    </div>
+    <div className="px-6 w-full 2xl:max-w-[1440px] 2xl:mx-auto">{children}</div>
   );
 };
 

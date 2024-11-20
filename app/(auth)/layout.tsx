@@ -3,9 +3,9 @@ import AuthImageSection from "@/components/auth-image-section";
 
 export default function AuthLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <>
       <div className="min-h-[100dvh] bg-white">

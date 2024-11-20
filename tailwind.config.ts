@@ -43,6 +43,7 @@ const config = {
           footer: "var(--footer)",
           error: "#DD524D",
           "brand-green": "#009933",
+          "dark-green": "#242E25",
         },
         state: {
           "success-50": "#E7F6EC",
@@ -78,6 +79,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "black-charcoal": "#1E1E1E",
         grey: {
           "50": "#F9FAFB",
           "100": "#F2F4F7",

@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useAppDispatch } from "@/redux-store/hooks";
 import { handleLocationOverlay } from "@/redux-store/slices/backdrop/location";
 import { CancellableNotification } from "../fixed-notifications/location";
+import { LocationIconMain } from "../ui/icons";
 
 export const EnterLocation = ({ className }: { className: string }) => {
   const [isShowingPrompt, setIsShowingPrompt] = useState(true);
@@ -18,22 +19,31 @@ export const EnterLocation = ({ className }: { className: string }) => {
   };
   return (
     <div
-      className={cn("bg-white pl-3 pr-4 py-2 max-h-[36px] relative", className)}
+      className={cn(
+        "bg-transparent md:bg-white md:pl-3 pr-4 py-2 max-h-[36px] relative",
+        className
+      )}
     >
       <div
         className="max-w-[242px] flex items-center gap-2 cursor-pointer"
         onClick={handleOverlay}
       >
-        <IoLocationOutline className="text-jikoo-brand-green" />
-        <p className="text-sm text-black">Enter your location</p>
-        <IoIosArrowDown className="text-grey-500" />
+        <LocationIconMain className="block md:hidden" />
+        <IoLocationOutline className="text-jikoo-brand-green hidden md:block" />
+
+        <p className="text-sm text-white md:text-[#333] font-medium tracking-[-0.4px]">
+          Where are you
+        </p>
+        <IoIosArrowDown className="text-white md:text-grey-500 mt-px" />
       </div>
-      {isShowingPrompt && (
-        <CancellableNotification
-          text="Enter your delivery address here"
-          handlePrompt={handlePrompt}
-        />
-      )}
+      <div className="hidden md:block">
+        {isShowingPrompt && (
+          <CancellableNotification
+            text="Enter your delivery address here"
+            handlePrompt={handlePrompt}
+          />
+        )}
+      </div>
     </div>
   );
 };

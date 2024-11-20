@@ -187,37 +187,68 @@ export const EyeIcon = ({ className }: IClassNameOptional) => {
     </svg>
   );
 };
-export const CartCheckIcon = ({ className }: IClassNameOptional) => {
-  return (
-    <svg
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M1.66667 0.666748C1.29848 0.666748 1 0.965225 1 1.33341C1 1.7016 1.29848 2.00008 1.66667 2.00008C2.20565 2.00008 2.66701 2.38665 2.76137 2.91731L3.24559 5.6406L3.51949 7.22778C3.69116 8.22257 3.82824 9.01688 4.00155 9.6479C4.18006 10.2979 4.41196 10.8353 4.80836 11.2913C5.0804 11.6042 5.39943 11.8728 5.75403 12.0877C6.27072 12.4008 6.83982 12.5379 7.51066 12.6033C8.16195 12.6668 8.96797 12.6668 9.97742 12.6667H10.2901C10.7385 12.6668 11.1117 12.6668 11.4198 12.6435C11.7424 12.6192 12.0398 12.567 12.3292 12.4391C12.7479 12.254 13.112 11.9642 13.3862 11.5976C13.5758 11.3443 13.6933 11.0662 13.7894 10.7573C13.8811 10.4622 13.9648 10.0985 14.0653 9.66153L14.078 9.60656C14.2309 8.94222 14.3557 8.3996 14.4162 7.95658C14.4783 7.50106 14.4852 7.07293 14.3436 6.65969C14.1445 6.07834 13.7506 5.58362 13.2288 5.25918C12.8578 5.02855 12.439 4.93921 11.9812 4.89764C11.5359 4.85721 10.9791 4.85721 10.2974 4.85722H4.46055L4.07411 2.68389C3.86661 1.51688 2.85198 0.666748 1.66667 0.666748ZM4.82754 6.96708L4.69353 6.19056H10.2655C10.9869 6.19056 11.4828 6.1912 11.8606 6.22551C12.2328 6.2593 12.4109 6.3207 12.5248 6.39154C12.7858 6.55376 12.9827 6.80112 13.0822 7.09179C13.1257 7.21873 13.1456 7.40606 13.0951 7.77631C13.0438 8.15219 12.9332 8.63565 12.7715 9.33861C12.664 9.80565 12.5912 10.1201 12.5161 10.3614C12.4437 10.5945 12.3821 10.7141 12.3187 10.7989C12.1815 10.9822 11.9995 11.127 11.7901 11.2196C11.6933 11.2624 11.5629 11.2956 11.3196 11.314C11.0675 11.333 10.7448 11.3334 10.2655 11.3334H10.012C8.96017 11.3334 8.21909 11.3327 7.64 11.2762C7.07306 11.221 6.72464 11.1168 6.445 10.9474C6.20861 10.8041 5.99592 10.625 5.81456 10.4164C5.60002 10.1697 5.43813 9.84405 5.28727 9.29477C5.13317 8.73371 5.00642 8.00354 4.82754 6.96708Z"
-        fill="currentColor"
+// export const CartIcon = ({ color }: { color?: string }) => (
+//   <svg
+//     xmlns="http://www.w3.org/2000/svg"
+//     xmlnsXlink="http://www.w3.org/1999/xlink"
+//     width="24"
+//     height="24"
+//     viewBox="0 0 24 24"
+//     fill="none"
+//   >
+//     <rect width="24" height="24" fill="url(#pattern0_24907_3963)" />
+//     <defs>
+//       <pattern
+//         id="pattern0_24907_3963"
+//         patternContentUnits="objectBoundingBox"
+//         width="1"
+//         height="1"
+//       >
+//         <use xlinkHref="#image0_24907_3963" transform="scale(0.015625)" />
+//       </pattern>
+//       <image
+//         id="image0_24907_3963"
+//         width="64"
+//         height="64"
+//         xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAABAdJREFUeJztmk+IV1UUx79Hx1EYqYRGFElSGc2EIIkUJZyIcZwQXLSoXRTuXAqtghatXOSqtm3T2iQSoQRN6SIttX9KVNZESZSNRipOjvpx8X6Dr/u7vzfvd9997/3G3mf1+5133znn3XfOPfed96SGhoaGhob/LSZJwDxJz0ha1WHcNUlfSTprZlTkW3UAB8jHOeC5uv2NCvBwzotP81YrauY+wKqACQB4rW7fowG8GzABN4Chun0vSnoRHJX0qKQ+z7g1kl6U1O/I95vZ3lI97BWAFzxR8FPdflUGYMAvnklYW7dvRci9krfq/1HPoe3x3KmebkvZEY9sNIYjcwLgAWDaSYGrwMK6fQulqwgws78lnXTEA5K2RPOoYnwlbzaOqP2Cd0j62B0IrJP0qqS1kuYH2IrNd5L2mdk3wRqATZ5K8KVn3MIOVaNuLgH3z/gZsp//QtKkI3sMWO7IhiStDNBfNkuUiuCuJ8DMbkn6yBVLGnFkv0m63q3+ivhr5kfoE51vP/CfcthaMHenjfUIVySdmfljIRqAFZJ+dc6/KGmZmd32jF8SYicCI5IOOrIPzezZmT8hVUBmdgE4J2lDSjwo6XFJpzzjL4fYKQqw0SMeT/8p0tSYC7vCYY9sPIpmYLunxHwSRXkEgMUkPYs0/wBBUe8zsAi45hiYTtfYOgHGPDfoA3dccAqY2ZSkTx1xn6SnQ3VGZptH1hahRRubvbwODHtk41EtAOs9YfZzVCNhfpWb/44x336/1mZp3vyXiqeAlGNXWAO58l+KMwG9uA4Me2TjpViix7pE3eZ/4QhoPfR87ogHJG0tqjuQpyQtcGTHzOymb3Cs93u9lAa58z8awGbPqtvWJaoC4DOPL0+WbXQ+MOkYvU17l6hsP7qu/1FSIKNLVHUabFN7/h/vlP9RAV72hN7XwOLSjSf2+4FjHh9eyTovqCPUwYFBSRfUfgcmJB2SNBXLlod+SWOSHvEcW2dm35do+y7A2547UCeHZ/M5WgS0JmCpkrb5QzH1BjIp6Qkzm8gaFPU7HzP7U8nb4rqfCP+QNDrbxZcGcB+wD7hccchfBd4EHszra9QU8ExEn6SNklYosAOdk1uSfpd02sz+LdFOQ8O9RqlrgAswpuSb5AVK3iAdMLMbXZxvknYqaXj0SToh6T0zm47vbURIvjB7x7NqnyHnewRgHvC+R8cJYKDsaygE8HxG6Xojp46XMnS8XvY1FAI4mOF8rk0TcDhDx9lQ36r64nsw49jSCnW0UdUEZN2hbyvUUQ/AauB6h/DdlVPHEDDVQceOsq+hMMAIcD7l9CVgT5c6dgITKR0Xgd1F/Kp6H2CSVitpYPwYUr9bOtYo2Uv8UEm7q6Gh4Z7lDtAbIQ/EiSbIAAAAAElFTkSuQmCC"
+//         color={color}
+//       />
+//     </defs>
+//   </svg>
+// );
+export const CartIcon = ({ color = "black" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    style={{
+      filter:
+        color === "black"
+          ? "none"
+          : `brightness(0) saturate(100%) invert(39%) sepia(97%) saturate(462%) hue-rotate(100deg) brightness(90%) contrast(93%)`,
+    }}
+  >
+    <rect width="24" height="24" fill="url(#pattern0)" />
+    <defs>
+      <pattern
+        id="pattern0"
+        patternContentUnits="objectBoundingBox"
+        width="1"
+        height="1"
+      >
+        <use xlinkHref="#image0" transform="scale(0.015625)" />
+      </pattern>
+      <image
+        id="image0"
+        width="64"
+        height="64"
+        xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAABAdJREFUeJztmk+IV1UUx79Hx1EYqYRGFElSGc2EIIkUJZyIcZwQXLSoXRTuXAqtghatXOSqtm3T2iQSoQRN6SIttX9KVNZESZSNRipOjvpx8X6Dr/u7vzfvd9997/3G3mf1+5133znn3XfOPfed96SGhoaGhob/LSZJwDxJz0ha1WHcNUlfSTprZlTkW3UAB8jHOeC5uv2NCvBwzotP81YrauY+wKqACQB4rW7fowG8GzABN4Chun0vSnoRHJX0qKQ+z7g1kl6U1O/I95vZ3lI97BWAFzxR8FPdflUGYMAvnklYW7dvRci9krfq/1HPoe3x3KmebkvZEY9sNIYjcwLgAWDaSYGrwMK6fQulqwgws78lnXTEA5K2RPOoYnwlbzaOqP2Cd0j62B0IrJP0qqS1kuYH2IrNd5L2mdk3wRqATZ5K8KVn3MIOVaNuLgH3z/gZsp//QtKkI3sMWO7IhiStDNBfNkuUiuCuJ8DMbkn6yBVLGnFkv0m63q3+ivhr5kfoE51vP/CfcthaMHenjfUIVySdmfljIRqAFZJ+dc6/KGmZmd32jF8SYicCI5IOOrIPzezZmT8hVUBmdgE4J2lDSjwo6XFJpzzjL4fYKQqw0SMeT/8p0tSYC7vCYY9sPIpmYLunxHwSRXkEgMUkPYs0/wBBUe8zsAi45hiYTtfYOgHGPDfoA3dccAqY2ZSkTx1xn6SnQ3VGZptH1hahRRubvbwODHtk41EtAOs9YfZzVCNhfpWb/44x336/1mZp3vyXiqeAlGNXWAO58l+KMwG9uA4Me2TjpViix7pE3eZ/4QhoPfR87ogHJG0tqjuQpyQtcGTHzOymb3Cs93u9lAa58z8awGbPqtvWJaoC4DOPL0+WbXQ+MOkYvU17l6hsP7qu/1FSIKNLVHUabFN7/h/vlP9RAV72hN7XwOLSjSf2+4FjHh9eyTovqCPUwYFBSRfUfgcmJB2SNBXLlod+SWOSHvEcW2dm35do+y7A2547UCeHZ/M5WgS0JmCpkrb5QzH1BjIp6Qkzm8gaFPU7HzP7U8nb4rqfCP+QNDrbxZcGcB+wD7hccchfBd4EHszra9QU8ExEn6SNklYosAOdk1uSfpd02sz+LdFOQ8O9RqlrgAswpuSb5AVK3iAdMLMbXZxvknYqaXj0SToh6T0zm47vbURIvjB7x7NqnyHnewRgHvC+R8cJYKDsaygE8HxG6Xojp46XMnS8XvY1FAI4mOF8rk0TcDhDx9lQ36r64nsw49jSCnW0UdUEZN2hbyvUUQ/AauB6h/DdlVPHEDDVQceOsq+hMMAIcD7l9CVgT5c6dgITKR0Xgd1F/Kp6H2CSVitpYPwYUr9bOtYo2Uv8UEm7q6Gh4Z7lDtAbIQ/EiSbIAAAAAElFTkSuQmCC"
       />
-      <path
-        d="M6.16667 14.6667C6.6269 14.6667 7 14.2937 7 13.8334C7 13.3732 6.6269 13.0001 6.16667 13.0001C5.70643 13.0001 5.33333 13.3732 5.33333 13.8334C5.33333 14.2937 5.70643 14.6667 6.16667 14.6667Z"
-        fill="currentColor"
-      />
-      <path
-        d="M13 13.8334C13 14.2937 12.6269 14.6667 12.1667 14.6667C11.7064 14.6667 11.3333 14.2937 11.3333 13.8334C11.3333 13.3732 11.7064 13.0001 12.1667 13.0001C12.6269 13.0001 13 13.3732 13 13.8334Z"
-        fill="currentColor"
-      />
-      <path
-        d="M14.8946 2.47149C15.155 2.21114 15.155 1.78903 14.8946 1.52868C14.6343 1.26833 14.2122 1.26833 13.9518 1.52868L12.6593 2.82117L12.4714 2.63324C12.2111 2.37289 11.7889 2.37289 11.5286 2.63324C11.2682 2.89359 11.2682 3.3157 11.5286 3.57605L12.1879 4.23538C12.4483 4.49573 12.8704 4.49573 13.1307 4.23538L14.8946 2.47149Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-};
+    </defs>
+  </svg>
+);
+
 export const HeartIcon = ({ className }: IClassNameOptional) => {
   return (
     <svg
@@ -539,7 +570,6 @@ export const CalendarIcon = ({ className }: IClassNameOptional) => {
     </svg>
   );
 };
-
 export const LocationIcon = ({ className }: IClassNameOptional) => {
   return (
     <svg
@@ -677,7 +707,6 @@ export const QuestionIcon = ({ className }: IClassNameOptional) => {
     </svg>
   );
 };
-
 export const SaleTagIcon = ({ className }: IClassNameOptional) => {
   return (
     <svg
@@ -711,7 +740,6 @@ export const SaleTagIcon = ({ className }: IClassNameOptional) => {
     </svg>
   );
 };
-
 export const TetherIcon = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -738,27 +766,26 @@ export const TetherIcon = ({ className }: IClassNameOptional) => (
     ></path>
   </svg>
 );
-
-export const NairaIcon = ({ className }: IClassNameOptional) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <g id="icon / naira">
-      <path
-        id="icon"
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M12.2224 3.33366C12.2224 2.96547 11.9239 2.66699 11.5557 2.66699C11.1875 2.66699 10.889 2.96547 10.889 3.33366V6.1908H7.59503L5.60997 3.21322C5.06115 2.38998 3.77792 2.77851 3.77792 3.76792V6.1908H2.66667C2.29848 6.1908 2 6.48928 2 6.85747C2 7.22566 2.29848 7.52414 2.66667 7.52414H3.77792V8.47652H2.66667C2.29848 8.47652 2 8.77499 2 9.14318C2 9.51137 2.29848 9.80985 2.66667 9.80985H3.77792V12.667C3.77792 13.0352 4.0764 13.3337 4.44459 13.3337C4.81278 13.3337 5.11126 13.0352 5.11126 12.667V9.80985H8.40526L10.3903 12.7874C10.9391 13.6107 12.2224 13.2221 12.2224 12.2327V9.80985H13.3333C13.7015 9.80985 14 9.51137 14 9.14318C14 8.77499 13.7015 8.47652 13.3333 8.47652H12.2224V7.52414H13.3333C13.7015 7.52414 14 7.22566 14 6.85747C14 6.48928 13.7015 6.1908 13.3333 6.1908H12.2224V3.33366ZM9.11884 8.47652L8.48392 7.52414H10.889V8.47652H9.11884ZM10.889 11.1318L10.0077 9.80985H10.889V11.1318ZM6.88145 7.52414L7.51637 8.47652H5.11126V7.52414H6.88145ZM5.11126 4.86884L5.99256 6.1908H5.11126V4.86884Z"
-        fill="currentColor"
-      />
-    </g>
-  </svg>
-);
+// export const NairaIcon = ({ className }: IClassNameOptional) => (
+//   <svg
+//     width="16"
+//     height="16"
+//     viewBox="0 0 16 16"
+//     fill="none"
+//     xmlns="http://www.w3.org/2000/svg"
+//     className={className}
+//   >
+//     <g id="icon / naira">
+//       <path
+//         id="icon"
+//         fillRule="evenodd"
+//         clipRule="evenodd"
+//         d="M12.2224 3.33366C12.2224 2.96547 11.9239 2.66699 11.5557 2.66699C11.1875 2.66699 10.889 2.96547 10.889 3.33366V6.1908H7.59503L5.60997 3.21322C5.06115 2.38998 3.77792 2.77851 3.77792 3.76792V6.1908H2.66667C2.29848 6.1908 2 6.48928 2 6.85747C2 7.22566 2.29848 7.52414 2.66667 7.52414H3.77792V8.47652H2.66667C2.29848 8.47652 2 8.77499 2 9.14318C2 9.51137 2.29848 9.80985 2.66667 9.80985H3.77792V12.667C3.77792 13.0352 4.0764 13.3337 4.44459 13.3337C4.81278 13.3337 5.11126 13.0352 5.11126 12.667V9.80985H8.40526L10.3903 12.7874C10.9391 13.6107 12.2224 13.2221 12.2224 12.2327V9.80985H13.3333C13.7015 9.80985 14 9.51137 14 9.14318C14 8.77499 13.7015 8.47652 13.3333 8.47652H12.2224V7.52414H13.3333C13.7015 7.52414 14 7.22566 14 6.85747C14 6.48928 13.7015 6.1908 13.3333 6.1908H12.2224V3.33366ZM9.11884 8.47652L8.48392 7.52414H10.889V8.47652H9.11884ZM10.889 11.1318L10.0077 9.80985H10.889V11.1318ZM6.88145 7.52414L7.51637 8.47652H5.11126V7.52414H6.88145ZM5.11126 4.86884L5.99256 6.1908H5.11126V4.86884Z"
+//         fill="currentColor"
+//       />
+//     </g>
+//   </svg>
+// );
 
 export const AddedToCartIcon = ({ className }: IClassNameOptional) => (
   <svg
@@ -802,7 +829,6 @@ export const AddedToCartIcon = ({ className }: IClassNameOptional) => (
     </defs>
   </svg>
 );
-
 export const AddToCartIcon = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -844,7 +870,6 @@ export const AddToCartIcon = ({ className }: IClassNameOptional) => (
     </defs>
   </svg>
 );
-
 export const LoveIcon = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -863,25 +888,44 @@ export const LoveIcon = ({ className }: IClassNameOptional) => (
     />
   </svg>
 );
-
-export const BellIcon = ({ className }: IClassNameOptional) => (
+export const BellIcon = ({
+  className,
+  strokeFill,
+}: {
+  className?: string;
+  strokeFill?: string;
+}) => (
   <svg
-    className={className}
     xmlns="http://www.w3.org/2000/svg"
-    width="25"
-    height="25"
-    viewBox="0 0 25 25"
+    width="19"
+    height="22"
+    viewBox="0 0 19 22"
     fill="none"
+    className={className}
   >
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M13.4003 3.5C13.4003 2.94772 12.9525 2.5 12.4003 2.5C11.848 2.5 11.4003 2.94772 11.4003 3.5V4.07087C8.00813 4.55593 5.40025 7.47223 5.40025 10.9989L5.40025 14.9993C5.40025 14.9993 5.40026 14.9991 5.40025 14.9993C5.40016 15.0012 5.39948 15.0146 5.39514 15.0409C5.38993 15.0724 5.38069 15.1152 5.36544 15.1703C5.33451 15.282 5.28529 15.4211 5.21652 15.5855C5.07866 15.9151 4.8843 16.2947 4.66934 16.6776C4.2652 17.3975 4.06148 18.2554 4.21442 19.0712C4.3757 19.9316 4.9295 20.6819 5.87532 21.042C6.72022 21.3637 7.84488 21.6579 9.33012 21.833C9.36546 21.8637 9.40724 21.8987 9.45525 21.9371C9.60554 22.0574 9.82025 22.2132 10.0916 22.3682C10.6302 22.676 11.4265 23 12.4003 23C13.374 23 14.1703 22.676 14.7089 22.3682C14.9803 22.2132 15.195 22.0574 15.3453 21.9371C15.3933 21.8987 15.4351 21.8637 15.4704 21.833C16.9556 21.6579 18.0803 21.3637 18.9252 21.042C19.871 20.6819 20.4248 19.9316 20.5861 19.0712C20.739 18.2554 20.5353 17.3975 20.1312 16.6776C19.9162 16.2947 19.7218 15.9151 19.584 15.5855C19.5152 15.4211 19.466 15.282 19.4351 15.1703C19.4198 15.1152 19.4106 15.0724 19.4054 15.0409C19.401 15.0146 19.4004 15.0015 19.4003 14.9996C19.4003 14.9994 19.4003 14.9996 19.4003 14.9996L19.4003 14.9911V10.9994C19.4003 7.4728 16.7925 4.55601 13.4003 4.07088V3.5ZM7.40025 10.9989C7.40025 8.23772 9.63859 6 12.4003 6C15.1618 6 17.4003 8.23809 17.4003 10.9994V15C17.4003 15.4629 17.5737 15.9623 17.7388 16.3571C17.9182 16.7861 18.1533 17.24 18.3872 17.6566C18.6145 18.0616 18.6688 18.4444 18.6203 18.7027C18.5802 18.9166 18.4734 19.074 18.2135 19.1729C17.1386 19.5822 15.3242 20 12.4003 20C9.47633 20 7.66186 19.5822 6.587 19.1729C6.32714 19.074 6.22026 18.9166 6.18018 18.7027C6.13175 18.4444 6.18597 18.0616 6.41334 17.6566C6.64719 17.24 6.88228 16.7861 7.06167 16.3571C7.2268 15.9623 7.40025 15.4629 7.40025 15V10.9989Z"
-      fill="black"
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M6.13623 17.332C6.55044 17.332 6.88623 17.6678 6.88623 18.082C6.88623 18.2552 6.93009 18.4342 7.02508 18.6108C7.12076 18.7887 7.26875 18.9644 7.47241 19.1213C7.67621 19.2782 7.92771 19.4098 8.21581 19.5017C8.50381 19.5936 8.81681 19.6421 9.13581 19.6421C9.45481 19.6421 9.76781 19.5936 10.0557 19.5017C10.3439 19.4098 10.5954 19.2782 10.7992 19.1213C11.0028 18.9644 11.1508 18.7887 11.2465 18.6108C11.3415 18.4342 11.3854 18.2552 11.3854 18.082C11.3854 17.6678 11.7212 17.332 12.1354 17.332C12.5496 17.332 12.8854 17.6678 12.8854 18.082C12.8854 18.5155 12.7741 18.9373 12.5676 19.3213C12.3618 19.7039 12.0679 20.0375 11.7144 20.3097C11.3612 20.5818 10.9513 20.7905 10.5116 20.9308C10.0717 21.0711 9.60461 21.1421 9.13581 21.1421C8.66701 21.1421 8.19991 21.0711 7.76001 20.9308C7.32027 20.7905 6.91042 20.5818 6.55715 20.3097C6.20374 20.0375 5.90984 19.7039 5.70403 19.3213C5.49753 18.9373 5.38623 18.5155 5.38623 18.082C5.38623 17.6678 5.72201 17.332 6.13623 17.332Z"
+      fill="#14114"
+      className={strokeFill}
+    />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M5.55285 1.00762C7.45565 0.0606943 9.63395 -0.115336 11.6423 0.485864C12.0391 0.604654 12.2645 1.02263 12.1457 1.41944C12.0269 1.81626 11.6089 2.04164 11.2121 1.92285C9.56605 1.4301 7.78065 1.57444 6.22112 2.35052C4.48501 3.21448 3.38745 4.98662 3.38745 6.92582V8.2471C3.38745 9.67087 3.03268 11.0722 2.3552 12.3244L2.1288 12.7429C1.21994 14.4228 2.21358 16.5007 4.09176 16.8478C7.42665 17.4642 10.8463 17.4642 14.1812 16.8478L14.3414 16.8182C16.2193 16.4711 17.2655 14.4462 16.4621 12.7137L16.1975 12.143C15.8091 11.3054 15.5566 10.4137 15.4474 9.50127C15.3982 9.08997 15.6917 8.71667 16.103 8.66747C16.5143 8.61827 16.8876 8.91177 16.9368 9.32307C17.0273 10.0791 17.2365 10.818 17.5583 11.5119L17.8229 12.0827C19.0386 14.704 17.4555 17.7681 14.6141 18.2932L14.4539 18.3228C10.9387 18.9726 7.33428 18.9726 3.81912 18.3228C0.939487 17.7906 -0.583963 14.6047 0.809497 12.0291L1.03591 11.6106C1.59478 10.5776 1.88745 9.42157 1.88745 8.2471V6.92582C1.88745 4.41743 3.30716 2.12515 5.55285 1.00762Z"
+      fill="#14114"
+      className={strokeFill}
+    />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M15.2612 2.78906C14.2947 2.78906 13.5112 3.57256 13.5112 4.53906C13.5112 5.50556 14.2947 6.28906 15.2612 6.28906C16.2277 6.28906 17.0112 5.50556 17.0112 4.53906C17.0112 3.57256 16.2277 2.78906 15.2612 2.78906ZM12.0112 4.53906C12.0112 2.74413 13.4663 1.28906 15.2612 1.28906C17.0562 1.28906 18.5112 2.74413 18.5112 4.53906C18.5112 6.33398 17.0562 7.78906 15.2612 7.78906C13.4663 7.78906 12.0112 6.33398 12.0112 4.53906Z"
+      fill="#14114"
+      className={strokeFill}
     />
   </svg>
 );
-
 export const ArrowDownIcon = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -897,7 +941,6 @@ export const ArrowDownIcon = ({ className }: IClassNameOptional) => (
     />
   </svg>
 );
-
 export const FilterIcon = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -915,7 +958,6 @@ export const FilterIcon = ({ className }: IClassNameOptional) => (
     />
   </svg>
 );
-
 export const ArrowLeftIcon = ({ className }: IClassNameOptional) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -930,7 +972,6 @@ export const ArrowLeftIcon = ({ className }: IClassNameOptional) => (
     />
   </svg>
 );
-
 export const UserIconNotifications = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -949,7 +990,6 @@ export const UserIconNotifications = ({ className }: IClassNameOptional) => (
     />
   </svg>
 );
-
 export const LocationArrowUp = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -965,7 +1005,6 @@ export const LocationArrowUp = ({ className }: IClassNameOptional) => (
     />
   </svg>
 );
-
 export const LocationSearchIcon = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -983,7 +1022,6 @@ export const LocationSearchIcon = ({ className }: IClassNameOptional) => (
     />
   </svg>
 );
-
 export const VerifiedIcon = ({ className }: IClassNameOptional) => (
   <svg
     className={className}
@@ -1158,8 +1196,8 @@ export const SuccessfulIcon = () => (
 export const WishListIconFilled = ({ className }: IClassNameOptional) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="22"
-    height="22"
+    width="24"
+    height="24"
     viewBox="0 0 25 25"
     fill="none"
     className={className}
@@ -1171,7 +1209,13 @@ export const WishListIconFilled = ({ className }: IClassNameOptional) => (
   </svg>
 );
 
-export const WishListIconStroke = ({ className }: IClassNameOptional) => (
+export const WishListIconStroke = ({
+  className,
+  strokeFill,
+}: {
+  className?: string;
+  strokeFill?: string;
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="22"
@@ -1184,7 +1228,71 @@ export const WishListIconStroke = ({ className }: IClassNameOptional) => (
       fill-rule="evenodd"
       clip-rule="evenodd"
       d="M10.8581 3.23112C11.4984 3.5554 12.0197 3.93493 12.3999 4.25404C12.7802 3.93494 13.3014 3.5554 13.9416 3.23113C15.3926 2.49628 17.4808 2.04179 19.8292 3.23112C21.3293 3.99084 22.3441 5.1404 22.8967 6.5361C23.4418 7.91303 23.5159 9.47187 23.2535 11.0534C22.8064 13.748 20.9647 16.1525 19.0731 18.0051C17.158 19.8808 15.0581 21.3193 13.8738 22.0694C12.9674 22.6435 11.8325 22.6435 10.926 22.0694C9.74175 21.3193 7.64182 19.8808 5.72664 18.0051C3.83509 16.1525 1.99332 13.748 1.54622 11.0534C1.2838 9.47187 1.35787 7.91303 1.90304 6.5361C2.45563 5.1404 3.47039 3.99084 4.9705 3.23112C7.3189 2.04179 9.40718 2.49628 10.8581 3.23112ZM11.6381 6.28544C11.828 6.5089 12.1066 6.63773 12.4 6.63772C12.6928 6.63772 12.9709 6.50934 13.1608 6.28659C13.1611 6.28634 13.1613 6.28608 13.1615 6.28583C13.1617 6.28552 13.162 6.28522 13.1623 6.28492L13.1774 6.26789C13.193 6.25062 13.2191 6.22217 13.2554 6.18468C13.328 6.10952 13.4401 5.99901 13.5879 5.86976C13.8856 5.60932 14.3153 5.28378 14.8453 5.01535C15.8863 4.48812 17.2868 4.18537 18.9256 5.01535C19.9956 5.55724 20.6668 6.33711 21.0371 7.27234C21.4148 8.22635 21.5005 9.39996 21.2805 10.7261C20.939 12.7838 19.4717 14.8153 17.6737 16.5762C15.8994 18.3141 13.9294 19.6668 12.8037 20.3798C12.5506 20.5401 12.2492 20.5401 11.9962 20.3798C10.8704 19.6668 8.90044 18.3141 7.12607 16.5762C5.32808 14.8153 3.86068 12.7838 3.51925 10.7261C3.29921 9.39996 3.38488 8.22635 3.76259 7.27234C4.13287 6.33711 4.80413 5.55724 5.87412 5.01535C7.51295 4.18537 8.91349 4.48812 9.95453 5.01535C10.4846 5.28379 10.9143 5.60934 11.212 5.86978C11.3597 5.99903 11.4719 6.10954 11.5445 6.18469C11.5808 6.22219 11.6069 6.25064 11.6225 6.2679L11.6381 6.28544Z"
-      fill="black"
+      fill="#14114"
+      className={strokeFill}
+    />
+  </svg>
+);
+export const NairaIcon = ({ className }: IClassNameOptional) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="26"
+    height="24"
+    viewBox="0 0 26 24"
+    fill="none"
+    className={className}
+  >
+    <path
+      d="M8.25 16.1094V23.5H3.76562V16.1094H0.953125V12.9219H3.76562V10.7969H0.953125V7.60938H3.76562V0.46875H8.8125L12.875 7.60938H17.9844V0.46875H22.4688V7.60938H25.0156V10.7969H22.4688V12.9219H25.0156V16.1094H22.4688V23.5H17.6562L13.4062 16.1094H8.25ZM11.5625 12.9219L10.3438 10.7969H8.25V12.9219H11.5625ZM15.9062 12.9219H17.9844V10.7969H14.7031L15.9062 12.9219ZM17.9844 16.5469V16.1094H17.7344L17.9844 16.5469Z"
+      fill="white"
+      className={className}
+    />
+  </svg>
+);
+export const UsdtIcon = ({ className }: IClassNameOptional) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    width="20"
+    height="21"
+    viewBox="0 0 20 21"
+    fill="none"
+  >
+    <rect y="0.5" width="20" height="20" fill="url(#pattern0_20798_15900)" />
+    <defs>
+      <pattern
+        id="pattern0_20798_15900"
+        patternContentUnits="objectBoundingBox"
+        width="1"
+        height="1"
+      >
+        <use xlinkHref="#image0_20798_15900" transform="scale(0.015625)" />
+      </pattern>
+      <image
+        id="image0_20798_15900"
+        width="64"
+        height="64"
+        xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAS5AAAEuQER4c0nAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAB8VJREFUeJzlm1tUVOcVx3/7zOEOAyLSQJN6qRHvCdrY1dqyWFlJHmyjEmMCpCZGA2iyGvOQrtW88Zpk1SZ2tRa1RmsXKKlQU+tD09XS2D60Ro2tqFhT0DRicLg5KgzDzO4DF7nNCHPOHNT8nma+yz7/b8/5vvnOt/cRosy6mu2ZfkPyUFkgwlxR5gRhikAakNzf7LpChwHtijSgnEOoNzVwdN9Tm1uiqU+iYfTZgzsecYkWqfA4sMDCdRSoB/mjGsGq/as2fWyfyj5sc8BzR7a5Az3xpaK6AZhnl90RnFGR9xLFVbF71UavHQYtO2Bt9a50M7Z3Cyo/BKbYoGk8tAtsIybwbuX3X263YsgVcU9VKc7Net4w9AOQFUCCFSETJAHIJ2iULC5c6Vszb+mxuro6jcRQRHfADw7tmh0IBvYC346kv92oyN9V9YUDBWWfTrSvMdEOhb/bURAIBo5xhwweQFSXG3CyuGZH4YT7jrdheXm50fBQ1k+A1yZ6EWeRrTmnLv+ovLw8OK7W42m0tro61ozp2ANaZEmbQwhUJrewfkdZmX8cbcPTP/ha0BX2yHMI4Q8pX1BwOyeEXwNUxTQ7dt51gwdQvufNlL3l5eVhxxj2b7Do4eyfIpTZq8xRFrV9JTnp3wcOfxiqQcgpUFxTsVaF6ujochotrirYVDVWzZgOeLa24usGHAdSo6rLOTolGFhSuebl/46sGD0/VMWAX3PvDB4gVQ1jD6qjfvBRa0BRbvZLwCuOyHIUmb7o7PHG0wcOnxpWOvTL2upd6WZMoAHIcFSbc7TEEZuzp+DFjoGCYVPAFRN4jXt38ACZPvW/OrRg8A547sg2d9AX14TFR9pNS/KJc5lWTISkq9fPjpN/tWqmLcEwZwycJwwqDfTElwpq+Xn+G1kzSIyJtWpmTLw93XDSspn0roC/BNgKQ6aAqL5g2fTdgsjGgY8G9J3hAQsnTZDzzC88tD0X+h3gkrvjKc9OjIAUQ78DFJ6YXDnOoyKPAci6mu2ZvWJcwaYT4vkZ2RgS2lTO1PtYM3fpmHUHzx2nofVKyL4BDXLW02xZYz+KSabpNyRP1L7j8TOey2HrE8L8Q1y61sbpq5/bJeV2iPg1zzBUvkyL33BEFhgq5Ey2jslCRXNMlAftNpwYE8vMtAxmpmaQnpBMSmw8pmEgIkxNSArZb+WDD7H8/tmoKr0axOvrprXrOk2dHho7PNz099iqU1XmmNiw93cZBkvum84jWTOIM2No77rB/7ztXGhv4fJn/8Hb041qX9zim9mz2LLssTHtfHD+E441NwEgIrhj48lKTuN+9xSWZc8iPT6Rrl4/x5qbOHHlIoHguA5+w5FhAilWLCyYlk1Zbj4fNzdR23CS5usdt+0zHlSVTl8Xnb4uzrXeWvm/mpLGE7MWsm7ht/jlibrbLrrhEEgxuBWijoiSh/NIjo2j+uwx2wYfjs+9HVTV/4OUuHhKcvOsmkuZcGRoJDUNJxAR3nz0aVbMXkxmktuqyZBkJrlZMXsxbz76dN+1z52wbFOKaitagXQrRlLjEsifPpdl2TP5Wmo6Xl83l661cfWml5YbXjw3vXi6ruPr9dMd6EXoC/wPLGqJMbGDZfEukzgzhoyEZDISU5iWmExmkpsH3Om44+K52NnKPy83UnexgWu+Lqvj90hRbUUTMN2qpQHiXCYPpKYzK20aM1KnMiU+iSkJSbhj43HHJYTdJULfbs/r66bT10V7903au2/Q2OGhqcPDpWtt9AR67ZKKQqMJeLDRAb5ALxfaWrjQNjqzRYDvPDCHzUvzx+y7/Xgdf/vsPBHFuSPDY4Ccd+pqCnQHQkequgN+JwePQIOhaIOD17yjULTBEOT0ZAuZNMSoN0wNHAVH77w7haC49KjRn4dXP9lqJoFTVU+WeQwAUUJGT+9ZhD9B/5FY0KWVk6vGeUSlEvod0J+B+WVaDM9UFpR+AkPiAiqyd/L0OIzqrwY+DjogUVwVgKWsy7uEtgRXzM6BL4MO2L1qoxfRn02OJucQeGdonvGwKKaYwXfU79oMTIuWgKs3vPy56WzIuijzhd/PtqEFox7NCmt2bBC5NUfuJRR5fn9B6b6hZaOfTVWl8NDOo6K63DFlTqB8VFVQmo/IsF3v6BMhEdW+SHGnU9ocoEM08OLIwUOIRMkDBWWfquhL0dflDKK6cawMMQiTKbp/9abfgmyNnizHeKvyqU01oSrDHopWrS55XdE9tktyCIHKnFPNb4RrE/5UWETdLVIKcsRWZQ6g6OHkFtbfLm1+XFHh/L+Um1kdWRXABlvURZ/fpLSwwZZ0+UFUpbi24i0Ved2StOiiwNtVq0t/PNaKPxYTzgsoqq1YDezGuTfExss1kJKqgtIJJXhHlBhRfPAXs9Qw9oB8N5L+tqN8ZJrG+n0rSxon2jXyzBBVKT5UsU5V3gYyI7ZjjTaBNypXl+4c7y0/EsupMetr30vzqf9VRLdgMcQ2AVoF3vX72fb+M2WWdqy25Qatrf55smm6SkE2ICywy+4ITquwO9DTu/P9Z165bofBqLw8XXhoe64RkGIVeRxYRATvJ/YTBP6F8KGoVA4cY9lJVBwwlKLfV2SIX/OCwnwDmacwh76pMuz1eaADaEO0QZVziFEvLj1a9WSZJ5r6/g+X4qUj/wpq/gAAAABJRU5ErkJggg=="
+      />
+    </defs>
+  </svg>
+);
+export const LocationIconMain = ({ className }: IClassNameOptional) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="12"
+    height="16"
+    viewBox="0 0 12 16"
+    fill="none"
+    className={className}
+  >
+    <path
+      d="M6 0C2.68625 0 0 2.68625 0 6C0 7.4195 0.6255 8.66775 1.31775 9.75L5.592 15.789C5.68575 15.9215 5.838 16 6 16C6.162 16 6.31425 15.9215 6.408 15.789L10.6823 9.75C11.3438 8.8595 12 7.4195 12 6C12 2.68625 9.31375 0 6 0ZM6 9.5C4.067 9.5 2.5 7.933 2.5 6C2.5 4.067 4.067 2.5 6 2.5C7.933 2.5 9.5 4.067 9.5 6C9.5 7.933 7.933 9.5 6 9.5Z"
+      fill="#F3DA01"
+    />
+    <path
+      d="M6 3C4.34325 3 3 4.34325 3 6C3 7.65675 4.34325 9 6 9C7.65675 9 9 7.65675 9 6C9 4.34325 7.65675 3 6 3ZM6 8.5C4.61925 8.5 3.5 7.3805 3.5 6C3.5 4.6195 4.61925 3.5 6 3.5C7.38075 3.5 8.5 4.6195 8.5 6C8.5 7.3805 7.38075 8.5 6 8.5Z"
+      fill="#F3DA01"
     />
   </svg>
 );

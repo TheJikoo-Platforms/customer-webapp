@@ -51,7 +51,7 @@ export const BottomNav = () => {
           boxShadow: "0px -10px 18px -2px #10192812",
         }}
       >
-        <ul className="flex w-full text-[9px]/[11.72px]">
+        <ul className="flex w-full text-[11px] items-end tracking-[-0.4px] font-medium">
           {NAVLIST.map((el) => (
             <li key={el.label} className="w-full">
               <Link
