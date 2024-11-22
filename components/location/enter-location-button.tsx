@@ -1,12 +1,13 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { cn } from "@/lib/utils";
 import { IoIosArrowDown } from "react-icons/io";
-import { useAppDispatch } from "@/redux-store/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { handleLocationOverlay } from "@/redux-store/slices/backdrop/location";
 import { CancellableNotification } from "../fixed-notifications/location";
 import { LocationIconMain } from "../ui/icons";
+import { RootState } from "@/redux-store/store";
 
 export const EnterLocation = ({ className }: { className: string }) => {
   const [isShowingPrompt, setIsShowingPrompt] = useState(true);
@@ -17,6 +18,9 @@ export const EnterLocation = ({ className }: { className: string }) => {
   const handleOverlay = () => {
     dispatch(handleLocationOverlay());
   };
+  const { currentAddress } = useAppSelector(
+    (state: RootState) => state.savedAddress
+  );
   return (
     <div
       className={cn(
@@ -25,14 +29,14 @@ export const EnterLocation = ({ className }: { className: string }) => {
       )}
     >
       <div
-        className="max-w-[242px] flex items-center gap-2 cursor-pointer"
+        className="max-w-[160px] sm:max-w-[180px] md:max-w-[242px] flex items-center gap-2 cursor-pointer"
         onClick={handleOverlay}
       >
         <LocationIconMain className="block md:hidden" />
         <IoLocationOutline className="text-jikoo-brand-green hidden md:block" />
 
-        <p className="text-sm text-white md:text-[#333] font-medium tracking-[-0.4px]">
-          Where are you
+        <p className="text-sm text-white md:text-[#333] font-medium tracking-[-0.4px] truncate">
+          {currentAddress ? currentAddress.address : "Where are you"}
         </p>
         <IoIosArrowDown className="text-white md:text-grey-500 mt-px" />
       </div>

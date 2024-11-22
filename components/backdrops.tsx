@@ -40,10 +40,13 @@ export default function Backdrops() {
   const showWalletOverlay = useAppSelector(
     (state: RootState) => state.walletOverlay.showWalletOverlay
   );
+  const { currentAddress } = useAppSelector(
+    (state: RootState) => state.savedAddress
+  );
 
   return (
     <>
-      {showLocationOverlay && <LocationOverlay />}
+      {showLocationOverlay && !currentAddress && <LocationOverlay />}
       {showNotificationOverlay && <NotificationsOverlay />}
       {showSearchOverlay && <SearchUIOverlay />}
       {showCartOverlayMobile && <CartOverLayMobile />}

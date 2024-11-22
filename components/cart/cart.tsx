@@ -29,7 +29,9 @@ export default function Cart() {
   const handleFlowState = () => {
     dispatch(setFlowState("checkout"));
   };
-
+  const totalPrice = cartItems.reduce((total, cartItem) => {
+    return total + cartItem.product.price * cartItem.quantity;
+  }, 0);
   return (
     <>
       <h3 className="text-xl font-bold tracking-[-0.4px] border-b border-b-grey-200 pb-2 hidden lg:block">
@@ -60,19 +62,9 @@ export default function Cart() {
           <div className="">
             {cartItems?.length > 0 && (
               <div className="mt-6">
-                {/* <p className="text-grey-900 font-bold">Add a message</p>
-
-                <button
-                  type="button"
-                  className="text-grey-400 text-xs sm400:text-sm lg:text-xs xl:text-sm text-left font-normal mt-3 flex w-full rounded-sm border border-[#d0d4dd] p-4"
-                  onClick={handleCartOverlay}
-                >
-                  Type an important message for the vendor
-                </button> */}
-
                 <div className="mt-5 flex justify-between items-center">
                   <p className="text-grey-500">Subtotal:</p>
-                  <p className="text-grey-800 font-bold">₦4,000</p>
+                  <p className="text-grey-800 font-bold">{totalPrice}</p>
                 </div>
               </div>
             )}

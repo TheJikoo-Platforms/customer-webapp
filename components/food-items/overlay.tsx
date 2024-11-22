@@ -8,13 +8,14 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Backdrop from "../ui/backdrop";
 import Image from "next/image";
-import { TiStarFullOutline } from "react-icons/ti";
-import { PiBicycleThin, PiCookingPot } from "react-icons/pi";
 import { LuDot } from "react-icons/lu";
 import { IoIosClose } from "react-icons/io";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { addToCart } from "@/redux-store/slices/backdrop/cart-items";
+import { PotIcon, StarIcon } from "./food-item";
+import clsx from "clsx";
+import { CheckIcon } from "lucide-react";
 
 export const FoodItemOverlay = () => {
   const [isRequiredSelected, setIsRequiredSelected] = useState(false);
@@ -58,15 +59,43 @@ export const FoodItemOverlay = () => {
     }
   };
   const handleAddToCart = (name: string) => {
-    // if (currentProductItem?.options && !isRequiredSelected) {
-    //   setIsErrorShowing(true);
-    //   return;
-    // }
     if (currentProductItem) {
       dispatch(addToCart({ product: currentProductItem, quantity: quantity }));
       handleCloseFoodItems();
     }
   };
+  // State to track selected options for each group
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string[]>
+  >({});
+
+  // Handle option selection or unselection
+  const handleOptionSelect = (groupName: string, optionName: string) => {
+    setSelectedOptions((prev) => {
+      const currentOptions = prev[groupName] || [];
+      const updatedOptions = currentOptions.includes(optionName)
+        ? currentOptions.filter((item) => item !== optionName) // Remove the option if it exists
+        : [...currentOptions, optionName]; // Add the option if it doesn't exist
+
+      return {
+        ...prev,
+        [groupName]: updatedOptions,
+      };
+    });
+  };
+
+  // Check if any extra group has no options selected
+  const isAnyGroupEmpty = currentProductItem?.extra?.some((extraGroup) => {
+    const selected = selectedOptions[extraGroup.groupName];
+    return !selected || selected.length === 0; // No options selected for the group
+  });
+
+  // Check if all groups (extras) have been handled (selected options for each group)
+  const isExtrasHandled =
+    currentProductItem?.extra?.length === Object.keys(selectedOptions).length;
+
+  // Disable the button if any group is empty or extras are not handled
+  const isButtonDisabled = isAnyGroupEmpty || !isExtrasHandled;
 
   return (
     <AnimatePresence>
@@ -97,18 +126,18 @@ export const FoodItemOverlay = () => {
 
                   <div className="bg-white pb-[100px] sm600:pb-0 relative">
                     <div className="px-5 py-4">
-                      <p className="w-full truncate overflow-hidden whitespace-nowrap text-left text-sm font-semibold capitalize ">
+                      <p className="w-full truncate overflow-hidden whitespace-nowrap text-left text-lg font-bold capitalize">
                         {currentProductItem?.name}
                       </p>
 
-                      <p className="my-2 text-xs text-[#475467] leading-[16.4px]">
+                      <p className="my-2 text-sm text-grey-500 leading-[20.3px]">
                         {currentProductItem?.description}
                       </p>
 
                       <div className="mt-1.5 flex items-center">
                         {/* Logo */}
                         <Image
-                          src={currentProductItem?.store.photo ?? ""}
+                          src={currentProductItem?.store?.photo ?? ""}
                           alt="Resturant Logo"
                           className="w-3 h-3 rounded-full object-cover"
                           width={55}
@@ -116,26 +145,24 @@ export const FoodItemOverlay = () => {
                           unoptimized
                         />
 
-                        <p className="ml-1 flex text-xs items-center text-grey-500">
-                          {currentProductItem?.store.name}{" "}
+                        <p className="ml-1 flex text-xs items-center text-grey-500 capitalize">
+                          {currentProductItem?.store?.name}{" "}
                           <LuDot className="mx-1 text-[#667185]" />
-                          <span className="mr-1">{234} sold</span>
+                          <span className="mr-1">
+                            {currentProductItem?.sold} sold
+                          </span>
                         </p>
                       </div>
 
                       <div className="mt-1.5 flex items-center text-grey-500 text-xs">
                         <p className="flex gap-1 items-center">
-                          <TiStarFullOutline />
+                          <StarIcon />
                           <span>{4.5}</span>
                         </p>
                         <LuDot className="mx-0.5 text-[#667185]" />
                         <p className="flex gap-1 items-center">
-                          <PiCookingPot />
-                          <span>{"1-2 hours"}</span>
-                        </p>
-                        <LuDot className="mx-0.5 text-[#667185]" />
-                        <p className="flex gap-1 items-center">
-                          <PiBicycleThin /> <span>{"₦2500"}</span>
+                          <PotIcon />{" "}
+                          <span>{currentProductItem?.cookingTime}</span>
                         </p>
                       </div>
 
@@ -145,8 +172,8 @@ export const FoodItemOverlay = () => {
                             ₦
                             {currentProductItem?.price &&
                             currentProductItem?.discount !== undefined
-                              ? currentProductItem.price -
-                                currentProductItem.discount
+                              ? currentProductItem?.price -
+                                currentProductItem?.discount
                               : 0}
                           </p>
                           <p className="line-through text-xs text-grey-400">
@@ -155,93 +182,91 @@ export const FoodItemOverlay = () => {
                         </div>
                       </div>
                     </div>
-
-                    {/* {currentProductItem?.options && (
-                      <div className="">
-                        {/* Required */}
-                    {/* {currentProductItem?.options[0] && (
-                          <>
+                    {currentProductItem?.extra && (
+                      <div>
+                        {currentProductItem?.extra?.map((extraGroup, index) => (
+                          <div key={index} className="mb-4">
+                            {/* Group Header */}
                             <div className="flex py-2 px-5 bg-grey-100 items-center justify-between">
-                              <p className="font-medium">
-                                {currentProductItem?.options[0].name}
+                              <p className="font-medium capitalize text-sm">
+                                {extraGroup?.groupName}
                               </p>
                               <p className="text-[#DD524D] text-xs italic">
                                 required
                               </p>
                             </div>
 
-                            <div className="flex flex-col gap-4 px-5 pt-2 pb-4 text-grey-500 text-sm">
-                              {currentProductItem?.options[0].items.map(
-                                (item, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex justify-between items-center"
-                                  >
-                                    <div className="flex items-center gap-3">
-                                      <span className="w-4 h-4 border p-2.5 border-grey-300 rounded"></span>
-                                      <span className="text-gray-700 capitalize">
-                                        {item.name}
-                                      </span>
-                                    </div>
-                                    <span className="text-gray-500 text-xs">
-                                      {item.price}
+                            {/* Options */}
+                            <div className="flex flex-col gap-4 px-5 pt-3.5 pb-4 text-grey-500 text-sm">
+                              {extraGroup?.options?.map((item) => (
+                                <div
+                                  key={item?.name}
+                                  className="flex justify-between items-center"
+                                >
+                                  <div className="flex items-center gap-3">
+                                    <button
+                                      className={clsx([
+                                        "w-5 h-5 border-2 border-jikoo-brand-green rounded flex items-center justify-center transition-all",
+                                        {
+                                          "bg-jikoo-brand-green":
+                                            selectedOptions[
+                                              extraGroup?.groupName
+                                            ]?.includes(item?.name), // Check if item is in the array of selected options
+                                          "bg-transparent": !selectedOptions[
+                                            extraGroup?.groupName
+                                          ]?.includes(item?.name), // If not in the array, it’s transparent
+                                        },
+                                      ])}
+                                      onClick={() =>
+                                        handleOptionSelect(
+                                          extraGroup?.groupName,
+                                          item.name
+                                        )
+                                      }
+                                      aria-label={`Select ${item?.name}`}
+                                    >
+                                      {selectedOptions[
+                                        extraGroup?.groupName
+                                      ]?.includes(item.name) && (
+                                        <CheckIcon className="text-white text-sm" />
+                                      )}
+                                    </button>
+
+                                    <span className="text-gray-700 capitalize">
+                                      {item?.name}
                                     </span>
                                   </div>
-                                )
-                              )}
+                                  <span className="text-gray-500 text-xs">
+                                    {item?.price}
+                                  </span>
+                                </div>
+                              ))}
                             </div>
-                          </>
-                        )} */}
-
-                    {/* Optional */}
-                    {/* {currentProductItem?.options[1] && (
-                          <>
-                            <div className="flex py-2 px-5 bg-grey-100 items-center justify-between">
-                              <p className="font-medium">
-                                {currentProductItem?.options[1].name}
-                              </p>
-                              <p className="italic text-xs">Optional</p>
-                            </div>
-
-                            <div className="flex flex-col gap-4 px-5 pt-2 pb-4 text-grey-500 text-sm">
-                              {currentProductItem?.options[1].items.map(
-                                (item, index) => (
-                                  <div
-                                    key={index}
-                                    className="flex justify-between items-center"
-                                  >
-                                    <div className="flex items-center gap-3">
-                                      <span className="w-4 h-4 border p-2.5 border-grey-300 rounded"></span>
-                                      <span className="text-gray-700 capitalize">
-                                        {item.name}
-                                      </span>
-                                    </div>
-                                    <span className="text-gray-500 text-xs">
-                                      {item.price}
-                                    </span>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </>
-                        )} */}
-                    {/* </div>
-                    )}  */}
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
                     {/* Add to cart section */}
-                    <div className="bg-white fixed sm600:sticky bottom-0 w-full sm600:max-w-[520px] flex gap-4 p-5 shadow-md sm600:rounded-b-xl">
-                      <div className="bg-grey-50 border border-grey-100 h-12 items-center flex justify-between p-4 w-full max-w-[150px] rounded-full">
+                    <div
+                      className="bg-white fixed sm600:sticky bottom-0 w-full sm600:max-w-[520px] flex gap-4 p-5 shadow-md sm600:rounded-b-xl"
+                      style={{
+                        boxShadow: "0px 0px 39px -14px rgba(0, 153, 51, 0.56)",
+                      }}
+                    >
+                      <div className="bg-state-success-50 border border-jikoo-brand-green h-[56px] items-center flex justify-between py-[15px] px-5 w-full max-w-[119px] sm600:max-w-[125px] rounded-md text-xl font-bold">
                         <button type="button" onClick={decrementQuantity}>
-                          <FaMinus className="text-grey-500" />
+                          <FaMinus className="text-base text-jikoo-brand-green" />
                         </button>
                         <span>{quantity}</span>
                         <button type="button" onClick={incrementQuantity}>
-                          <FaPlus className="text-grey-500" />
+                          <FaPlus className="text-base text-jikoo-brand-green" />
                         </button>
                       </div>
                       <Button
                         type="button"
-                        className="flex-1 py-3.5 px-6 md:text-base"
+                        className="flex-1 py-3.5 px-6 md:text-base disabled:bg-grey-300 disabled:"
+                        disabled={isButtonDisabled}
                         onClick={() =>
                           handleAddToCart(currentProductItem?.name ?? "")
                         }
@@ -254,35 +279,6 @@ export const FoodItemOverlay = () => {
               </div>
             </div>
           </Backdrop>
-
-          {isErrorShowing && (
-            <Backdrop variants={fadeIn}>
-              <div
-                ref={outerErrorRef}
-                className="px-6 flex h-full w-full items-center justify-center"
-              >
-                <div
-                  ref={innerErrorRef}
-                  className="bg-white p-6 rounded-2xl flex flex-col text-grey-900 font-bold tracking-[-0.4px] w-full sm600:max-w-96"
-                >
-                  <p className="text-xl tracking-[-0.4px]">Required</p>
-                  <p className="text-sm font-normal mt-4 mb-6">
-                    Select a required option
-                  </p>
-                  <button
-                    onClick={() => {
-                      handleCloseError();
-                      setIsRequiredSelected(true);
-                    }}
-                    className="self-end"
-                    type="button"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </Backdrop>
-          )}
         </>
       )}
     </AnimatePresence>

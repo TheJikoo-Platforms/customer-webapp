@@ -32,7 +32,7 @@ export const NavAccountIcon = ({
       <Avatar
         className={className}
         firstname={user?.firstname || ""}
-        lastname={user?.lastname || ""}
+        // lastname={user?.lastname || ""}
       />
     )
   ) : (

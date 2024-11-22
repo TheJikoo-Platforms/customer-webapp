@@ -44,6 +44,7 @@ export const RecentSearch = () => {
           <p className="text-sm text-grey-400">No recent search</p>
         )}
       </div>
+      <div className="w-full h-1 bg-grey-100 my-8"></div>
       <div className="mt-4">
         {data?.data?.categories && (
           <>

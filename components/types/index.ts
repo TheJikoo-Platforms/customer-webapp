@@ -48,8 +48,20 @@ export interface ICategory {
   [key: string]: any;
 }
 
+export interface IOption {
+  name: string;
+  price: number;
+}
+
+// Define the type for the main object in the `extra` array
+export interface IExtraItem {
+  _id: string;
+  groupName: string;
+  options: IOption[];
+}
+
 export interface IProductItem {
-  extra: any[]; // Adjust the type based on what extra represents
+  extra: IExtraItem[];
   _id: string;
   name: string;
   description: string;

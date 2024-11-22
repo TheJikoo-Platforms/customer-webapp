@@ -2,44 +2,56 @@ import { AddressProps } from "@/components/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AddressStateProps {
-  addressList: AddressProps[];
-  currentAddress: AddressProps | null;
+  addressList: AddressProps[]; // Array to store multiple addresses
+  currentAddress: AddressProps | null; // Stores the current selected address
 }
 
-interface AddressState {
-  addressState: AddressStateProps;
-}
-
-const initialState: AddressState = {
-  addressState: {
-    addressList: [
-      { address: "10 Shekoni Close, Ifako", area: "Gbagada, Lagos" },
-      { address: "4 Adewumi Str.", area: "Ikeja GRA, Lagos" },
-      { address: "5 Olawumi Str.", area: "Abuja GRA, Lagos" },
-      { address: "1 Adejuwumi Str.", area: "Lokoja GRA, Lagos" },
-    ],
-    currentAddress: null,
-  },
+const initialState: AddressStateProps = {
+  addressList: [], // Initialize with an empty array
+  currentAddress: null, // Initialize with null
 };
 
 const addressSlice = createSlice({
   name: "address",
   initialState,
   reducers: {
+    // Add a new address to the list, ensuring it is unique
+    addAddress: (state, action: PayloadAction<AddressProps>) => {
+      const exists = state.addressList.some(
+        (addr) =>
+          addr.address === action.payload.address &&
+          addr.area === action.payload.area
+      );
+      if (!exists) {
+        state.addressList.push(action.payload);
+      }
+    },
+    // Remove an address from the list by matching the area
     removeAddress: (state, action: PayloadAction<string>) => {
-      state.addressState.addressList = state.addressState.addressList.filter(
+      state.addressList = state.addressList.filter(
         (addr) => addr.area !== action.payload
       );
-    },
-    setCurrentAddress: (state, action: PayloadAction<number>) => {
-      const selectedAddress = state.addressState.addressList[action.payload];
-      if (selectedAddress) {
-        state.addressState.currentAddress = selectedAddress;
+      // Reset currentAddress if it was the removed address
+      if (state.currentAddress?.area === action.payload) {
+        state.currentAddress = null;
       }
+    },
+    // Set the current address by index
+    setCurrentAddress: (state, action: PayloadAction<AddressProps>) => {
+      const selectedAddress = action.payload;
+      if (selectedAddress) {
+        state.currentAddress = selectedAddress;
+      }
+    },
+    // Clear all addresses
+    clearAddresses: (state) => {
+      state.addressList = [];
+      state.currentAddress = null;
     },
   },
 });
 
-export const { removeAddress, setCurrentAddress } = addressSlice.actions;
+export const { addAddress, removeAddress, setCurrentAddress, clearAddresses } =
+  addressSlice.actions;
 
 export default addressSlice.reducer;

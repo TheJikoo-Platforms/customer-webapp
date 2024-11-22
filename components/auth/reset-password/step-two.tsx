@@ -25,6 +25,7 @@ import { useMutation } from "@tanstack/react-query";
 import { sendOtpToMail, validateOtp, verifyMail } from "@/api/requests";
 import { useToast } from "@/components/ui/use-toast";
 import { FaCircleCheck } from "react-icons/fa6";
+import AnimatePresenceContainer from "../ui/AnimatePresenceContainer";
 
 interface StepTwoProps {
   stepOneData: string;
@@ -123,7 +124,7 @@ export const StepTwoForm = React.memo(
     const errors = otpForm.formState.errors;
 
     return (
-      <div>
+      <AnimatePresenceContainer>
         <div className="flex items-center justify-center relative">
           <button
             onClick={() => handleNextStep(1)}
@@ -210,7 +211,7 @@ export const StepTwoForm = React.memo(
             {isResendLoading ? "Resending..." : "Resend"}
           </button>
         </div>
-      </div>
+      </AnimatePresenceContainer>
     );
   }
 );

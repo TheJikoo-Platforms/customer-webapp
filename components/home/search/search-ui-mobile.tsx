@@ -23,7 +23,7 @@ export const SearchUI = () => {
   }, [searchParams]);
 
   return (
-    <div className="bg-white min-h-screen pb-[125px]">
+    <div className="bg-white min-h-screen md:min-h-[initial] pb-[125px] md:pb-10 md:rounded-lg">
       <div className="border-b border-b-[#EBEBEB] pb-3 pt-5 p-4 sm600:hidden sticky top-0 bg-white z-[50]">
         <p className="text-2xl font-medium tracking-[-0.48px]">Search</p>
       </div>

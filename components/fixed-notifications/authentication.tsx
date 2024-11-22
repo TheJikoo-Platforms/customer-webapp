@@ -15,14 +15,18 @@ export const AuthNotificationContainter = () => {
   );
 
   return !isAuthenticated ? (
-    <div className={`${cartItems?.length === 0 ? "block" : "hidden lg:block"}`}>
+    <div
+      className={`max-h-fit ${
+        cartItems?.length === 0 ? "block" : "hidden lg:block"
+      }`}
+    >
       <AuthNotification />
     </div>
   ) : null;
 };
 const AuthNotification = () => {
   return (
-    <Link href={"/login"}>
+    <Link href={""}>
       <div className={WRAPPERCLASSNAMES}>
         <div className="flex items-center gap-2">
           <UserIcon />

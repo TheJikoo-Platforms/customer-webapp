@@ -2,7 +2,6 @@
 import BorderedDiv from "@/components/auth/bordered-div";
 import { UnstyledInput } from "@/components/ui/unstyled-input";
 import { useTransitionRouter } from "next-view-transitions";
-import { useState } from "react";
 import { IoSearch, IoClose } from "react-icons/io5";
 
 interface SearchFormProps {
@@ -32,7 +31,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
       onSubmit={handleSubmit}
       className="space-y-3 relative -mt-2 sm600:mt-0"
     >
-      <BorderedDiv className="border-grey-300 p-4  gap-2 w-full flex items-center border rounded-lg relative">
+      <BorderedDiv className="border-grey-300 p-4  gap-2 w-full flex items-center border rounded-full relative">
         <IoSearch className="text-gray-400 text-lg" />
 
         <UnstyledInput

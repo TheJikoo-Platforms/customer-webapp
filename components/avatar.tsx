@@ -3,14 +3,12 @@ import React from "react";
 
 interface AvatarProps {
   firstname: string;
-  lastname: string;
+  // lastname: string;
   className: string;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ firstname, lastname, className }) => {
-  const initials = `${firstname.charAt(0).toUpperCase()}${lastname
-    .charAt(0)
-    .toUpperCase()}`;
+const Avatar: React.FC<AvatarProps> = ({ firstname, className }) => {
+  const initials = `${firstname.charAt(0).toUpperCase()}`;
 
   return (
     <div

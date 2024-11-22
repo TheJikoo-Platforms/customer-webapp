@@ -5,7 +5,6 @@ import { NormalWrapper } from "@/components/wrappers";
 import { WhiteCard } from "@/components/white-card";
 import { OrdersHome } from "@/components/orders/orders";
 import { CartFlow } from "@/components/cart/mobile-overlay";
-import AuthController from "@/components/auth-routes-controller";
 
 export default function MainLayout({
   children,

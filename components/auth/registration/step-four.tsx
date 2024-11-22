@@ -34,6 +34,7 @@ import { formatDate, getFieldClassName } from "@/lib/utils";
 import { registerUser } from "@/api/requests";
 import { useMutation } from "@tanstack/react-query";
 import { MdCancel } from "react-icons/md";
+import AnimatePresenceContainer from "../ui/AnimatePresenceContainer";
 
 export interface StepFourFormData {
   firstName: string;
@@ -197,7 +198,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
     };
 
     return (
-      <div>
+      <AnimatePresenceContainer>
         <div className="flex items-center justify-center relative">
           <button
             onClick={() => handleNextStep(3)}
@@ -504,7 +505,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
             </Button>
           </form>
         </Form>
-      </div>
+      </AnimatePresenceContainer>
     );
   }
 );

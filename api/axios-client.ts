@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use(
       // Log out the user, clear tokens, and redirect to login page
       console.error("Token expired or invalid. Logging out...");
       localStorage.clear(); // Clear all stored tokens
-      window.location.href = "/login"; // Redirect to login page
+      // window.location.href = "/login"; // Redirect to login page
 
       return Promise.reject(error); // Reject the error to stop further execution
     }

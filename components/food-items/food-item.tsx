@@ -115,7 +115,7 @@ export const FoodItem = ({ data }: { data: IProductItem }) => {
   );
 };
 
-const StarIcon = () => (
+export const StarIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -144,7 +144,7 @@ const StarIcon = () => (
   </svg>
 );
 
-const PotIcon = () => (
+export const PotIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"

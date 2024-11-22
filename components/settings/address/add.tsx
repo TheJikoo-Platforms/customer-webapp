@@ -122,7 +122,7 @@ export const AddAddress = React.memo(
                 )}
               />
 
-              <UseCurrentLocationButton />
+              {/* <UseCurrentLocationButton  /> */}
 
               {ADDRESSLIST.map((item, key) => (
                 <LocationItem key={key} item={item} />

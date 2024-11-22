@@ -55,6 +55,10 @@ const foodItemSlice = createSlice({
       );
       if (existingCartItem && existingCartItem.quantity > 1) {
         existingCartItem.quantity -= 1; // Decrease quantity
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (cartItem) => cartItem.product._id !== action.payload
+        );
       }
     },
 

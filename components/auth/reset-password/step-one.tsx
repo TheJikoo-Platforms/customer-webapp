@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { sendOtpToMail } from "@/api/requests";
 import { MdCancel } from "react-icons/md";
+import AnimatePresenceContainer from "../ui/AnimatePresenceContainer";
 interface StepOneProps {
   onSubmit: (data: string) => void;
   handleNextStep: (num: number) => void;
@@ -93,7 +94,7 @@ export const StepOneForm = React.memo(
     const errors = mailForm.formState.errors;
     console.log(errors);
     return (
-      <div>
+      <AnimatePresenceContainer>
         <div className="flex items-center justify-center relative">
           <BackButton className="absolute left-0" />
           <Link href={"/"} className="">
@@ -156,7 +157,7 @@ export const StepOneForm = React.memo(
             </Button>
           </form>
         </Form>
-      </div>
+      </AnimatePresenceContainer>
     );
   }
 );
