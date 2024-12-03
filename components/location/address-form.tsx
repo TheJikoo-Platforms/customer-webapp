@@ -8,7 +8,7 @@ import LocationItem from "./location-item";
 import { LocationProps } from "./overlay";
 import { AddressProps } from "../types";
 import Image from "next/image";
-import LOADING from "@/public/loaders/loader-green.gif";
+import LOADING from "@/public/loading/loader-green.gif";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import {
   addAddress,

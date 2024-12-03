@@ -3,7 +3,7 @@ import BorderedDiv from "@/components/auth/bordered-div";
 import InnerHeader from "@/components/inner-page-header-mobile";
 import useLocationSuggestions from "@/components/location/hooks/use-location-suggestions";
 import LocationItem from "@/components/location/location-item";
-import LOADING from "@/public/loaders/loader-green.gif";
+import LOADING from "@/public/loading/loader-green.gif";
 import UseCurrentLocationButton from "@/components/location/use-current-location";
 import { AddressProps } from "@/components/types";
 import { ArrowLeftIcon, LocationSearchIcon } from "@/components/ui/icons";

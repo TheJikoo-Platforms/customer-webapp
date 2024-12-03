@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LOADING from "@/public/loaders/loader-green.gif";
+import LOADING from "@/public/loading/loader-green.gif";
 
 interface LoadingSearchProps {
   query: string;
