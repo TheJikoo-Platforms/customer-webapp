@@ -18,8 +18,14 @@ import {
   setShowProductItemOverlay,
 } from "@/redux-store/slices/backdrop/food-items";
 import { IProductItem } from "../types";
+import clsx from "clsx";
 
-export const FoodItem = ({ data }: { data: IProductItem }) => {
+interface IFoodItemProps {
+  data: IProductItem;
+  isLessDetailed?: boolean;
+}
+
+export const FoodItem = ({ data, isLessDetailed }: IFoodItemProps) => {
   const cartItems = useAppSelector((state) => state.foodItemData.cartItems);
   const isAddedToCart = cartItems?.some(
     (item) => item.product._id === data._id
@@ -53,8 +59,27 @@ export const FoodItem = ({ data }: { data: IProductItem }) => {
           <p className="w-full truncate overflow-hidden whitespace-nowrap text-left text-sm font-extrabold capitalize">
             {data.name}
           </p>
+          <p
+            className={clsx([
+              "mt-1 items-center text-[#475467] text-xs line-clamp-2 leading-[17.4px] capitalize mb-4",
+              {
+                hidden: !isLessDetailed,
+                flex: isLessDetailed,
+              },
+            ])}
+          >
+            {data?.description}
+          </p>
 
-          <div className="mt-1.5 flex items-center">
+          <div
+            className={clsx([
+              "mt-1.5  items-center",
+              {
+                hidden: isLessDetailed,
+                flex: !isLessDetailed,
+              },
+            ])}
+          >
             {/* Logo */}
             <Image
               src={data?.store?.photo}
@@ -65,7 +90,11 @@ export const FoodItem = ({ data }: { data: IProductItem }) => {
               unoptimized
             />
 
-            <div className="ml-1 flex text-[13px] tracking-[-0.4px] items-center text-[#787D78E5]">
+            <div
+              className={clsx([
+                "ml-1 flex text-[13px] tracking-[-0.4px] items-center text-[#787D78E5]",
+              ])}
+            >
               <p className="truncate max-w-32 sm500:max-w-full lg:max-w-32">
                 {data?.store?.name}
               </p>
@@ -74,7 +103,15 @@ export const FoodItem = ({ data }: { data: IProductItem }) => {
             </div>
           </div>
 
-          <div className="mt-1.5 flex items-center text-[#787D78E5] text-[13px]">
+          <div
+            className={clsx([
+              "mt-1.5 items-center text-[#787D78E5] text-[13px]",
+              {
+                hidden: isLessDetailed,
+                flex: !isLessDetailed,
+              },
+            ])}
+          >
             <p className="flex gap-2 items-center">
               <StarIcon /> <span>{"4.5"}</span>
             </p>

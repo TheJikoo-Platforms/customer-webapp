@@ -6,7 +6,10 @@ const WalletAndSlider = () => {
   return (
     <div className="md:pl-6 md:pt-3 flex flex-col md:flex-row gap-4 overflow-hidden">
       <WalletCard />
-      <SliderCard />
+      <SliderCard
+        className="w-full md:w-1/2"
+        innerClassName="w-full lg:w-[358px] h-[164px]"
+      />
     </div>
   );
 };

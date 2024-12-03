@@ -22,24 +22,6 @@ export interface ICategoriesData {
   [key: string]: any;
 }
 
-export interface IStore {
-  _id: string;
-  storeOwner: string;
-  name: string;
-  email: string;
-  photo: string;
-  description: string;
-  openingTime: {
-    days: string;
-    time: {
-      hour: string;
-      minute: string;
-    };
-    _id: string;
-  }[];
-  [key: string]: any;
-}
-
 export interface ICategory {
   _id: string;
   name: string;
@@ -77,4 +59,33 @@ export interface IProductItem {
   stockStatus: string;
   sold: number;
   cookingTime: string;
+}
+interface IOpeningTime {
+  days: string;
+  time: {
+    hour: string;
+    minute: string;
+  };
+}
+
+export interface IStore {
+  _id: string;
+  name: string;
+  description: string;
+  email: string;
+  location: string;
+  state: string;
+  photo: string;
+  lat: number;
+  log: number;
+  isRegistered: boolean;
+  openingDays: string[];
+  openingHour: string;
+  closingHour: string;
+  openingTime: IOpeningTime[];
+  storeOwner: string;
+  zone: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }

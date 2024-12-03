@@ -29,7 +29,11 @@ export const CategoryContainer = ({
         className={cn("gap-3 md:gap-[50px] flex items-center", className)}
       >
         {data?.map((el, key) => (
-          <ExploreItem href="" data={el} key={key} />
+          <ExploreItem
+            href={`/search/products?category=${el.name}`}
+            data={el}
+            key={key}
+          />
         ))}
       </HorizontalScroll>
     </div>

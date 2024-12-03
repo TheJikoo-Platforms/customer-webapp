@@ -4,8 +4,9 @@ import { HorizontalScroll } from "../horizontal-scroll";
 import { Text } from "../ui/text";
 import { ExploreItem } from "./explore-item";
 import { Divider } from "../home/divider";
+import { IStore } from "../types";
 
-export const VendorsContainer = ({ data }: { data: any[] }) => {
+export const VendorsContainer = ({ data }: { data: IStore[] }) => {
   return (
     <div className="pt-2 px-6">
       <div className="flex item-center mb-3 gap-3">
@@ -22,9 +23,13 @@ export const VendorsContainer = ({ data }: { data: any[] }) => {
           See More <ChevronRight className="w-[14px] h-[14px]" />
         </Link>
       </div>
-      <HorizontalScroll className="gap-[60px] flex items-center pl-2">
-        {data?.map((el, key) => (
-          <ExploreItem href="vendors" data={el} key={key} />
+      <HorizontalScroll className="justify-between flex items-center pl-2">
+        {data?.slice(0, 6)?.map((el: IStore) => (
+          <ExploreItem
+            href={`vendors/q?vendor=${el._id}`}
+            data={el}
+            key={el?._id}
+          />
         ))}
       </HorizontalScroll>
     </div>

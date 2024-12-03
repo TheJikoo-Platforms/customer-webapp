@@ -172,3 +172,16 @@ export const verifyPayment = async (reference: string) => {
   });
   return response.data;
 };
+export const getAllStores = async (page: number = 1, limit: number = 20) => {
+  const response = await axiosInstance.get("store", {
+    params: {
+      page,
+      limit,
+    },
+  });
+  return response.data;
+};
+export const getSingleStore = async (storeId: string) => {
+  const response = await axiosInstance.get(`store/${storeId}`);
+  return response.data;
+};

@@ -1,42 +1,21 @@
+"use client";
 import BorderedDiv from "@/components/auth/bordered-div";
 import InnerHeader from "@/components/inner-page-header-mobile";
+import useLocationSuggestions from "@/components/location/hooks/use-location-suggestions";
 import LocationItem from "@/components/location/location-item";
+import LOADING from "@/public/loaders/loader-green.gif";
 import UseCurrentLocationButton from "@/components/location/use-current-location";
 import { AddressProps } from "@/components/types";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
 import { ArrowLeftIcon, LocationSearchIcon } from "@/components/ui/icons";
 import { UnstyledInput } from "@/components/ui/unstyled-input";
 import { useToast } from "@/components/ui/use-toast";
-import { getFieldClassName } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const ADDRESSLIST: AddressProps[] = [
-  { address: "10 Shekoni Close, Ifako", area: "Gbagada, Lagos" },
-  { address: "4 Adewumi Str,", area: "Ikeja GRA, Lagos" },
-  { address: "4 Adewumi Str,", area: "Ikeja GRA, Lagos" },
-  { address: "4 Adewumi Str,", area: "Ikeja GRA, Lagos" },
-];
-
-const locationSchema = z.object({
-  location: z
-    .string()
-    .min(3, { message: "Location must be more than 3 characters" })
-    .max(50, { message: "Location must be less than 20 characters" })
-    .regex(/^[A-Za-z]+$/, {
-      message: "Location must only contain alphabets",
-    }),
-  city: z.string(),
-});
-
+import { useAppDispatch } from "@/redux-store/hooks";
+import Image from "next/image";
+import React, { useState } from "react";
+import {
+  addAddress,
+  setCurrentAddress,
+} from "@/redux-store/slices/saved-address";
 export const AddAddress = React.memo(
   ({
     handleCurrentScreen,
@@ -44,32 +23,21 @@ export const AddAddress = React.memo(
     handleCurrentScreen: (screen: string) => void;
   }) => {
     const { toast } = useToast();
-    const locationForm = useForm<z.infer<typeof locationSchema>>({
-      resolver: zodResolver(locationSchema),
-      mode: "onTouched",
-      defaultValues: {
-        location: "",
-        city: "",
-      },
-    });
-    const handleSubmit = async (values: z.infer<typeof locationSchema>) => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      // toast({
-      //   title: "OTP Sent",
-      //   icon: (
-      //     <div className="w-6 h-6 bg-state-success-50 border border-state-success-75 flex items-center justify-center rounded">
-      //       <FaCircleCheck className="text-state-success-600" />
-      //     </div>
-      //   ),
-      // });
-      console.log("Location submitted: ", values);
+    const { suggestions, loading, fetchSuggestions } = useLocationSuggestions();
+    const [inputValue, setInputValue] = useState("");
+    // Handle input change and trigger fetchSuggestions
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+      setInputValue(value);
+      fetchSuggestions(value); // Call the fetch function on input change
+    };
+    const dispatch = useAppDispatch();
+    const handleSaveAddress = (item: AddressProps) => {
+      dispatch(addAddress(item));
+      dispatch(setCurrentAddress(item));
+      handleCurrentScreen("saved");
     };
 
-    const handleUseLocation = () => {
-      console.log("Click");
-    };
-
-    const errors = locationForm.formState.errors;
     return (
       <>
         <InnerHeader
@@ -89,46 +57,45 @@ export const AddAddress = React.memo(
             </h3>
           </button>
 
-          <Form {...locationForm}>
-            <form
-              onSubmit={locationForm.handleSubmit(handleSubmit)}
-              className="space-y-3"
-            >
-              <FormField
-                control={locationForm.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <BorderedDiv
-                        className={`items-center gap-2 mt-6 md:my-0  ${getFieldClassName(
-                          locationForm.formState,
-                          errors,
-                          "location"
-                        )}`}
-                      >
-                        <LocationSearchIcon />
-
-                        <UnstyledInput
-                          type="text"
-                          placeholder="Enter your location"
-                          className="placeholder:text-grey-400 font-normal focus:border-jikoo-brand-green"
-                          {...field}
-                        />
-                      </BorderedDiv>
-                    </FormControl>
-                    <FormMessage className="text-left text-xs" />
-                  </FormItem>
-                )}
+          <form className="space-y-3 px-6">
+            <BorderedDiv className="items-center gap-2 mt-6 md:my-0">
+              <LocationSearchIcon />
+              <UnstyledInput
+                type="text"
+                placeholder="Enter your location"
+                className="placeholder:text-grey-400 font-normal focus:border-jikoo-brand-green"
+                value={inputValue}
+                onChange={handleInputChange}
               />
+            </BorderedDiv>
 
-              {/* <UseCurrentLocationButton  /> */}
+            <UseCurrentLocationButton fetchSuggestions={fetchSuggestions} />
 
-              {ADDRESSLIST.map((item, key) => (
-                <LocationItem key={key} item={item} />
-              ))}
-            </form>
-          </Form>
+            {/* Conditional rendering for loading state */}
+            {loading ? (
+              <div className="">
+                <Image
+                  alt="Loader Animation"
+                  width={LOADING.width}
+                  height={LOADING.height}
+                  className="h-auto w-28 mx-auto"
+                  src={LOADING}
+                />
+                <p className="">Loading suggestions...</p>
+              </div>
+            ) : (
+              suggestions?.map((item) => (
+                <button
+                  onClick={() => handleSaveAddress(item)}
+                  type="button"
+                  className="w-full"
+                  key={item.address}
+                >
+                  <LocationItem item={item} />
+                </button>
+              ))
+            )}
+          </form>
         </div>
       </>
     );

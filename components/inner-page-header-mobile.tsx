@@ -22,13 +22,19 @@ export default function InnerHeader({
   };
   return (
     <div className={cn(className)}>
-      <div className="flex items-center justify-center p-5 lg:p-6 gap-6 bg-white fixed top-0 w-full z-50 pb-3 border-b border-b-border-b-[#EBEBEB]">
-        <button className="absolute left-6" onClick={handleClick} type="button">
-          <ArrowLeftIcon />
-        </button>
-        <p className="text-lg font-medium tracking-[-0.48px] text-grey-900 text-center">
-          {text}
-        </p>
+      <div className="flex items-center justify-center p-4 lg:p-6 gap-6 bg-white fixed top-0 w-full z-50 pb-3 border-b border-b-border-b-[#EBEBEB]">
+        <div className="max-w-[650px mx-aut relative w-full px-6 lg:px-0">
+          <button
+            className="absolute left-6"
+            onClick={handleClick}
+            type="button"
+          >
+            <ArrowLeftIcon />
+          </button>
+          <p className="text-lg font-medium tracking-[-0.48px] text-grey-900 text-center">
+            {text}
+          </p>
+        </div>
       </div>
 
       <div className="invisible pt-[61px]"></div>

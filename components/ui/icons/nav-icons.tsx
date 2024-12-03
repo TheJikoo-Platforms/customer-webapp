@@ -1,4 +1,7 @@
+import { LiaWalletSolid } from "react-icons/lia";
 import { FaUser } from "react-icons/fa6";
+import { AiOutlineHome } from "react-icons/ai";
+import { FiSearch, FiShoppingCart } from "react-icons/fi";
 
 const UserIcon = () => (
   <svg
@@ -36,104 +39,15 @@ const UserIcon = () => (
 );
 
 export const HomeIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="24"
-      height="22"
-      viewBox="0 0 24 22"
-      fill="none"
-    >
-      <rect
-        x="0.453125"
-        width="23"
-        height="22"
-        fill="url(#pattern0_21188_8879)"
-      />
-      <defs>
-        <pattern
-          id="pattern0_21188_8879"
-          patternContentUnits="objectBoundingBox"
-          width="1"
-          height="1"
-        >
-          <use
-            xlinkHref="#image0_21188_8879"
-            transform="matrix(0.0416667 0 0 0.0435606 0 -0.0227273)"
-          />
-        </pattern>
-        <image
-          id="image0_21188_8879"
-          width="24"
-          height="24"
-          xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAxBJREFUSIm11V1o1WUcB/DP8z9nc2ZhYgqaV5Yizg3nmYZ3C+yiIvCmIIPlS9vJstGVFWIcvKjsIqSIeY6apKBiF3ojhBV6K9tpko6EwitplOQLq7W3c54uzsnNMedB7Hv15/f8vt/v74X/8wS14HBbg7HBnGgbCA6peyxny/nh+1HDfcW7W1dJ4jE0YajKmY1LymGT7b2XZ6In9zyJgnzrDknsQZPgOzyNp6rfTZLYI9+6Q7x3odMffNWywFjqEPEljBE+MtC7R075jvmBTJdoL2bhLDbLFgfub1BYu0Esf43FuILXZIs/Ovlyys2r6zFmoNgjpzxlfH9gq2zxzPQG+UwdYRdxNxLiUbPHt2v/6W/drS2SeBSN1ezLyqHd9t4+n62fbc7oJ+hCxBdGbu/U9evIhEE+swLH0ILbQnhTZ+8JUVBofZf4MWYJzldH1IYRwgc6e/cJonxmIw5iPvrxqmzxUlBYs1kMX+IRnJOk23VcuFbZQ3IYL2JY8L6O4ueCaH9ruxC7K5z4vXR83ba+3xx4Zony+BE8iyEhvh3kMzfwKD40UPxUTrm6hyNYhJ+FZJPOnot37Wp/y0ohOY5mXMcW2eIZOYlFmZ3Yg7+CA2syYmpYZ0//jHuYDofbGowO7sU71cjE/AtrG4VSw8SSu5sXSuq+re7hT7whWzw9rfBU3D3/Pkn6eR0XfmfyjxbqjlfFz0nSq2sWh2zxtCS9GufQIo6fuCNbrWAubuAX85Y2euWbUs3ik5FrS1s0eBnL1Jfm23LxVqWDcmkeEsHAA4tD7vy4YACJYY8z0130kPC/G6RrzuxuXihJbwR18ZStfddrodXWQWHdckldPyFPyBtL+hXWLX94BrG8G0/goOAQFlDaVQu1xhHFlSBV/x4ojW4TrXqIBtVOU/9UHpxSaiJWEzFJ3UQULa7cRw+Ik431oicRNbjF5AenkDkrek7lHro9hboE9epL88Bo6iZGcW1K3lzMJ/wg27uBySMaS9ql4z7iC1g6TX1XzFk2WDG4egUrpskbEp1SCm/9F/gXfz0UO0h4cj8AAAAASUVORK5CYII="
-        />
-      </defs>
-    </svg>
-  );
+  return <AiOutlineHome className="text-2xl" />;
 };
 
 export const ExploreIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
-      fill="none"
-    >
-      <rect width="22" height="22" fill="url(#pattern0_21188_1313)" />
-      <defs>
-        <pattern
-          id="pattern0_21188_1313"
-          patternContentUnits="objectBoundingBox"
-          width="1"
-          height="1"
-        >
-          <use xlinkHref="#image0_21188_1313" transform="scale(0.03125)" />
-        </pattern>
-        <image
-          id="image0_21188_1313"
-          width="32"
-          height="32"
-          xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAABFJJREFUWIW1l1+IVFUcxz+/e+/uNNM4e4VGi507d3YQt4coi6A09aUwg0CyKCR6SLS/D/ViPQSR9KKBkFlhaBFEiA9BmCak9lAvRYmp2UMsuzvXWWdXAnd2cdb9c8/p4Z47Ozu4/3Tn9zLn/M6Z8/2c8zt/fldYhBWLxXwYhpuUUt0ikgVSwDBQ1lqfn5iYOD00NHR9MWPKfB2y2Ww6mUy+CTwPPDRP9zHgNHAoCIIfbhfA8Txvp4i8D9y9kMGa7Fel1K5yufz7ogEKhYKrlDoKbGpwjwInReRYGIYXpqamBjs7O4cHBwdXOo7jaa03AFuARwHL/CcUkXdLpdK+BQPk8/ki8CPQbVw1EfnYtu2Pent7q3PNBiCXy90vIntE5KkG99dBEOwEpuYEMDP/rUH8oohsKZVKffMJN5vneS+IyFdEGxVgfxAEbzf3sxrKjln2WPynZDL52K2IA1y+fPkosBH4z7je8n1/R3O/+gp4nve6iHxuqv84jrNuIUs+n+Xz+fXAGaAdGAvDcPXAwEA5brchOmptbW3fAWmimK/v7+8fvF1xgGq1GmQymesi8iTQZlnWsmq1Wj+iFkAymXyD6aO2/1aXfTZbsWLFpyLyr6m+bDb6NADRJQMw6jjO3qUUBzh79uwksNtUHRF5tg5QLBbzTN9wJ5ci7jezycnJ74EagNZ6Sx0gDMMnMJtRRI61QhzgypUrNeBnU13b3d29DMDSWt9bp7Gsv1sFYOxiLDU2NrYaoj2QjVvHx8cHWgxQiQtKqSyAJSKJ2JlKpUZbDFDfXyLSDlEI6u+3UmplK9VFpD6+bdtXIVqBIHaGYdjZSgCtda6hPARgKaXONzg3thIA2GB+r5VKpQCiEJzCnE+i97wl1tXV5QNrTPUMEAJY5XJ5DDhlGh7p6up6oBUASqlXMPeN1vpE7I+v4sNxXSm1Z6nFc7lcp9Y6zgUqiUTiyAyAIAiOA78Yus2e521bQn3LsqzPMImJiOzr6ekZnwEAoJTahYmLiHzped7DS6Hued5upvfWX+l0+kBjux0XRkZGBjKZzGj8bovI1uXLl/8xPDzcf4valu/7HwLvEcX+BrC5p6dnRp5hN1ZGRkZ+c13XBx4EUlrrF13Xra1aterPSqWiFqqcy+U6Xdf9BtjJdNZlici5arV6blYAgGq1eryjoyNDlF7bwKZarbato6PjWnt7e2+tVpuYTbhQKBQymcw7IvItcJ9xj5txLOBp13UHGiFm/TDxfX+71voT4M4G9w2iJ/UC0cMyTJRJ5YgumTVNw5wDXgLWAQcNhBKRV0ul0uE5AQzEPVrrD4DtgDNX3yariMi+dDp94NKlSxNmrB1a6y9iCOC1IAgOzfttCNHSaq2fM5nMWm4SOuAacEZrfSKRSBxpPGoNE5oBobV+ZkEAjZbNZtOpVGq1Uuou4A7btq+KSKWvr6+MOcZzWRPEwUUDLIX5vr8VeNy27b3/Az6/knjRAf3LAAAAAElFTkSuQmCC"
-        />
-      </defs>
-    </svg>
-  );
+  return <FiSearch className="text-2xl" />;
 };
 
 export const CartIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="23"
-      height="23"
-      viewBox="0 0 23 23"
-      fill="none"
-    >
-      <rect width="23" height="23" fill="url(#pattern0_21188_1314)" />
-      <defs>
-        <pattern
-          id="pattern0_21188_1314"
-          patternContentUnits="objectBoundingBox"
-          width="1"
-          height="1"
-        >
-          <use xlinkHref="#image0_21188_1314" transform="scale(0.03125)" />
-        </pattern>
-        <image
-          id="image0_21188_1314"
-          width="32"
-          height="32"
-          xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAtVJREFUWIXtlMGLE3cUxz9vktmINMR0Be3Cb4YcWguBbpc9KKioVFyhxUIv7aFF/AuEHkTqzWvpRe8injzpQRClLV0pCy2IWLYrdJ0tSyZbus1hS8guJCG/52VGYpjESXajB/3CwPv95jvvffi9eT94q9csAfA8rwzsAlDVZi6XexoEQfNVADjGmG+BP4GHwEMRWWy1WrVof/wAffbzIvKDMebcuAGSWrBXRK4C7wN/VSqVD8cO0CvP884C1wGstR9Uq9Wn4wJIbIHjOPcBBchkMqfGVRz6nACAMeaxiEwDdyqVyhmAqamp3dls9gtg9zbrbjWbzdvr6+ub2b5kIveBaeBEuVyeWFpaarmue0lVv9tmcQByudwV4Hy/KYgBAN5pNBqHAay1i0B7JwBUtQX9xxDXdReAzcg8BxCG4c2JiYk88O6Iz8k4v+M48wB9WxAEQdPzvHngU2AOuBjvAyPdkr7vz6gqQEdEFmDACUSK2zDt+/57oxTtlqoei8JHq6ur/78UoNPpxACiqicHeVMoAxyJ4vl4cyDA2traMvB3tJzbTnVjzAywB0BEHqQCiPRjF0Aaf6Icxzkehc/7nwqgaxz3+r7/8agASf1PBeC67s9Esx+P4whK7H8qgCAI6sBvACLyFQNGt5983z9NQv9Jm0xEbqjqUVX9yBizIiLLQ9TPqerBKP7Xdd2fXsidJsPs7Kxbq9VuAZ8NUbhXLWvt59Vq9d7QAJEcY8yXInKC6DhTyorIirX2WhiGK0N892qUGeUjz/OKxWLx0OTk5NbGxsZmksf3/Zl8Pu/V6/V/BuUa+mIplUr7gCfW2l/a7fZyqVQ60OsxxlxW1UeO4/xujLmyowDW2k+A/dGyYK090+sRkW+64q93FKDT6SwCNl6r6uME2x8vef9cQ/8D9Xr9v0KhsKCqNeD7MAzv9nqKxeI9a21DRH5tt9sXGo3G1rB13hw9AxbJ/22jbVECAAAAAElFTkSuQmCC"
-        />
-      </defs>
-    </svg>
-  );
+  return <FiShoppingCart className="text-2xl" />;
 };
 
 export const NotificationIcon = () => {
@@ -253,31 +167,6 @@ export const ContactIcon = () => {
 
 export const AccountIcon = () => <FaUser size={24} />;
 
-export const WalletIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill="none"
-  >
-    <rect width="20" height="20" fill="url(#pattern0_21188_1316)" />
-    <defs>
-      <pattern
-        id="pattern0_21188_1316"
-        patternContentUnits="objectBoundingBox"
-        width="1"
-        height="1"
-      >
-        <use xlinkHref="#image0_21188_1316" transform="scale(0.03125)" />
-      </pattern>
-      <image
-        id="image0_21188_1316"
-        width="32"
-        height="32"
-        xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAs1JREFUWIXFl01rFFkUhp9zu6Gp1rYHJLaG7qooDL0SBD9AdOMmEGNUkIw0LlzIbPwHrvz4F4LgRmkRP1AifoBLJaJuHWqTSVVDg6lRsRMsGZM6LnJLm9i6sarzbC7n3lP1vlV163CP0IfneYdV9SxwCCiTLe+BV8CVMAxvAQogALVabUOpVLoOHMtYdCCq+rBcLp/0fX+xCEipVLraJ/6fqj4XkYKIvFDV/zMQLIpIHTgObBWRiTiObwBHxPO8E6p6y+Y+LhaLJ+fm5j7+ruggRkZGNjqO0waO2Km/jKqetsGC4zjTeYkDRFG0FMdxC3hrp84UgYM2uOv7/iJAo9G4LiIt7B7JAFXVdqfTORVF0ZLruveBv4HdBthkkz6k2SIynqG4vaWM98VdO24uAgUb7ElXkySZLBQKR1W1mJH68srKyv00VtUvIgKwLK7rajovIpNBEDzMQvRXuK67A7gMPO03APAZOK+q1zqdTnfw5dmy1kCevON7JbxNWgn7DMwAHrBzCGYeOI7TSithyuswDI+NjY3tS5Jkr4jUstqElj9YrYQ1YDKO4zYw1f8GLoZheCFDwR9oNpsVKzxpp6ZNnoJr8X1/0XGcFrAAICJnhmogNQHcA1DVPUM3YPlWCdfLQIqstwGy/M0G4nne/iRJJowx7SAI/hmqgdHR0bKqPhGRjaraAv5cmzOMT/DLUp+rgW63+8kYMw5cMsZMDcrJfQ/Mz8/PArM/WzfACoCqFn6WlCeG72Wxvg76aoCXNpio1+vOkIRH7fjOqGrbBjVjzPm8lZvNZgXbBKnqy0Kv13tTrVangG3AgWq1Wq5UKs96vd5yHuK2I9oFYIw5JwCe521X1Vlgi81dAB4B/wLx7wrb1sxj9clTjZkwDI9+O/tbEzfpO57nyEwcx60oipbWNh+m0WhM265oL6vHp0x+TxGJgNfAlSAI7mAr5Fe45QrZJTRm1wAAAABJRU5ErkJggg=="
-      />
-    </defs>
-  </svg>
-);
+export const WalletIcon = () => {
+  return <LiaWalletSolid className="text-2xl" />;
+};

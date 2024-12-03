@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -51,7 +52,23 @@ const variants = {
   }),
 };
 
-const SliderCard: React.FC = () => {
+interface SliderCardProps {
+  className?: string;
+  innerClassName?: string;
+  textContainerStyle?: string;
+  headingStyle?: string;
+  textStyle?: string;
+  imageStyle?: string;
+}
+
+const SliderCard: React.FC<SliderCardProps> = ({
+  className,
+  innerClassName,
+  textContainerStyle = "max-w-[171px]",
+  headingStyle = "text-xl",
+  textStyle = "text-sm",
+  imageStyle = "w-[132px]",
+}) => {
   const [currentSlide, setCurrentSlide] = useState<number>(1);
   const [direction, setDirection] = useState<number>(0);
 
@@ -77,8 +94,8 @@ const SliderCard: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full md:w-1/2 px-6 md:px-0">
-      <div className="relative w-full lg:w-[358px] h-[164px] overflow-hidden">
+    <div className={cn("flex flex-col px-6 md:px-0", className)}>
+      <div className={cn("relative overflow-hidden", innerClassName)}>
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={slides[currentSlide].id}
@@ -90,12 +107,22 @@ const SliderCard: React.FC = () => {
             className="absolute inset-0 bg-[#E5F5EB] rounded-[13px] p-4"
           >
             <div className="w-full flex justify-between h-full">
-              <div className="max-w-[171px] flex flex-col justify-between h-full">
+              <div
+                className={cn(
+                  " flex flex-col justify-between h-full",
+                  textContainerStyle
+                )}
+              >
                 <div>
-                  <p className="text-xl tracking-[-1px] leading-6 font-extrabold ">
+                  <p
+                    className={cn(
+                      "tracking-[-1px] leading-6 font-extrabold",
+                      headingStyle
+                    )}
+                  >
                     {slides[currentSlide].mainText}
                   </p>
-                  <p className="text-sm text-jikoo-brand-green mt-1">
+                  <p className={cn("text-jikoo-brand-green mt-1", textStyle)}>
                     {slides[currentSlide].subText}
                   </p>
                 </div>
@@ -112,7 +139,7 @@ const SliderCard: React.FC = () => {
                     width={1000}
                     height={1000}
                     quality={100}
-                    className="w-[132px] h-auto rounded-md"
+                    className={cn("h-auto rounded-md", imageStyle)}
                     src={slides[currentSlide].imageUrl}
                   />
                 )}
@@ -138,119 +165,3 @@ const SliderCard: React.FC = () => {
 };
 
 export default SliderCard;
-
-// "use client";
-// import { motion } from "framer-motion";
-// import Image from "next/image";
-// import React, { useEffect, useState } from "react";
-
-// // Slide data for the carousel
-// const slides = [
-//   {
-//     id: 1,
-//     mainText: (
-//       <>
-//         <span className="text-jikoo-brand-green">Share</span> the Love of Good
-//         Food
-//       </>
-//     ),
-//     subText: "Win 3 free deliveries",
-//     linkText: "Refer Now ",
-//     imageUrl: "/home/slide-one.svg",
-//   },
-//   {
-//     id: 2,
-//     mainText: (
-//       <>
-//         Crave, Order, Enjoy
-//         <span className="text-jikoo-brand-green"> All in One Place.</span>
-//       </>
-//     ),
-//     subText: "",
-//     linkText: "Get Started ",
-//     imageUrl: "/home/slide-two.svg",
-//   },
-//   {
-//     id: 3,
-//     mainText: (
-//       <>
-//         Enjoy, Order, Enjoy
-//         <span className="text-jikoo-brand-green"> Go in One Place.</span>
-//       </>
-//     ),
-//     subText: "",
-//     linkText: "Get Started ",
-//     imageUrl: "/home/slide-three.svg",
-//   },
-// ];
-
-// const SliderCard: React.FC = () => {
-//   const [currentSlide, setCurrentSlide] = useState(0);
-//   const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setCurrentSlide((prev) => {
-//         const nextSlide = prev + direction;
-
-//         // Check if we're at the start or end of the slides to reverse direction
-//         if (nextSlide >= slides.length || nextSlide < 0) {
-//           setDirection((prevDirection) => -prevDirection); // Reverse direction
-//           return prev; // Stay on the current slide briefly before moving in the other direction
-//         }
-
-//         return nextSlide;
-//       });
-//     }, 3000);
-
-//     return () => clearInterval(interval);
-//   }, [direction]);
-
-//   return (
-//     <div className="relative w-[358px] h-[164px] overflow-hidden">
-//       <motion.div
-//         className="flex gap-4"
-//         animate={{ x: -currentSlide * 368 }}
-//         transition={{ duration: 0.5, ease: "easeInOut" }}
-//       >
-//         {slides.map((slide) => (
-//           <div
-//             key={slide.id}
-//             className="min-w-[358px] bg-[#E5F5EB] rounded-[13px] p-4 flex flex-col justify-between"
-//           >
-//             <div className="flex justify-between h-full">
-//               <div className="max-w-[171px] flex flex-col justify-between">
-//                 <div>
-//                   <p className="text-xl tracking-[-1px] leading-6 font-extrabold">
-//                     {slide.mainText}
-//                   </p>
-//                   <p className="text-sm text-jikoo-brand-green mt-1">
-//                     {slide.subText}
-//                   </p>
-//                 </div>
-//                 <p className="text-sm font-medium text-[#1E1E1E] tracking-[-0.4px]">
-//                   {slide.linkText}{" "}
-//                   <span className="text-jikoo-brand-green">{">"}</span>
-//                 </p>
-//               </div>
-//               <div className="overflow-hidden self-end">
-//                 {slide.imageUrl && (
-//                   <Image
-//                     alt="Slide image"
-//                     width={1000}
-//                     height={1000}
-//                     quality={100}
-//                     className="w-[132px] h-auto rounded-md"
-//                     src={slide.imageUrl}
-//                   />
-//                 )}
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </motion.div>
-//     </div>
-//   );
-// };
-
-// export default SliderCard;

@@ -2,17 +2,27 @@
 import { useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const WRAPPERCLASSNAMES =
   "bg-[#0A1910F2] py-3 px-4 flex w-full max-sm500:max-w-[calc(100%-30px)] sm500:w-[350px] items-center rounded-md fixed bottom-[72px] lg:bottom-[30px] left-1/2 -translate-x-1/2 max-h-[44px] z-10 text-sm text-white justify-between";
 
 export const AuthNotificationContainter = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const isAuthenticated = useAppSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
   const cartItems = useAppSelector(
     (state: RootState) => state.foodItemData.cartItems
   );
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null; // Prevent rendering until the component is mounted
+  }
 
   return !isAuthenticated ? (
     <div

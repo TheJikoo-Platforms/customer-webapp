@@ -49,7 +49,7 @@ export default function Cart() {
         {/* Empty State */}
         {(!cartItems || cartItems.length === 0) && <EmptyCart />}
 
-        <div className="px-6 lg:px-0">
+        <div className="px-6 lg:px-0 max-w-[650px] mx-auto">
           {cartItems?.length > 0 && (
             <div className="flex flex-col gap-4 mt-8">
               {cartItems.map((item, key) => (

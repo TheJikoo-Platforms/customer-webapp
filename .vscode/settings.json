@@ -1,0 +1,8 @@
+{
+  "stylelint.config": {},
+  "stylelint.validate": ["css", "scss", "less"],
+  "stylelint.disableErrorMessage": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "notebook.defaultFormatter": "esbenp.prettier-vscode",
+  "stylelint.enable": false
+}

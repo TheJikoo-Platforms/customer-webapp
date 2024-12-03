@@ -32,9 +32,7 @@ export default async function Home() {
               <div className="space-y-4 lg:rounded-xl bg-white md:py-3">
                 <WalletAndSlider />
                 <Features />
-                <div className="hidden md:block px-6">
-                  <Divider />
-                </div>
+
                 <CategoriesList />
                 <div className="hidden md:block">
                   <VendorsList />

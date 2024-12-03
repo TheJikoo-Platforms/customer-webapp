@@ -7,7 +7,7 @@ export const SearchButton = () => {
   return (
     <div className="max-lg:hidden">
       <button
-        onClick={() => router.push("/search")}
+        onClick={() => router.push("search/products?query=")}
         className="lg:rounded-xl lg:bg-white p-4 mb-4 flex flex-col gap-6 w-full "
       >
         <div className="border border-grey-300 p-4 rounded-full flex items-center gap-2 w-full">

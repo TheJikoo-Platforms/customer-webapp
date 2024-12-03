@@ -10,7 +10,7 @@ import { LocationOverlay } from "./location/overlay";
 import SettingsOverlay from "./settings/overlay/overlay";
 import WalletOverlay from "./wallet/overlay/overlay";
 import { CartBackdrops } from "./cart/cart-backdrops/cart-backdrops";
-import { SearchUIOverlay } from "./home/search/search-ui-overlay-container";
+import FilterOverlay from "./home/search/filter-overlay";
 
 export default function Backdrops() {
   const showLocationOverlay = useAppSelector(
@@ -18,9 +18,6 @@ export default function Backdrops() {
   );
   const showNotificationOverlay = useAppSelector(
     (state: RootState) => state.notifications.showNotificationsOverlay
-  );
-  const showSearchOverlay = useAppSelector(
-    (state: RootState) => state.search.showsearchOverlay
   );
   const showCartOverlayMobile = useAppSelector(
     (state: RootState) => state.cart.showCartOverlayMobile
@@ -43,18 +40,20 @@ export default function Backdrops() {
   const { currentAddress } = useAppSelector(
     (state: RootState) => state.savedAddress
   );
-
+  const { showFilterOverlay } = useAppSelector(
+    (state: RootState) => state.filter
+  );
   return (
     <>
       {showLocationOverlay && !currentAddress && <LocationOverlay />}
       {showNotificationOverlay && <NotificationsOverlay />}
-      {showSearchOverlay && <SearchUIOverlay />}
       {showCartOverlayMobile && <CartOverLayMobile />}
       {showCartOverlay && <CartBackdrops />}
       {showCheckoutOverlay && <CheckoutBackdrops />}
       {showProductItemOverlay && <FoodItemOverlay />}
       {showSettingsOverlay && <SettingsOverlay />}
       {showWalletOverlay && <WalletOverlay />}
+      {showFilterOverlay && <FilterOverlay />}
     </>
   );
 }

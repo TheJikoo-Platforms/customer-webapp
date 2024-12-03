@@ -2,20 +2,48 @@ import { AddressProps } from "@/components/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AddressStateProps {
-  addressList: AddressProps[]; // Array to store multiple addresses
-  currentAddress: AddressProps | null; // Stores the current selected address
+  addressList: AddressProps[];
+  currentAddress: AddressProps | null;
 }
 
-const initialState: AddressStateProps = {
-  addressList: [], // Initialize with an empty array
-  currentAddress: null, // Initialize with null
+// Helper functions for localStorage
+const STORAGE_KEY = "savedAddresses";
+const CURRENT_ADDRESS_KEY = "currentAddress";
+
+const getStoredAddresses = (): {
+  addressList: AddressProps[];
+  currentAddress: AddressProps | null;
+} => {
+  if (typeof window === "undefined")
+    return { addressList: [], currentAddress: null };
+
+  const storedAddresses = localStorage.getItem(STORAGE_KEY);
+  const storedCurrentAddress = localStorage.getItem(CURRENT_ADDRESS_KEY);
+
+  return {
+    addressList: storedAddresses ? JSON.parse(storedAddresses) : [],
+    currentAddress: storedCurrentAddress
+      ? JSON.parse(storedCurrentAddress)
+      : null,
+  };
 };
+
+const saveToStorage = (
+  addresses: AddressProps[],
+  currentAddress: AddressProps | null
+) => {
+  if (typeof window === "undefined") return;
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(addresses));
+  localStorage.setItem(CURRENT_ADDRESS_KEY, JSON.stringify(currentAddress));
+};
+
+const initialState: AddressStateProps = getStoredAddresses();
 
 const addressSlice = createSlice({
   name: "address",
   initialState,
   reducers: {
-    // Add a new address to the list, ensuring it is unique
     addAddress: (state, action: PayloadAction<AddressProps>) => {
       const exists = state.addressList.some(
         (addr) =>
@@ -24,9 +52,10 @@ const addressSlice = createSlice({
       );
       if (!exists) {
         state.addressList.push(action.payload);
+        saveToStorage(state.addressList, state.currentAddress);
       }
     },
-    // Remove an address from the list by matching the area
+
     removeAddress: (state, action: PayloadAction<string>) => {
       state.addressList = state.addressList.filter(
         (addr) => addr.area !== action.payload
@@ -35,18 +64,21 @@ const addressSlice = createSlice({
       if (state.currentAddress?.area === action.payload) {
         state.currentAddress = null;
       }
+      saveToStorage(state.addressList, state.currentAddress);
     },
-    // Set the current address by index
+
     setCurrentAddress: (state, action: PayloadAction<AddressProps>) => {
       const selectedAddress = action.payload;
       if (selectedAddress) {
         state.currentAddress = selectedAddress;
+        saveToStorage(state.addressList, state.currentAddress);
       }
     },
-    // Clear all addresses
+
     clearAddresses: (state) => {
       state.addressList = [];
       state.currentAddress = null;
+      saveToStorage([], null);
     },
   },
 });
