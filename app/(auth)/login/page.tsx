@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Logo from "@/public/logo.png";
 import Link from "next/link";
 import Image from "next/image";
+import AnimatePresenceContainer from "@/components/auth/ui/AnimatePresenceContainer";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 export default async function LoginPage() {
   await new Promise((resolve, reject) => setTimeout(resolve, 2000));
   return (
-    <div>
+    <AnimatePresenceContainer>
       <div className="flex items-center justify-center relative">
         <BackButton className="absolute left-0" />
         <Link href={"/"} className="">
@@ -32,6 +33,6 @@ export default async function LoginPage() {
 
       <AuthHeading text="Login to your account" />
       <LoginForm />
-    </div>
+    </AnimatePresenceContainer>
   );
 }

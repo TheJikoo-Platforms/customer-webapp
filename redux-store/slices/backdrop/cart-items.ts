@@ -1,18 +1,31 @@
 import { IProductItem } from "@/components/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Separate interface for cart items to manage quantity
 export interface ICartItem {
   product: IProductItem;
   quantity: number;
 }
 
 interface FoodItemState {
-  cartItems: ICartItem[]; // Cart items with quantity
+  cartItems: ICartItem[];
 }
 
+// Helper functions for localStorage
+const STORAGE_KEY = "cartItems";
+
+const getStoredCart = (): ICartItem[] => {
+  if (typeof window === "undefined") return [];
+  const stored = localStorage.getItem(STORAGE_KEY);
+  return stored ? JSON.parse(stored) : [];
+};
+
+const saveCartToStorage = (items: ICartItem[]) => {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+};
+
 const initialState: FoodItemState = {
-  cartItems: [], // Initialize with an empty array
+  cartItems: getStoredCart(),
 };
 
 const foodItemSlice = createSlice({
@@ -24,50 +37,52 @@ const foodItemSlice = createSlice({
       action: PayloadAction<{ product: IProductItem; quantity: number }>
     ) {
       const { product, quantity } = action.payload;
-
       const existingCartItem = state.cartItems.find(
         (cartItem) => cartItem.product._id === product._id
       );
 
       if (existingCartItem) {
-        // If the product already exists, increase its quantity by the specified amount
         existingCartItem.quantity = quantity;
       } else {
-        // Add a new item with the specified quantity
         state.cartItems.push({ product, quantity });
       }
+      saveCartToStorage(state.cartItems);
     },
 
-    // Increase quantity of the product
     increaseQuantity(state, action: PayloadAction<string>) {
       const existingCartItem = state.cartItems.find(
         (cartItem) => cartItem.product._id === action.payload
       );
       if (existingCartItem) {
-        existingCartItem.quantity += 1; // Increase quantity
+        existingCartItem.quantity += 1;
+        saveCartToStorage(state.cartItems);
       }
     },
 
-    // Decrease quantity but prevent it from going below 1
     decreaseQuantity(state, action: PayloadAction<string>) {
       const existingCartItem = state.cartItems.find(
         (cartItem) => cartItem.product._id === action.payload
       );
       if (existingCartItem && existingCartItem.quantity > 1) {
-        existingCartItem.quantity -= 1; // Decrease quantity
+        existingCartItem.quantity -= 1;
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (cartItem) => cartItem.product._id !== action.payload
+        );
       }
+      saveCartToStorage(state.cartItems);
     },
 
-    // Remove item from cart
     removeFromCart(state, action: PayloadAction<string>) {
       state.cartItems = state.cartItems.filter(
         (cartItem) => cartItem.product._id !== action.payload
       );
+      saveCartToStorage(state.cartItems);
     },
 
-    // Clear the entire cart
     clearCart(state) {
-      state.cartItems = []; // Reset cart to empty
+      state.cartItems = [];
+      saveCartToStorage([]);
     },
   },
 });

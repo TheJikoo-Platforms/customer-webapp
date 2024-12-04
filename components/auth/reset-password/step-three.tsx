@@ -24,6 +24,7 @@ import { MdCancel } from "react-icons/md";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { resetPassword } from "@/api/requests";
+import AnimatePresenceContainer from "../ui/AnimatePresenceContainer";
 
 interface StepThreeProps {
   stepOneData: string;
@@ -136,7 +137,7 @@ export const StepThreeForm = React.memo(
     const errors = passwordForm.formState.errors;
 
     return (
-      <div>
+      <AnimatePresenceContainer>
         <div className="flex items-center justify-center relative">
           <button
             onClick={() => handleNextStep(2)}
@@ -258,7 +259,7 @@ export const StepThreeForm = React.memo(
             </Button>
           </form>
         </Form>
-      </div>
+      </AnimatePresenceContainer>
     );
   }
 );

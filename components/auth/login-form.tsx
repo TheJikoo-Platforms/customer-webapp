@@ -36,6 +36,7 @@ import { useToast } from "../ui/use-toast";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useAppDispatch } from "@/redux-store/hooks";
 import { setIsAuthenticated } from "@/redux-store/slices/authslice";
+import AnimatePresenceContainer from "./ui/AnimatePresenceContainer";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -134,7 +135,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <AnimatePresenceContainer>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
@@ -287,7 +288,7 @@ const LoginForm = () => {
           Terms and Privacy policy
         </Link>
       </p>
-    </div>
+    </AnimatePresenceContainer>
   );
 };
 

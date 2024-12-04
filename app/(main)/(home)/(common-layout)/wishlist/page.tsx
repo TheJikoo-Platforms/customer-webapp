@@ -13,7 +13,7 @@ export default async function WishlistPage() {
 
       <InnerHeader text="Wishlist" className="block lg:hidden" />
 
-      <div className="bg-white lg:rounded-xl p-5 pb-[125px] lg:pb-6">
+      <div className="bg-white lg:rounded-xl p-5 pb-[125px] lg:pb-6 lg:h-full">
         <WishlistContainer />
       </div>
     </div>

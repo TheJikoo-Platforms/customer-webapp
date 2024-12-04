@@ -32,7 +32,7 @@ export const NavAccountIcon = ({
       <Avatar
         className={className}
         firstname={user?.firstname || ""}
-        lastname={user?.lastname || ""}
+        // lastname={user?.lastname || ""}
       />
     )
   ) : (
@@ -48,7 +48,7 @@ const UserIcon = () => (
     viewBox="0 0 25 24"
     fill="none"
   >
-    <g clip-path="url(#clip0_18542_19180)">
+    <g clipPath="url(#clip0_18542_19180)">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

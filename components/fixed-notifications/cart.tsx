@@ -1,11 +1,22 @@
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { setShowCartOverlayMobile } from "@/redux-store/slices/backdrop/cart";
 import { RootState } from "@/redux-store/store";
+import { useState, useEffect } from "react";
 
 export const CartNotificationContainter = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const cartItems = useAppSelector(
     (state: RootState) => state.foodItemData.cartItems
   );
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return cartItems?.length > 0 ? <CartNotification /> : null;
 };
 

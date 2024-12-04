@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import AnimatePresenceContainer from "../ui/AnimatePresenceContainer";
 import {
   Form,
   FormControl,
@@ -103,7 +104,7 @@ export const StepFiveForm = React.memo(
     const errors = otpForm.formState.errors;
 
     return (
-      <div>
+      <AnimatePresenceContainer>
         <div className="flex items-center justify-center relative">
           <button
             type="button"
@@ -176,7 +177,7 @@ export const StepFiveForm = React.memo(
             Resend
           </button>
         </div>
-      </div>
+      </AnimatePresenceContainer>
     );
   }
 );

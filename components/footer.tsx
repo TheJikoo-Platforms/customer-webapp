@@ -62,7 +62,9 @@ export const Footer = () => {
                 <Link href="/">
                   <Image
                     alt="Jikoo Logo"
-                    {...LogoWhite}
+                    src={LogoWhite}
+                    width={LogoWhite.width}
+                    height={LogoWhite.height}
                     className="h-auto w-[90px]"
                   />
                 </Link>

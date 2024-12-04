@@ -5,7 +5,6 @@ import { NormalWrapper } from "@/components/wrappers";
 import { WhiteCard } from "@/components/white-card";
 import { OrdersHome } from "@/components/orders/orders";
 import { CartFlow } from "@/components/cart/mobile-overlay";
-import AuthController from "@/components/auth-routes-controller";
 
 export default function MainLayout({
   children,
@@ -24,9 +23,9 @@ export default function MainLayout({
         </div>
         <NormalWrapper>
           <div className="lg:grid lg:grid-cols-[calc(68%-24px),32%] lg:gap-6 lg:mt-6 lg:mb-0 items-start">
-            <main className="flex flex-col flex-1 sticky top-[80px]">
+            <div className="flex flex-col flex-1 sticky top-[80px]">
               {children}
-            </main>
+            </div>
             <div className="max-lg:hidden space-y-4 sticky top-[80px]">
               <WhiteCard className="p-4">
                 <OrdersHome />

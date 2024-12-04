@@ -5,8 +5,22 @@ interface FoodItemState {
   wishListItems: IProductItem[];
 }
 
+// Helper functions for localStorage
+const STORAGE_KEY = "wishlistItems";
+
+const getStoredWishlist = (): IProductItem[] => {
+  if (typeof window === "undefined") return [];
+  const stored = localStorage.getItem(STORAGE_KEY);
+  return stored ? JSON.parse(stored) : [];
+};
+
+const saveWishlistToStorage = (items: IProductItem[]) => {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+};
+
 const initialState: FoodItemState = {
-  wishListItems: [],
+  wishListItems: getStoredWishlist(),
 };
 
 const foodItemSlice = createSlice({
@@ -26,9 +40,13 @@ const foodItemSlice = createSlice({
         // Add if not in wishlist
         state.wishListItems.push(product);
       }
+
+      // Save to localStorage after every change
+      saveWishlistToStorage(state.wishListItems);
     },
     clearWishList(state) {
       state.wishListItems = [];
+      saveWishlistToStorage([]);
     },
   },
 });

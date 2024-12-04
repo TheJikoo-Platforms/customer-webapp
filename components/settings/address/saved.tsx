@@ -19,7 +19,7 @@ export const SavedAddress = React.memo(
     handleCurrentScreen: (screen: string) => void;
   }) => {
     const addressList = useAppSelector(
-      (state: RootState) => state.savedAddress.addressState.addressList
+      (state: RootState) => state.savedAddress.addressList
     );
     // console.log(addressList, currentAddressIndex);
     const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ export const SavedAddress = React.memo(
           activeScreen: "delete",
         })
       );
-      dispatch(setCurrentAddress(index));
+      // dispatch(setCurrentAddress(index));
     };
     return (
       <>
