@@ -87,12 +87,12 @@ export const StepOneForm = React.memo(
 
     const handleMailSubmit = (values: z.infer<typeof emailSchema>) => {
       sendOtp(values.mail);
-      console.log("OTP submitted: ", values);
+      // console.log("OTP submitted: ", values);
       onSubmit(values.mail);
     };
 
     const errors = mailForm.formState.errors;
-    console.log(errors);
+
     return (
       <AnimatePresenceContainer>
         <div className="flex items-center justify-center relative">

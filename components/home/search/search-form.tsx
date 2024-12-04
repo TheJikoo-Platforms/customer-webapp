@@ -58,7 +58,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
         <UnstyledInput
           ref={inputRef}
           type="text"
-          placeholder="Search for dishes or restuarants"
+          placeholder="Search for categories or foods"
           className="bg-transparent placeholder:text-grey-400 w-full text-sm outline-none font-normal"
           value={formValue}
           onChange={handleChange}

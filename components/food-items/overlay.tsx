@@ -157,7 +157,7 @@ export const FoodItemOverlay = () => {
                       <div className="mt-1.5 flex items-center text-grey-500 text-xs">
                         <p className="flex gap-1 items-center">
                           <StarIcon />
-                          <span>{4.5}</span>
+                          <span>{currentProductItem?.avgRating}</span>
                         </p>
                         <LuDot className="mx-0.5 text-[#667185]" />
                         <p className="flex gap-1 items-center">
@@ -251,7 +251,7 @@ export const FoodItemOverlay = () => {
                     <div
                       className="bg-white fixed sm600:sticky bottom-0 w-full sm600:max-w-[520px] flex gap-4 p-5 shadow-md sm600:rounded-b-xl"
                       style={{
-                        boxShadow: "0px 0px 39px -14px rgba(0, 153, 51, 0.56)",
+                        boxShadow: "0px 0px 30px -14px rgba(0, 153, 51, 0.56)",
                       }}
                     >
                       <div className="bg-state-success-50 border border-jikoo-brand-green h-[56px] items-center flex justify-between py-[15px] px-5 w-full max-w-[119px] sm600:max-w-[125px] rounded-md text-xl font-bold">

@@ -21,7 +21,7 @@ import { usePathname } from "next/navigation";
 import { TbSettings } from "react-icons/tb";
 import { GoSignOut } from "react-icons/go";
 import { useTransitionRouter } from "next-view-transitions";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 
 export const Header = () => {
@@ -38,6 +38,13 @@ export const Header = () => {
   const pathname = usePathname();
   const activePath = pathname.slice(1).split("/").at(0);
   const router = useTransitionRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
   return (
     <header className="py-4 bg-jikoo-dark-green md:bg-primary-foreground fixed top-0 z-20 w-full left-0">
       <WideWrapper>

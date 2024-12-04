@@ -9,6 +9,7 @@ import clsx from "clsx";
 import FoodItemContainer from "@/components/food-items/food-items-container";
 import { useProducts, useSearchProducts } from "../hooks/use-products";
 import InnerHeader from "@/components/inner-page-header-mobile";
+import { useTransitionRouter } from "next-view-transitions";
 
 interface CategorySectionProps {
   category: string;
@@ -16,7 +17,12 @@ interface CategorySectionProps {
 
 export const CategorySection = ({ category }: CategorySectionProps) => {
   const { data } = useCategories(1, 20);
-  const { data: categoriesData, isLoading, error } = useProducts(1, 10);
+  const {
+    data: categoriesData,
+    isLoading,
+    error,
+  } = useSearchProducts(category);
+
   const sortedCategories = useMemo(() => {
     if (!data?.data?.categories) return [];
 
@@ -27,13 +33,16 @@ export const CategorySection = ({ category }: CategorySectionProps) => {
       return 0;
     });
   }, [data?.data?.categories, category]);
+  const router = useTransitionRouter();
 
   return (
     <div className="overflow-hidden">
       <InnerHeader text="Categories" className="-mx-4 sm600:-mx-6" />
       <div className="hidden lg:block">
         <div className="flex items-center gap-2">
-          <BackButton />
+          <BackButton
+            onClick={() => router.replace("/search/products?query=")}
+          />
           <span className="text-[#1E1E1E] font-bold tracking-[-0.4px]">
             Categories
           </span>
@@ -49,6 +58,7 @@ export const CategorySection = ({ category }: CategorySectionProps) => {
         {sortedCategories.map((el: ICategory) => (
           <Link
             href={`/search/products?category=${el.name}`}
+            key={el.name}
             className={clsx([
               "relative items-center gap-2.5 flex flex-col shrink-0 max-w-[60px] after:content-[''] after:absolute after:-bottom-3 after:h-1 after:w-full after:rounded-full transition-all ",
               {
@@ -84,7 +94,7 @@ export const CategorySection = ({ category }: CategorySectionProps) => {
 
       <FoodItemContainer
         isLessDetailed
-        foodItems={categoriesData?.data?.products}
+        foodItems={categoriesData?.data?.data}
       />
     </div>
   );

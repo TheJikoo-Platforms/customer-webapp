@@ -108,7 +108,7 @@ export const StepThreeForm = React.memo(
       }
     );
     const handleOtpSubmit = (values: z.infer<typeof passwordSchema>) => {
-      console.log("Password Submitted: ", values);
+      // console.log("Password Submitted: ", values);
       if (stepOneData) {
         const data = {
           email: stepOneData,

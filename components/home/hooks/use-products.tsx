@@ -13,17 +13,46 @@ export const useProducts = (page: number, limit: number) => {
 };
 
 // Search for products
+export interface SearchFilters {
+  limit?: number;
+  minPrice?: number | null;
+  maxPrice?: number | null;
+  minRating?: string | null;
+  maxRating?: string | null;
+  minDeliveryTime?: number | null;
+  maxDeliveryTime?: number | null;
+}
 
-export const useSearchProducts = (searchTerm: string) => {
+export const useSearchProducts = (
+  query: string,
+  filters: SearchFilters = {}
+) => {
+  const {
+    limit = 10,
+    minPrice,
+    maxPrice,
+    minRating,
+    maxRating,
+    minDeliveryTime,
+    maxDeliveryTime,
+  } = filters;
+
   return useQuery(
-    ["searchProducts", searchTerm], // Unique query key, searchTerm acts as a variable key
-    () => searchProducts(searchTerm), // Function to fetch products based on search term
+    ["searchProducts", query, filters], // Include filters in the query key
+    () =>
+      searchProducts(
+        query,
+        limit,
+        minPrice || undefined,
+        maxPrice || undefined,
+        minRating ? Number(minRating) : undefined,
+        maxRating ? Number(maxRating) : undefined
+      ),
     {
-      enabled: !!searchTerm, // Only run the query if searchTerm is not empty
+      enabled: !!query,
       retry: 3,
       onError: (error: any) => {
         console.error("Error during product search:", error);
-        // You can show a toast or handle errors here
       },
     }
   );

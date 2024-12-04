@@ -59,6 +59,7 @@ export interface IProductItem {
   stockStatus: string;
   sold: number;
   cookingTime: string;
+  avgRating: number;
 }
 interface IOpeningTime {
   days: string;

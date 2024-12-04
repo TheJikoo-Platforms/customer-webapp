@@ -113,7 +113,7 @@ export const FoodItem = ({ data, isLessDetailed }: IFoodItemProps) => {
             ])}
           >
             <p className="flex gap-2 items-center">
-              <StarIcon /> <span>{"4.5"}</span>
+              <StarIcon /> <span>{data?.avgRating}</span>
             </p>
             <LuDot className="mx-0.5" />
             <p className="flex gap-1 items-center">

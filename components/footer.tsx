@@ -27,25 +27,25 @@ const navLinks = [
 
 // Social media links
 const socialMediaLinks = [
-  {
-    icon: <Youtube size={18} />,
-    href: "https://youtube.com/@jikoohq?si=Y7IT7Mhd7xdzYEo3",
-  },
-  {
-    icon: <FaFacebook size={18} />,
-    href: "https://www.facebook.com/profile.php?id=61559398426459&mibextid=LQQJ4d",
-  },
-  {
-    icon: <FaTiktok size={18} />,
-    href: "https://www.tiktok.com/@jikoohq?_t=8mMAqQbIfOI&_r=1",
-  },
+  // {
+  //   icon: <Youtube size={18} />,
+  //   href: "https://youtube.com/@jikoohq?si=Y7IT7Mhd7xdzYEo3",
+  // },
+  // {
+  //   icon: <FaFacebook size={18} />,
+  //   href: "https://www.facebook.com/profile.php?id=61559398426459&mibextid=LQQJ4d",
+  // },
+  // {
+  //   icon: <FaTiktok size={18} />,
+  //   href: "https://www.tiktok.com/@jikoohq?_t=8mMAqQbIfOI&_r=1",
+  // },
   {
     icon: <Instagram size={18} />,
-    href: "https://www.instagram.com/jikoohq?igsh=b3M5cmlkMmFiN2Zw&utm_source=qr",
+    href: "https://www.instagram.com/jikoohq",
   },
   {
     icon: <FaWhatsapp size={18} />,
-    href: "https://whatsapp.com/channel/0029VaeI5jI9WtC4om9pnV3k",
+    href: "https://wa.me/+2347075103023",
   },
 ];
 

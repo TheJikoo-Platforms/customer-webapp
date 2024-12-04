@@ -1,3 +1,4 @@
+"use client";
 import { Header } from "@/components/header";
 import Backdrops from "@/components/backdrops";
 import { PromoBanner } from "@/components/home/promo-banner";
@@ -6,11 +7,11 @@ import { WhiteCard } from "@/components/white-card";
 import { OrdersHome } from "@/components/orders/orders";
 import { CartFlow } from "@/components/cart/mobile-overlay";
 
-export default function MainLayout({
-  children,
-}: {
+interface MainLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <>
       <Backdrops />

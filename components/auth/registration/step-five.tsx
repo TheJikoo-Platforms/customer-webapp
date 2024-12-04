@@ -50,7 +50,7 @@ export const StepFiveForm = React.memo(
       data,
     } = useMutation(verifyMail, {
       onSuccess: (response) => {
-        console.log("Mail verfied successfully:", response);
+        // console.log("Mail verfied successfully:", response);
         setTimeout(() => {
           handleNextStep(6);
           toast({

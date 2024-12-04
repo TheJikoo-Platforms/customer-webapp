@@ -150,13 +150,25 @@ export const getSingleProduct = async (productId: string) => {
   });
   return response.data; // Assuming the response data contains the product details
 };
-export const searchProducts = async (searchTerm: string) => {
+export const searchProducts = async (
+  searchTerm: string,
+  limit: number = 10,
+  minPrice?: number,
+  maxPrice?: number,
+  minRating?: number,
+  maxRating?: number
+) => {
   const response = await axiosInstance.get(`user/products/search`, {
     params: {
-      search: searchTerm, // This will be appended to the URL as a query parameter
+      search: searchTerm,
+      limit,
+      minPrice,
+      maxPrice,
+      minRating,
+      maxRating,
     },
   });
-  return response.data; // Assuming the response data contains the list of matching products
+  return response.data;
 };
 
 export const topUpWallet = async (amount: number, callback: string) => {

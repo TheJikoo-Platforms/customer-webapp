@@ -15,6 +15,7 @@ import {
   setCurrentAddress,
 } from "@/redux-store/slices/saved-address";
 import { RootState } from "@/redux-store/store";
+import { useMinimumLoading } from "@/hooks/use-minimum-loading";
 
 interface AddressFormProps extends LocationProps {
   suggestions: AddressProps[];
@@ -23,8 +24,18 @@ interface AddressFormProps extends LocationProps {
 }
 
 const AddressForm = React.forwardRef<HTMLDivElement, AddressFormProps>(
-  ({ suggestions, loading, fetchSuggestions, handleCloseBackdrop }, ref) => {
+  (
+    {
+      suggestions,
+      loading: actualLoading,
+      fetchSuggestions,
+      handleCloseBackdrop,
+    },
+    ref
+  ) => {
     const [inputValue, setInputValue] = useState("");
+    const loading = useMinimumLoading(actualLoading);
+
     // Handle input change and trigger fetchSuggestions
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;

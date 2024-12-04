@@ -169,7 +169,7 @@ export const CheckoutBackdrops = () => {
   const activeItem = useAppSelector(
     (state: RootState) => state.cart.activeItem
   );
-  console.log(activeItem);
+  // console.log(activeItem);
   return (
     <Backdrop variants={slideUp}>
       <div className="h-full w-full flex items-center justify-center">
@@ -194,7 +194,7 @@ const ApplyCoupon = React.memo(() => {
 
   const handleCouponSubmit = async (data: { coupon: string }) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("Coupon submitted: ", data.coupon);
+    // console.log("Coupon submitted: ", data.coupon);
   };
 
   return (
@@ -330,7 +330,7 @@ const MessageForm = () => {
 
   const handleSubmit = async (values: z.infer<typeof messageSchema>) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    console.log(values);
+    // console.log(values);
   };
 
   const message = form.watch("message");
@@ -406,7 +406,7 @@ const EmailForm = () => {
 
   const handleSubmit = async (values: z.infer<typeof emailSchema>) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    console.log(values);
+    // console.log(values);
   };
 
   const errors = form.formState.errors;
@@ -489,7 +489,7 @@ const PhoneForm = () => {
 
   const handleSubmit = async (values: z.infer<typeof phoneSchema>) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    console.log(values);
+    // console.log(values);
   };
 
   const errors = form.formState.errors;
