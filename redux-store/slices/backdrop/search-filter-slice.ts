@@ -1,23 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface FilterRange<T> {
+  min: T | null;
+  max: T | null;
+}
+
+interface Filter {
+  id: string;
+  type: "price" | "rating" | "deliveryTime";
+  range: FilterRange<number | string>;
+}
+
 interface SearchFilterState {
   showFilterOverlay: boolean;
-  priceRange: {
-    min: number;
-    max: number;
-  };
-  selectedRating: string | null;
-  selectedDeliveryTime: number | null; // in minutes
+  activeFilters: Filter[];
+  priceRange: FilterRange<number>;
+  ratingRange: FilterRange<string>;
+  deliveryTimeRange: FilterRange<number>;
 }
 
 const initialState: SearchFilterState = {
   showFilterOverlay: false,
-  priceRange: {
-    min: 0,
-    max: 10000,
-  },
-  selectedRating: null,
-  selectedDeliveryTime: null,
+  activeFilters: [],
+  priceRange: { min: null, max: null },
+  ratingRange: { min: null, max: null },
+  deliveryTimeRange: { min: null, max: null },
 };
 
 const searchFilterSlice = createSlice({
@@ -27,29 +34,64 @@ const searchFilterSlice = createSlice({
     setShowFilterOverlay(state, action: PayloadAction<boolean>) {
       state.showFilterOverlay = action.payload;
     },
-    setPriceRange(state, action: PayloadAction<{ min: number; max: number }>) {
-      state.priceRange = action.payload;
+    addFilter(state, action: PayloadAction<Filter>) {
+      const existingFilterIndex = state.activeFilters.findIndex(
+        (filter) => filter.id === action.payload.id
+      );
+
+      if (existingFilterIndex === -1) {
+        state.activeFilters.push(action.payload);
+      } else {
+        state.activeFilters[existingFilterIndex] = action.payload;
+      }
+
+      // Update corresponding range
+      switch (action.payload.type) {
+        case "price":
+          state.priceRange = action.payload.range as FilterRange<number>;
+          break;
+        case "rating":
+          state.ratingRange = action.payload.range as FilterRange<string>;
+          break;
+        case "deliveryTime":
+          state.deliveryTimeRange = action.payload.range as FilterRange<number>;
+          break;
+      }
     },
-    setSelectedRating(state, action: PayloadAction<string | null>) {
-      state.selectedRating = action.payload;
-    },
-    setSelectedDeliveryTime(state, action: PayloadAction<number | null>) {
-      state.selectedDeliveryTime = action.payload;
+    removeFilter(state, action: PayloadAction<string>) {
+      const filterToRemove = state.activeFilters.find(
+        (filter) => filter.id === action.payload
+      );
+
+      if (filterToRemove) {
+        state.activeFilters = state.activeFilters.filter(
+          (filter) => filter.id !== action.payload
+        );
+
+        // Reset corresponding range
+        switch (filterToRemove.type) {
+          case "price":
+            state.priceRange = initialState.priceRange;
+            break;
+          case "rating":
+            state.ratingRange = initialState.ratingRange;
+            break;
+          case "deliveryTime":
+            state.deliveryTimeRange = initialState.deliveryTimeRange;
+            break;
+        }
+      }
     },
     resetFilters(state) {
+      state.activeFilters = [];
       state.priceRange = initialState.priceRange;
-      state.selectedRating = initialState.selectedRating;
-      state.selectedDeliveryTime = initialState.selectedDeliveryTime;
+      state.ratingRange = initialState.ratingRange;
+      state.deliveryTimeRange = initialState.deliveryTimeRange;
     },
   },
 });
 
-export const {
-  setShowFilterOverlay,
-  setPriceRange,
-  setSelectedRating,
-  setSelectedDeliveryTime,
-  resetFilters,
-} = searchFilterSlice.actions;
+export const { setShowFilterOverlay, addFilter, removeFilter, resetFilters } =
+  searchFilterSlice.actions;
 
 export default searchFilterSlice.reducer;

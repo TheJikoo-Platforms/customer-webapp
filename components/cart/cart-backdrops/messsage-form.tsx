@@ -36,7 +36,7 @@ export const MessageForm = () => {
 
   const handleSubmit = async (values: z.infer<typeof messageSchema>) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    console.log(values);
+    // console.log(values);
   };
 
   const message = form.watch("message");

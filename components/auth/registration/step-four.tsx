@@ -184,7 +184,7 @@ export const StepFourForm: React.FC<StepFourProps> = React.memo(
     });
 
     const handleSubmit = (values: z.infer<typeof formSchema>) => {
-      console.log(values);
+      // console.log(values);
       onSubmit(values);
       registerMutation({
         firstname: values.firstName,

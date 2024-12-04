@@ -89,7 +89,7 @@ const LoginForm = () => {
     },
     {
       onSuccess: (response) => {
-        console.log("Login successful:", response);
+        // console.log("Login successful:", response);
         toast({
           title: response?.message,
           icon: (

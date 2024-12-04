@@ -4,11 +4,11 @@ import { CartNotificationContainter } from "@/components/fixed-notifications/car
 import { BottomNav } from "@/components/mobile-nav";
 import useAuthCheck from "@/hooks/use-auth";
 import React from "react";
-export default function OuterLayout({
-  children,
-}: Readonly<{
+interface OuterLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function OuterLayout({ children }: OuterLayoutProps) {
   useAuthCheck();
 
   return (

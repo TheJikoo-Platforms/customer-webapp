@@ -1,15 +1,14 @@
 import { RootState } from "@/redux-store/store";
 import {
   setShowFilterOverlay,
-  setPriceRange,
-  setSelectedRating,
-  setSelectedDeliveryTime,
   resetFilters,
+  addFilter,
+  removeFilter,
 } from "@/redux-store/slices/backdrop/search-filter-slice";
 import Backdrop from "@/components/ui/backdrop";
 import { slideUp } from "@/variants";
 import { CheckIcon, XIcon } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import clsx from "clsx";
@@ -22,152 +21,221 @@ const priceRanges = [
   { label: "Above ₦50000", min: 50000, max: Infinity },
 ];
 
-const ratings = ["5", "4 - 5", "3 - 4", "2 - 3", "0 - 2"];
+const ratings = [
+  { label: "5", min: 5, max: 5 },
+  { label: "4 - 5", min: 4, max: 5 },
+  { label: "3 - 4", min: 3, max: 4 },
+  { label: "2 - 3", min: 2, max: 3 },
+  { label: "0 - 2", min: 0, max: 2 },
+];
+
 const deliveryTimes = [
-  { label: "Within 30mins", value: 30 },
-  { label: "Within 40mins", value: 40 },
-  { label: "Within 50mins", value: 50 },
-  { label: "Within 60mins", value: 60 },
-  { label: "More than 60mins", value: 70 },
+  { label: "Within 30mins", min: 0, max: 30 },
+  { label: "Within 40mins", min: 0, max: 40 },
+  { label: "Within 50mins", min: 0, max: 50 },
+  { label: "Within 60mins", min: 0, max: 60 },
+  { label: "More than 60mins", min: 60, max: Infinity },
 ];
 
 const FilterOverlay = () => {
   const dispatch = useAppDispatch();
-  const { priceRange, selectedRating, selectedDeliveryTime } = useAppSelector(
-    (state: RootState) => state.filter
-  );
+  const { activeFilters } = useAppSelector((state: RootState) => state.filter);
+  const [tempFilters, setTempFilters] = useState(activeFilters);
   const filterRef = useRef<HTMLDivElement>(null);
   const closeOverlay = () => {
     dispatch(setShowFilterOverlay(false));
   };
   useOnClickOutside(filterRef, closeOverlay);
 
+  const handleFilterToggle = (
+    id: string,
+    type: "price" | "rating" | "deliveryTime",
+    range: { min: number | string; max: number | string }
+  ) => {
+    const isActive = tempFilters.some((filter) => filter.id === id);
+
+    if (isActive) {
+      // Update temp filters instead of dispatching
+      setTempFilters(tempFilters.filter((filter) => filter.id !== id));
+    } else {
+      // Remove existing filter of same type and add new one
+      const filteredTemp = tempFilters.filter((filter) => filter.type !== type);
+      setTempFilters([...filteredTemp, { id, type, range }]);
+    }
+  };
+
+  const handleApplyFilters = () => {
+    // First reset all filters
+    dispatch(resetFilters());
+    // Then apply temp filters
+    tempFilters.forEach((filter) => {
+      dispatch(addFilter(filter));
+    });
+    dispatch(setShowFilterOverlay(false));
+  };
+
   return (
     <Backdrop variants={slideUp}>
-      <div className="h-full flex w-full justify-center items-center overscroll-contain">
+      <div className="h-full flex w-full justify-center items-end md:items-center overscroll-contain">
         <div
           ref={filterRef}
-          className="bg-white rounded-xl md:p-6 w-full max-w-[700px] mx-auto h-full md:h-[initial]"
+          className="bg-white md:rounded-xl pb-6 w-full max-w-[700px] mx-auto h-full max-h-[94vh] md:max-h-[88vh] overflow-y-auto scrollbar-none overscroll-none "
         >
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center sticky top-0 bg-white p-6 z-10">
+            <button
+              className="block md:hidden"
+              onClick={() => dispatch(setShowFilterOverlay(false))}
+            >
+              <XIcon className="text-sm" />
+            </button>
             <h2 className="text-lg font-bold">Filter Result</h2>
             <div className="flex gap-4 items-center">
               <button
-                onClick={() => dispatch(resetFilters())}
+                onClick={() => {
+                  setTempFilters([]);
+                  dispatch(resetFilters());
+                }}
                 className="text-jikoo-brand-green font-bold"
               >
                 Reset
               </button>
-              <button onClick={() => dispatch(setShowFilterOverlay(false))}>
+              <button
+                className="hidden md:block"
+                onClick={() => dispatch(setShowFilterOverlay(false))}
+              >
                 <XIcon className="text-sm" />
               </button>
             </div>
           </div>
 
-          {/* Price Section */}
-          <div className="mb-6">
-            <h3 className="text-base font-bold">Price</h3>
-            <p className="mb-3 text-sm">Select one</p>
-            <div className="space-y-5">
-              {priceRanges.map((range) => (
-                <label
-                  key={range.label}
-                  className="flex items-center gap-3 cursor-pointer"
-                >
-                  <div className="relative">
-                    <button
-                      type="button"
-                      className={clsx([
-                        "w-5 h-5 border-2 border-jikoo-brand-green rounded flex items-center justify-center transition-all",
-                        {
-                          "bg-jikoo-brand-green":
-                            priceRange.min === range.min &&
-                            priceRange.max === range.max,
-                          "bg-transparent": !(
-                            priceRange.min === range.min &&
-                            priceRange.max === range.max
-                          ),
-                        },
-                      ])}
-                      onClick={() =>
-                        dispatch(
-                          setPriceRange({ min: range.min, max: range.max })
-                        )
-                      }
-                      aria-label={`Select ${range.label}`}
-                    >
-                      {priceRange.min === range.min &&
-                        priceRange.max === range.max && (
-                          <CheckIcon className="text-white text-sm" />
-                        )}
-                    </button>
+          <div className="px-6">
+            {/* Price Section */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold">Price</h3>
+              <p className="mb-3 text-base">Select one</p>
+              <div className="space-y-5">
+                {priceRanges.map((range) => (
+                  <div
+                    key={range.label}
+                    className="flex items-center gap-3 cursor-pointer"
+                    onClick={() =>
+                      handleFilterToggle(
+                        `price-${range.min}-${range.max}`,
+                        "price",
+                        { min: range.min, max: range.max }
+                      )
+                    }
+                  >
+                    <div className="relative">
+                      <div
+                        className={clsx([
+                          "w-5 h-5 border-2 border-jikoo-brand-green rounded flex items-center justify-center transition-all",
+                          {
+                            "bg-jikoo-brand-green": tempFilters.some(
+                              (filter) =>
+                                filter.id === `price-${range.min}-${range.max}`
+                            ),
+                            "bg-transparent": !tempFilters.some(
+                              (filter) =>
+                                filter.id === `price-${range.min}-${range.max}`
+                            ),
+                          },
+                        ])}
+                      >
+                        {tempFilters.some(
+                          (filter) =>
+                            filter.id === `price-${range.min}-${range.max}`
+                        ) && <CheckIcon className="text-white text-sm" />}
+                      </div>
+                    </div>
+                    <span className="text-sm text-[#667185] tracking-[0.2px]">
+                      {range.label}
+                    </span>
                   </div>
-                  <span className="text-sm text-[#667185] tracking-[0.2px]">
-                    {range.label}
-                  </span>
-                </label>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          <Divider className="my-3 border-[#E2E8F0]" />
-          {/* Rating Section */}
-          <div className="mb-6">
-            <h3 className="text-base font-bold">Rating</h3>
-            <p className="mb-3 text-sm">Select one</p>
-            <div className="flex gap-4">
-              {ratings.map((rating) => (
-                <button
-                  key={rating}
-                  onClick={() => dispatch(setSelectedRating(rating))}
-                  className={clsx([
-                    "flex items-center gap-1 px-3 py-1.5 rounded-full transition-all text-xs border",
-                    {
-                      "bg-[#E7F6EC] text-jikoo-brand-green border-jikoo-brand-green":
-                        selectedRating === rating,
-                      "bg-[#F4F4F4] text-[#667185] border-[#E4E7EC]":
-                        selectedRating !== rating,
-                    },
-                  ])}
-                >
-                  <StarIcon /> {rating}
-                </button>
-              ))}
+            <Divider className="my-3 border-[#E2E8F0]" />
+            {/* Rating Section */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold">Rating</h3>
+              <p className="mb-3 text-base">Select one</p>
+              <div className="flex gap-4 flex-wrap">
+                {ratings.map((rating) => (
+                  <button
+                    key={rating.label}
+                    onClick={() =>
+                      handleFilterToggle(`rating-${rating.label}`, "rating", {
+                        min: rating.min,
+                        max: rating.max,
+                      })
+                    }
+                    className={clsx([
+                      "flex items-center gap-1 px-3 py-1.5 rounded-full transition-all text-xs border text-nowrap",
+                      {
+                        "bg-[#E7F6EC] text-jikoo-brand-green border-jikoo-brand-green":
+                          tempFilters.some(
+                            (filter) => filter.id === `rating-${rating.label}`
+                          ),
+                        "bg-[#F4F4F4] text-[#667185] border-[#E4E7EC]":
+                          !tempFilters.some(
+                            (filter) => filter.id === `rating-${rating.label}`
+                          ),
+                      },
+                    ])}
+                  >
+                    <StarIcon /> {rating.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          <Divider className="my-3 border-[#E2E8F0]" />
-          {/* Delivery Time Section */}
-          <div className="mb-6">
-            <h3 className="text-base font-bold">Delivery Time</h3>
-            <p className="mb-3 text-sm">Select one</p>
-            <div className="flex flex-wrap gap-2 max-w-[350px]">
-              {deliveryTimes.map((time) => (
-                <button
-                  key={time.value}
-                  onClick={() => dispatch(setSelectedDeliveryTime(time.value))}
-                  className={clsx([
-                    "flex items-center gap-1 px-3 py-1.5 rounded-full transition-all text-xs border",
-                    {
-                      "bg-[#E7F6EC] text-jikoo-brand-green border-jikoo-brand-green":
-                        selectedDeliveryTime === time.value,
-                      "bg-[#F4F4F4] text-[#667185] border-[#E4E7EC]":
-                        selectedDeliveryTime !== time.value,
-                    },
-                  ])}
-                >
-                  {time.label}
-                </button>
-              ))}
+            <Divider className="my-3 border-[#E2E8F0]" />
+            {/* Delivery Time Section */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold">Delivery Time</h3>
+              <p className="mb-3 text-base">Select one</p>
+              <div className="flex flex-wrap gap-2 max-w-[350px]">
+                {deliveryTimes.map((time) => (
+                  <button
+                    key={time.label}
+                    onClick={() =>
+                      handleFilterToggle(
+                        `deliveryTime-${time.label}`,
+                        "deliveryTime",
+                        { min: time.min, max: time.max }
+                      )
+                    }
+                    className={clsx([
+                      "flex items-center gap-1 px-3 py-1.5 rounded-full transition-all text-xs border",
+                      {
+                        "bg-[#E7F6EC] text-jikoo-brand-green border-jikoo-brand-green":
+                          tempFilters.some(
+                            (filter) =>
+                              filter.id === `deliveryTime-${time.label}`
+                          ),
+                        "bg-[#F4F4F4] text-[#667185] border-[#E4E7EC]":
+                          !tempFilters.some(
+                            (filter) =>
+                              filter.id === `deliveryTime-${time.label}`
+                          ),
+                      },
+                    ])}
+                  >
+                    {time.label}
+                  </button>
+                ))}
+              </div>
             </div>
+            <Divider className="my-3 border-[#E2E8F0]" />
+            {/* Apply Filter Button */}
+            <button
+              onClick={handleApplyFilters}
+              className="w-full bg-jikoo-brand-green text-white py-3 rounded-lg font-bold"
+            >
+              Apply filter
+            </button>
           </div>
-          <Divider className="my-3 border-[#E2E8F0]" />
-          {/* Apply Filter Button */}
-          <button
-            onClick={() => dispatch(setShowFilterOverlay(false))}
-            className="w-full bg-jikoo-brand-green text-white py-3 rounded-lg font-bold"
-          >
-            Apply filter
-          </button>
         </div>
       </div>
     </Backdrop>

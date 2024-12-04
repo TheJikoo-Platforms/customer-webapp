@@ -46,7 +46,7 @@ export const StepThreeForm = React.memo(
       //     title: "We sent you a verification link",
       //     description: "Check your email to verify your email",
       //   });
-      console.log("OTP submitted: ", values);
+      // console.log("OTP submitted: ", values);
       handleNextStep(4);
     };
 
