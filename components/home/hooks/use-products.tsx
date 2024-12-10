@@ -8,6 +8,10 @@ export const useProducts = (page: number, limit: number) => {
     () => getAllProducts(page, limit), // Fetch function
     {
       keepPreviousData: true, // Keep previous data while new data is being fetched
+      retry: 3, // Add retry limit
+      onError: (error: any) => {
+        console.error("Error fetching products:", error);
+      },
     }
   );
 };
@@ -15,12 +19,12 @@ export const useProducts = (page: number, limit: number) => {
 // Search for products
 export interface SearchFilters {
   limit?: number;
-  minPrice?: number | null;
-  maxPrice?: number | null;
+  minPrice?: string | null;
+  maxPrice?: string | null;
   minRating?: string | null;
   maxRating?: string | null;
-  minDeliveryTime?: number | null;
-  maxDeliveryTime?: number | null;
+  minCookingTime?: string | null;
+  maxCookingTime?: string | null;
 }
 
 export const useSearchProducts = (
@@ -33,20 +37,22 @@ export const useSearchProducts = (
     maxPrice,
     minRating,
     maxRating,
-    minDeliveryTime,
-    maxDeliveryTime,
+    minCookingTime,
+    maxCookingTime,
   } = filters;
 
   return useQuery(
-    ["searchProducts", query, filters], // Include filters in the query key
+    ["searchProducts", query, filters],
     () =>
       searchProducts(
         query,
         limit,
-        minPrice || undefined,
-        maxPrice || undefined,
+        minPrice ? Number(minPrice) : undefined,
+        maxPrice ? Number(maxPrice) : undefined,
         minRating ? Number(minRating) : undefined,
-        maxRating ? Number(maxRating) : undefined
+        maxRating ? Number(maxRating) : undefined,
+        minCookingTime ? Number(minCookingTime) : undefined,
+        maxCookingTime ? Number(maxCookingTime) : undefined
       ),
     {
       enabled: !!query,

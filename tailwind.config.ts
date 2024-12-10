@@ -58,6 +58,8 @@ const config = {
           "error-300": "#DD524D",
           "error-400": "#D42620",
           "error-500": "#CB1A14",
+          "error-600": "#BA3337",
+          "warning-100": "#F28705",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

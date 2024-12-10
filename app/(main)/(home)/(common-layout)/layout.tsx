@@ -6,6 +6,7 @@ import { NormalWrapper } from "@/components/wrappers";
 import { WhiteCard } from "@/components/white-card";
 import { OrdersHome } from "@/components/orders/orders";
 import { CartFlow } from "@/components/cart/mobile-overlay";
+import { Footer } from "@/components/footer";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -37,7 +38,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             </div>
           </div>
         </NormalWrapper>
-        <div className="mt-6">{/* <Footer /> */}</div>
+        <Footer />
       </div>
     </>
   );

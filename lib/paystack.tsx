@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useVerifyPayment } from "@/components/wallet/use-topup";
+import { useVerifyPayment } from "@/components/wallet/hooks/use-topup";
 import React from "react";
 import { usePaystackPayment } from "react-paystack";
 

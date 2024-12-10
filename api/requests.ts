@@ -156,7 +156,9 @@ export const searchProducts = async (
   minPrice?: number,
   maxPrice?: number,
   minRating?: number,
-  maxRating?: number
+  maxRating?: number,
+  minCookingTime?: number,
+  maxCookingTime?: number
 ) => {
   const response = await axiosInstance.get(`user/products/search`, {
     params: {
@@ -166,15 +168,17 @@ export const searchProducts = async (
       maxPrice,
       minRating,
       maxRating,
+      minCookingTime,
+      maxCookingTime,
     },
   });
   return response.data;
 };
 
-export const topUpWallet = async (amount: number, callback: string) => {
+export const topUpWallet = async (amount: number, callBack: string) => {
   const response = await axiosInstance.post("wallet/topup", {
     amount,
-    callback,
+    callBack,
   });
   return response.data;
 };
