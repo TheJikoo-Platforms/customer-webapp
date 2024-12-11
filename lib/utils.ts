@@ -146,3 +146,23 @@ export const formatDateForDisplay = (dateString: string) => {
   // Return an empty string or handle invalid date case
   return "";
 };
+
+export const formatToNaira = (amount: number | null): string => {
+  console.log("formatToNaira input:", amount);
+  if (amount === null || amount === undefined) return "0.00";
+
+  try {
+    // Convert to 2 decimal places and split into naira and kobo
+    const [naira, kobo] = amount.toFixed(2).split(".");
+
+    // Add commas to naira part
+    const formattedNaira = naira.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Combine with kobo
+    const result = `${formattedNaira}.${kobo}`;
+    return result;
+  } catch (error) {
+    console.error("Error formatting naira:", error);
+    return "0.00";
+  }
+};

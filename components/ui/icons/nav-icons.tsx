@@ -47,7 +47,7 @@ export const HomeIcon = () => (
     fill="none"
     className="w-[22px] h-auto"
   >
-    <g clip-path="url(#clip0_26014_101215)">
+    <g clipPath="url(#clip0_26014_101215)">
       <path
         d="M4.80078 11L12.8008 4L20.8008 11V21H15.8008V17C15.8008 16.2044 15.4847 15.4413 14.9221 14.8787C14.3595 14.3161 13.5964 14 12.8008 14C12.0051 14 11.2421 14.3161 10.6795 14.8787C10.1169 15.4413 9.80079 16.2043 9.80079 17V21H4.80079L4.80078 11Z"
         stroke="currentColor"
@@ -246,7 +246,7 @@ export const WalletIcon = () => (
     fill="none"
     className="w-[22px] h-auto"
   >
-    <g clip-path="url(#clip0_26014_101230)">
+    <g clipPath="url(#clip0_26014_101230)">
       <path
         d="M2.85156 6C2.85156 4.725 3.82656 3.75 5.10156 3.75H18.2266C18.8266 3.75 19.3516 4.275 19.3516 4.875C19.3516 5.475 18.8266 6 18.2266 6H5.85156"
         stroke="currentColor"

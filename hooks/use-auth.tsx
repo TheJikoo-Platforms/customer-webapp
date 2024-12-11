@@ -1,6 +1,7 @@
 "use client";
 import { getUser } from "@/api/requests";
 import { useToast } from "@/components/ui/use-toast";
+import { useWalletBalance } from "@/components/wallet/hooks/use-wallet-balance";
 import { setIsAuthenticated } from "@/redux-store/slices/authslice";
 import { setUserData } from "@/redux-store/slices/user-slice";
 import { useQuery } from "@tanstack/react-query";
@@ -14,13 +15,14 @@ const useAuthCheck = () => {
 
   // Check if user is authenticated
   useEffect(() => {
-    const token =
-      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
 
-    if (token) {
-      dispatch(setIsAuthenticated(true));
-    } else {
-      dispatch(setIsAuthenticated(false));
+      if (token) {
+        dispatch(setIsAuthenticated(true));
+      } else {
+        dispatch(setIsAuthenticated(false));
+      }
     }
   }, [dispatch]);
 
@@ -44,11 +46,11 @@ const useAuthCheck = () => {
       });
     },
     onSuccess: (data) => {
-      // Handle successful fetching, such as saving the user data to state or context
-      // console.log(data.data);
       dispatch(setUserData(data.data));
     },
   });
+
+  const { data: walletBalance } = useWalletBalance();
 };
 
 export default useAuthCheck;

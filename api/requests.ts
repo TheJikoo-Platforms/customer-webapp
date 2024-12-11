@@ -201,3 +201,8 @@ export const getSingleStore = async (storeId: string) => {
   const response = await axiosInstance.get(`store/${storeId}`);
   return response.data;
 };
+
+export const getWalletBalance = async () => {
+  const response = await axiosInstance.get("wallet/balance");
+  return response.data;
+};

@@ -18,8 +18,6 @@ import clsx from "clsx";
 import { CheckIcon } from "lucide-react";
 
 export const FoodItemOverlay = () => {
-  const [isRequiredSelected, setIsRequiredSelected] = useState(false);
-  const [isErrorShowing, setIsErrorShowing] = useState(false);
   const dispatch = useAppDispatch();
   const { showProductItemOverlay, currentProductItem } = useAppSelector(
     (state: RootState) => state.foodItemOverlay
@@ -29,12 +27,7 @@ export const FoodItemOverlay = () => {
   const handleCloseFoodItems = () => {
     dispatch(setShowProductItemOverlay(false));
   };
-  const handleCloseError = () => {
-    if (isErrorShowing) {
-      setIsErrorShowing(false);
-    }
-    return;
-  };
+
   const cartItems = useAppSelector((state) => state.foodItemData.cartItems);
   const isAddedToCart = currentProductItem
     ? cartItems?.some((item) => item.product._id === currentProductItem._id)
@@ -91,7 +84,8 @@ export const FoodItemOverlay = () => {
 
   // Check if all groups (extras) have been handled (selected options for each group)
   const isExtrasHandled =
-    currentProductItem?.extra?.length === Object.keys(selectedOptions).length;
+    (Object.values(selectedOptions)[0]?.length ?? 0) >=
+    (currentProductItem?.extra?.length ?? 0);
 
   // Disable the button if any group is empty or extras are not handled
   const isButtonDisabled = isAnyGroupEmpty || !isExtrasHandled;

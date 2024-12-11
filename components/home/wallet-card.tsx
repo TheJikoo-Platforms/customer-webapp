@@ -4,14 +4,17 @@ import { NairaIcon, UsdtIcon } from "../ui/icons";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAppDispatch } from "@/redux-store/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { setShowTopUpModal } from "@/redux-store/slices/top-up-slice";
+import { RootState } from "@/redux-store/store";
+import { formatToNaira } from "@/lib/utils";
 
 const WalletCard = () => {
+  const { balance } = useAppSelector((state: RootState) => state.wallet);
+  const formattedBalance = formatToNaira(balance);
   const [isVisible, setIsVisible] = useState(false);
-  const balance = "520,000.00";
-  const maskLength = balance.replace(/,/g, "").length + 2;
-  const maskedBalance = "*".repeat(maskLength);
+  const maskedBalance =
+    "*".repeat((formattedBalance?.length ?? 0) + 1) || "*".repeat(8);
   const dispatch = useAppDispatch();
 
   const handleOpenTopUpModal = () => {
@@ -37,7 +40,7 @@ const WalletCard = () => {
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {balance}
+                  {formattedBalance}
                 </motion.span>
               ) : (
                 <motion.span
