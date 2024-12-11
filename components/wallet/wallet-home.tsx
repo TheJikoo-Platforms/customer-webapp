@@ -4,69 +4,41 @@ import { RootState } from "@/redux-store/store";
 import React from "react";
 import { InnerHeaderMain } from "../inner-page-header-mobile";
 import { Button } from "../ui/button";
+import WalletCard from "./wallet-card";
+import { SearchButton } from "./search-button";
+import { TransactionHistory } from "./transaction-history";
 import Image from "next/image";
-import { LuFilter } from "react-icons/lu";
-import TransactionList, { Transaction } from "./transaction-list";
-import { setShowWalletOverlay } from "@/redux-store/slices/wallet-slice";
+import { ArrowLeftIcon } from "@radix-ui/react-icons";
+import { useTransitionRouter } from "next-view-transitions";
+import { IoSearch } from "react-icons/io5";
+import { FiSearch } from "react-icons/fi";
 
-export const WalletHome = React.memo(
-  ({
-    handleActiveScreen,
-  }: {
-    handleActiveScreen: (screen: string) => void;
-  }) => {
-    const isAuthenticated = useAppSelector(
-      (state: RootState) => state.auth.isAuthenticated
-    );
-    const transactions: Transaction[] = [
-      {
-        date: "13/09/2024",
-        description: "Order for 3 chicken wings",
-        amount: "+ ₦500",
-        type: "credit",
-      },
-      {
-        date: "13/09/2024",
-        description: "Order for 3 chicken wings",
-        amount: "+ ₦500",
-        type: "credit",
-      },
-      {
-        date: "13/09/2024",
-        description: "Wallet Top-up",
-        amount: "- ₦500",
-        type: "debit",
-        status: "Canceled",
-      },
-      {
-        date: "13/09/2024",
-        description: "Order for 3 chicken wings",
-        amount: "+ ₦500",
-        type: "credit",
-      },
-    ];
+export const WalletHome = () => {
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
 
-    const dispatch = useAppDispatch();
-    const handleFilter = () => {
-      dispatch(
-        setShowWalletOverlay({
-          showWalletOverlay: true,
-          activeScreen: "filter",
-        })
-      );
-    };
-    const handleTopUp = () => {
-      dispatch(
-        setShowWalletOverlay({
-          showWalletOverlay: true,
-          activeScreen: "topUp",
-        })
-      );
-    };
+  const router = useTransitionRouter();
 
-    return (
-      <div className="bg-white rounded-xl md:pb-20 h-full max-h-[calc(100dvh-125px)] md:max-h-[calc(100dvh-60px)] overflow-auto scrollbar-none">
-        <InnerHeaderMain text="Wallet" className="md:hidden" />
+  return (
+    <div className="max-w-[840px] mx-auto md:px-5">
+      <SearchButton />
+
+      <div className="bg-white rounded-xl h-full min-h-dvh md:min-h-[initial] md:max-h-[calc(100dvh-10x)] overflow-auto scrollbar-none pb-32">
+        <div className="flex md:hidden items-center justify-center p-4 gap-6 w-full pb-3">
+          <div className="relative w-full px-6 lg:px-0">
+            <p className="text-lg font-medium tracking-[-0.48px] text-grey-900 text-center">
+              Wallet
+            </p>
+            <button
+              className="absolute right-5 top-0"
+              onClick={() => router.push("wallet/transactions")}
+              type="button"
+            >
+              <FiSearch className="text-xl text-[#242e25]" />
+            </button>
+          </div>
+        </div>
         {!isAuthenticated ? (
           <>
             <h2 className="text-black text-xl font-bold tracking-[-0.48px] hidden md:block px-5 pt-4">
@@ -99,69 +71,13 @@ export const WalletHome = React.memo(
           </>
         ) : (
           <div className="">
-            <div className="bg-white px-5 py-4 md:pt-5 top-[60px] md:top-0 sticky">
-              <h2 className="text-black text-xl font-bold tracking-[-0.48px] hidden md:block pb-5">
-                Wallet
-              </h2>
-              <div className="flex flex-col items-center bg-state-success-50 px-6 py-5 rounded-[7.5px] mb-6 md:mb-0">
-                <h3 className="text-grey-700 text-xs md:text-sm">
-                  Available Balance
-                </h3>
-                <p className="text-2xl font-medium text-grey-900 mb-1">
-                  ₦ 20,000
-                </p>
-                <Button
-                  type="button"
-                  onClick={handleTopUp}
-                  className="p-3 rounded-md max-w-[114px] md:max-w-[164px] w-full mt-4 text-sm md:text-base"
-                >
-                  Top up
-                </Button>
-              </div>
+            <div className="bg-white p-5 top-0 md:sticky">
+              <WalletCard />
             </div>
-
-            <div className="border-t-4 border-t-grey-100 md:border-t-transparent px-5 py-4 md:pt-0">
-              <div className="flex items-center justify-between gap-2 my-6 md:mt-0">
-                <h3 className="text-grey-900 font-bold">Transaction History</h3>
-                <button onClick={handleFilter} type="button">
-                  <LuFilter className="text-lg text-grey-400" />
-                </button>
-              </div>
-              {transactions.length > 0 ? (
-                <div>
-                  <TransactionList
-                    handleActiveScreen={handleActiveScreen}
-                    transactions={transactions}
-                  />
-
-                  <p className="my-6 uppercase text-grey-500 text-sm font-semibold tracking-[1.68px]">
-                    July 2024
-                  </p>
-
-                  <TransactionList
-                    handleActiveScreen={handleActiveScreen}
-                    transactions={transactions.slice(-3)}
-                  />
-                </div>
-              ) : (
-                <div className="max-w-[166px] w-full mx-auto">
-                  <Image
-                    width={1000}
-                    height={1000}
-                    quality={100}
-                    src="/wallet-empty-state.svg"
-                    alt="Empty Wallet"
-                    className="w-[150px] h-[150px] mx-auto"
-                  />
-                  <p className="text-sm text-grey-500 mt-4 text-center">
-                    No transaction record here. Try making your first a deposit.
-                  </p>
-                </div>
-              )}
-            </div>
+            <TransactionHistory />
           </div>
         )}
       </div>
-    );
-  }
-);
+    </div>
+  );
+};

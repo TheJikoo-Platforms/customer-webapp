@@ -8,12 +8,12 @@ import cartOverlayReducer from "./slices/backdrop/cart";
 import authSliceReducer from "./slices/authslice";
 import savedAddressReducer from "./slices/saved-address";
 import settingsOverlayReducer from "./slices/settings-slice";
-import walletReducer from "./slices/wallet-slice";
 import userReducer from "./slices/user-slice";
 import recentSearchReducer from "./slices/recent-search-slice";
 import wishlistReducer from "./slices/wishlist-items";
 import filterReducer from "./slices/backdrop/search-filter-slice";
-
+import topUpReducer from "./slices/top-up-slice";
+import walletReducer from "./slices/wallet-slice";
 // Combine reducers
 const rootReducer = combineReducers({
   location: locationReducer,
@@ -24,11 +24,12 @@ const rootReducer = combineReducers({
   auth: authSliceReducer,
   savedAddress: savedAddressReducer,
   settingsOverlay: settingsOverlayReducer,
-  walletOverlay: walletReducer,
   user: userReducer,
   recentSearch: recentSearchReducer,
   wishlist: wishlistReducer,
   filter: filterReducer,
+  topUp: topUpReducer,
+  wallet: walletReducer,
 });
 
 // Create the store

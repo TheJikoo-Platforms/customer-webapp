@@ -58,6 +58,10 @@ const getAddressFromCoordinates = async (
       // Build the most reliable search query
       let searchQuery =
         streetName || city || state || country || "Unknown location";
+      console.log("streetName", streetName);
+      console.log("city", city);
+      console.log("state", state);
+      console.log("country", country);
 
       // Fetch suggestions with the most relevant search query
       fetchSuggestions(searchQuery);

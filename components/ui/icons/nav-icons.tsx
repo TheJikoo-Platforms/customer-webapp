@@ -38,17 +38,87 @@ const UserIcon = () => (
   </svg>
 );
 
-export const HomeIcon = () => {
-  return <AiOutlineHome className="text-2xl" />;
-};
+export const HomeIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="25"
+    height="24"
+    viewBox="0 0 25 24"
+    fill="none"
+    className="w-[22px] h-auto"
+  >
+    <g clipPath="url(#clip0_26014_101215)">
+      <path
+        d="M4.80078 11L12.8008 4L20.8008 11V21H15.8008V17C15.8008 16.2044 15.4847 15.4413 14.9221 14.8787C14.3595 14.3161 13.5964 14 12.8008 14C12.0051 14 11.2421 14.3161 10.6795 14.8787C10.1169 15.4413 9.80079 16.2043 9.80079 17V21H4.80079L4.80078 11Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2.30078 9.50073L10.3508 2.10006C10.3508 2.10006 11.1849 0.953125 12.5404 0.953125C13.8959 0.953125 14.9125 2.074 14.9125 2.074L23.3008 9.50073"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_26014_101215">
+        <rect
+          width="24"
+          height="24"
+          fill="white"
+          transform="translate(0.800781)"
+        />
+      </clipPath>
+    </defs>
+  </svg>
+);
 
-export const ExploreIcon = () => {
-  return <FiSearch className="text-2xl" />;
-};
+export const ExploreIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="21"
+    height="20"
+    viewBox="0 0 21 20"
+    fill="none"
+    className="w-[22px] h-auto"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.40234 0C4.43178 0 0.402344 4.02944 0.402344 9C0.402344 13.9706 4.43178 18 9.40234 18C11.5274 18 13.4804 17.2635 15.02 16.0319L18.6952 19.7071C19.0858 20.0976 19.7189 20.0976 20.1095 19.7071C20.5 19.3166 20.5 18.6834 20.1095 18.2929L16.4342 14.6177C17.6659 13.078 18.4023 11.125 18.4023 9C18.4023 4.02944 14.3729 0 9.40234 0ZM2.40234 9C2.40234 5.13401 5.53635 2 9.40234 2C13.2683 2 16.4023 5.13401 16.4023 9C16.4023 12.866 13.2683 16 9.40234 16C5.53635 16 2.40234 12.866 2.40234 9Z"
+      fill="currentColor"
+    />
+  </svg>
+);
 
-export const CartIcon = () => {
-  return <FiShoppingCart className="text-2xl" />;
-};
+export const CartIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="22"
+    height="21"
+    viewBox="0 0 22 21"
+    fill="none"
+    className="w-[22px] h-auto"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1.5 0C0.947715 0 0.5 0.447715 0.5 1C0.5 1.55228 0.947715 2 1.5 2C2.22842 2 2.86479 2.52928 2.99581 3.274L3.68169 7.17269L3.6823 7.17614L4.12175 9.63208C4.3966 11.1681 4.61607 12.3948 4.89356 13.3692C5.17972 14.3741 5.5506 15.2009 6.18052 15.8996C6.61316 16.3796 7.11937 16.7904 7.68037 17.1183C8.49306 17.5932 9.38896 17.8024 10.4541 17.9025C11.4918 18 12.778 18 14.3983 18H14.8909C15.6115 18 16.2056 18 16.695 17.9644C17.2049 17.9273 17.6689 17.8482 18.1192 17.6563C18.7758 17.3764 19.3509 16.9363 19.7865 16.3748C20.0872 15.9871 20.275 15.5597 20.4289 15.0822C20.5758 14.6266 20.7098 14.065 20.8707 13.3902L20.891 13.3051C21.1357 12.2795 21.3357 11.4415 21.4325 10.7573C21.5321 10.0532 21.543 9.391 21.3163 8.75271C20.9976 7.85541 20.3703 7.09999 19.5496 6.60785C18.9714 6.26118 18.3175 6.12553 17.5922 6.062C16.884 5.99998 15.9965 5.99999 14.9014 6H5.5061L4.96556 2.92747C4.66894 1.24144 3.21434 0 1.5 0ZM14.8547 8C16.0076 8 16.8071 8.0009 17.4177 8.05437C18.0212 8.10723 18.3229 8.20432 18.5211 8.32315C18.9536 8.58247 19.2721 8.97292 19.4316 9.42211C19.5012 9.61793 19.533 9.90606 19.4522 10.4771C19.3701 11.0572 19.1931 11.8036 18.9341 12.8892C18.7621 13.6103 18.6456 14.0958 18.5254 14.4686C18.4096 14.8278 18.3105 15.0145 18.2062 15.1489C17.9831 15.4365 17.6839 15.6677 17.3349 15.8165C17.1668 15.8881 16.946 15.9409 16.5499 15.9697C16.1416 15.9994 15.6204 16 14.8547 16H14.4487C12.7668 16 11.5745 15.999 10.6413 15.9113C9.72478 15.8251 9.15174 15.6617 8.68952 15.3915C8.30434 15.1664 7.95926 14.8858 7.66601 14.5605C7.31783 14.1743 7.05826 13.6683 6.81709 12.8214C6.57039 11.9551 6.36748 10.8278 6.08111 9.22738L5.86148 8H14.8547Z"
+      fill="currentColor"
+    />
+    <path
+      d="M9.5 19.75C9.5 20.4404 8.94036 21 8.25 21C7.55964 21 7 20.4404 7 19.75C7 19.0596 7.55964 18.5 8.25 18.5C8.94036 18.5 9.5 19.0596 9.5 19.75Z"
+      fill="currentColor"
+    />
+    <path
+      d="M17.25 21C17.9404 21 18.5 20.4404 18.5 19.75C18.5 19.0596 17.9404 18.5 17.25 18.5C16.5596 18.5 16 19.0596 16 19.75C16 20.4404 16.5596 21 17.25 21Z"
+      fill="currentColor"
+    />
+  </svg>
+);
 
 export const NotificationIcon = () => {
   return (
@@ -167,6 +237,58 @@ export const ContactIcon = () => {
 
 export const AccountIcon = () => <FaUser size={24} />;
 
-export const WalletIcon = () => {
-  return <LiaWalletSolid className="text-2xl" />;
-};
+export const WalletIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="25"
+    height="24"
+    viewBox="0 0 25 24"
+    fill="none"
+    className="w-[22px] h-auto"
+  >
+    <g clipPath="url(#clip0_26014_101230)">
+      <path
+        d="M2.85156 6C2.85156 4.725 3.82656 3.75 5.10156 3.75H18.2266C18.8266 3.75 19.3516 4.275 19.3516 4.875C19.3516 5.475 18.8266 6 18.2266 6H5.85156"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.8516 14.25C14.8516 12.6 16.2016 11.25 17.8516 11.25H20.8516C21.6766 11.25 22.3516 10.575 22.3516 9.75C22.3516 8.925 21.6766 8.25 20.8516 8.25H5.10156C3.82656 8.25 2.85156 7.2 2.85156 6V18C2.85156 19.2 3.82656 20.25 5.10156 20.25H20.8516C21.6766 20.25 22.3516 19.575 22.3516 18.75C22.3516 17.925 21.6766 17.25 20.8516 17.25H17.8516C16.2016 17.25 14.8516 15.9 14.8516 14.25Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M17.8516 14.25H19.3516"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M22.3516 9.75V18.75"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_26014_101230">
+        <rect
+          width="24"
+          height="24"
+          fill="white"
+          transform="translate(0.601562)"
+        />
+      </clipPath>
+    </defs>
+  </svg>
+);

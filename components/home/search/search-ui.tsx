@@ -7,17 +7,19 @@ import { AvailableProducts } from "./available-products";
 import { useSearchParams } from "next/navigation";
 import { LoadingSearch } from "./loading-search";
 import { CategorySection } from "./catergory-section";
-import { useAppSelector } from "@/redux-store/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { RootState } from "@/redux-store/store";
 import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import { useMinimumLoading } from "@/hooks/use-minimum-loading";
+import { setShowFilterOverlay } from "@/redux-store/slices/backdrop/search-filter-slice";
+import { addSearch } from "@/redux-store/slices/recent-search-slice";
 
 const filterOptions = [
   { id: "price", label: "Price" },
   { id: "rating", label: "Rating" },
   // { id: "category", label: "Category" },
-  { id: "delivery", label: "Delivery Time" },
+  { id: "cookingTime", label: "Cooking Time" },
 ];
 
 export const SearchUI = () => {
@@ -27,6 +29,7 @@ export const SearchUI = () => {
   const [showSearchBar, setShowSearchBar] = useState(true);
   const { activeFilters } = useAppSelector((state: RootState) => state.filter);
   const searchParams = useSearchParams();
+  const [mounted, setMounted] = useState(false);
 
   const transformedFilters = activeFilters.reduce((acc, filter) => {
     if (
@@ -34,8 +37,8 @@ export const SearchUI = () => {
       filter.range?.min != null &&
       filter.range?.max != null
     ) {
-      acc.minPrice = Number(filter.range.min);
-      acc.maxPrice = Number(filter.range.max);
+      acc.minPrice = filter.range.min.toString();
+      acc.maxPrice = filter.range.max.toString();
     }
     if (
       filter.type === "rating" &&
@@ -46,12 +49,12 @@ export const SearchUI = () => {
       acc.maxRating = filter.range.max.toString();
     }
     if (
-      filter.type === "deliveryTime" &&
+      filter.type === "cookingTime" &&
       filter.range?.min != null &&
       filter.range?.max != null
     ) {
-      acc.minDeliveryTime = Number(filter.range.min);
-      acc.maxDeliveryTime = Number(filter.range.max);
+      acc.minCookingTime = filter.range.min.toString();
+      acc.maxCookingTime = filter.range.max.toString();
     }
     return acc;
   }, {} as SearchFilters);
@@ -64,12 +67,23 @@ export const SearchUI = () => {
   const isLoading = useMinimumLoading(queryLoading);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (data?.data?.data && query && !isLoading && mounted) {
+      dispatch(addSearch(query));
+    }
+  }, [data, query, isLoading, mounted]);
+
+  useEffect(() => {
     setCategory(searchParams.get("category") || "");
     setQuery(searchParams.get("query") || "");
   }, [searchParams, activeFilters]);
 
+  const dispatch = useAppDispatch();
   const handleFilterClick = () => {
-    setShowSearchBar(true);
+    dispatch(setShowFilterOverlay(true));
     setCategory("");
   };
 
@@ -78,6 +92,10 @@ export const SearchUI = () => {
   };
 
   // If you need to log the current filters
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="bg-white min-h-screen lg:min-h-[300px] pb-[125px] lg:pb-10 md:rounded-lg">

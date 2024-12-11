@@ -4,17 +4,14 @@ import { NairaIcon, UsdtIcon } from "../ui/icons";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
+import { useAppDispatch } from "@/redux-store/hooks";
 import { setShowTopUpModal } from "@/redux-store/slices/top-up-slice";
-import { RootState } from "@/redux-store/store";
-import { formatToNaira } from "@/lib/utils";
 
 const WalletCard = () => {
-  const { balance } = useAppSelector((state: RootState) => state.wallet);
-  const formattedBalance = formatToNaira(balance);
   const [isVisible, setIsVisible] = useState(false);
-  const maskedBalance =
-    "*".repeat((formattedBalance?.length ?? 0) + 1) || "*".repeat(8);
+  const balance = "520,000.00";
+  const maskLength = balance.replace(/,/g, "").length + 2;
+  const maskedBalance = "*".repeat(maskLength);
   const dispatch = useAppDispatch();
 
   const handleOpenTopUpModal = () => {
@@ -22,15 +19,15 @@ const WalletCard = () => {
   };
 
   return (
-    <div className="bg-[#242E25] rounded-b-3xl md:rounded-md pt-2 p-6 w-full md:min-w-[260px md:max-w-[45%] lg:max-w-[364px] font-dm-sans flex items-center justify-between md:h-[177px] flex-1">
+    <div className="bg-[#242E25] rounded-3xl md:rounded-md p-6 w-full font-dm-sans flex items-center justify-between md:h-[115px] flex-1">
       <div className="">
         <div className={`flex ${isVisible ? "items-center" : "items-start"}`}>
           <p
-            className={`font-extrabold text-2xl md:text-[32px] text-white flex ${
-              isVisible ? "items-center" : "items-start"
+            className={`font-extrabold text-2xl text-white flex ${
+              isVisible ? "items-center" : "items-center"
             }`}
           >
-            <NairaIcon className="w-[18px] md:w-[26px] md:h-[24px] h-[20px]" />
+            <NairaIcon className="w-auto md:w-[26px] md:h-[24px] h-[19.7px]" />
             <AnimatePresence mode="wait">
               {isVisible ? (
                 <motion.span
@@ -40,7 +37,7 @@ const WalletCard = () => {
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {formattedBalance}
+                  {balance}
                 </motion.span>
               ) : (
                 <motion.span
@@ -61,7 +58,7 @@ const WalletCard = () => {
             onClick={() => setIsVisible((prev) => !prev)}
           />
         </div>
-        <div className="flex items-center md:mt-2">
+        <div className="flex items-center mt-1 md:mt-2">
           <UsdtIcon />
           <p className="text-[10px] md:text-sm text-[#6DFF9E] ml-2">
             $1.00 = ₦2,000.00

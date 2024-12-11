@@ -1,32 +1,40 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface SwalletState {
-  showWalletOverlay: boolean;
-  activeScreen: string;
+interface WalletState {
+  balance: number | null;
+  currency: string;
 }
 
-const initialState: SwalletState = {
-  showWalletOverlay: false,
-  activeScreen: "",
+const initialState: WalletState = {
+  balance: 0,
+  currency: "NGN",
 };
 
 const walletSlice = createSlice({
-  name: "swallet",
+  name: "wallet",
   initialState,
   reducers: {
-    setShowWalletOverlay: (
-      state,
-      action: PayloadAction<{
-        showWalletOverlay: boolean;
-        activeScreen: string;
-      }>
-    ) => {
-      state.showWalletOverlay = action.payload.showWalletOverlay;
-      state.activeScreen = action.payload.activeScreen;
+    setWalletBalance: (state, action: PayloadAction<number>) => {
+      state.balance = action.payload;
+    },
+    setCurrency: (state, action: PayloadAction<string>) => {
+      state.currency = action.payload;
+    },
+    resetWallet: (state) => {
+      state.balance = 0;
+      state.currency = "NGN";
     },
   },
 });
 
-export const { setShowWalletOverlay } = walletSlice.actions;
+export const { setWalletBalance, setCurrency, resetWallet } =
+  walletSlice.actions;
+
+// Selectors
+export const selectBalance = (state: { wallet: WalletState }) =>
+  state.wallet.balance;
+
+export const selectCurrency = (state: { wallet: WalletState }) =>
+  state.wallet.currency;
 
 export default walletSlice.reducer;

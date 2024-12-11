@@ -1,4 +1,5 @@
 import Backdrops from "@/components/backdrops";
+import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { PromoBanner } from "@/components/home/promo-banner";
 import { BottomNav } from "@/components/mobile-nav";
@@ -23,6 +24,7 @@ export default function MainLayout({
           <main className="">{children}</main>
         </NormalWrapper>
       </div>
+      <Footer />
     </>
   );
 }

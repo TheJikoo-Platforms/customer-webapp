@@ -21,7 +21,6 @@ export const RecentSearch = () => {
   );
   const { data } = useCategories(1, 20);
   const { data: vendors } = useStores();
-  console.log(data, vendors);
   return (
     <div className="">
       <div className="flex items-center justify-between ">
@@ -38,7 +37,7 @@ export const RecentSearch = () => {
               key={key}
               className="text-grey-500  py-2 bg-white pr-2 flex items-center gap-2 text-sm rounded-md"
             >
-              <span className="flex items-center gap-2 flex-1">
+              <span className="flex items-center gap-2 flex-1 capitalize">
                 <LuClock3 className="text-grey-600" />
                 {item}
               </span>

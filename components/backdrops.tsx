@@ -8,9 +8,10 @@ import CartOverLayMobile from "./cart/mobile-overlay";
 import { CheckoutBackdrops } from "./cart/checkout";
 import { LocationOverlay } from "./location/overlay";
 import SettingsOverlay from "./settings/overlay/overlay";
-import WalletOverlay from "./wallet/overlay/overlay";
 import { CartBackdrops } from "./cart/cart-backdrops/cart-backdrops";
 import FilterOverlay from "./home/search/filter-overlay";
+import { TopUpOptionsModal } from "./wallet/overlay/top-up-modal";
+import { WalletOverlay } from "./wallet/overlay";
 
 export default function Backdrops() {
   const showLocationOverlay = useAppSelector(
@@ -34,15 +35,16 @@ export default function Backdrops() {
   const showSettingsOverlay = useAppSelector(
     (state: RootState) => state.settingsOverlay.showSettingsOverlay
   );
-  const showWalletOverlay = useAppSelector(
-    (state: RootState) => state.walletOverlay.showWalletOverlay
-  );
   const { currentAddress } = useAppSelector(
     (state: RootState) => state.savedAddress
   );
   const { showFilterOverlay } = useAppSelector(
     (state: RootState) => state.filter
   );
+  const { showTopUpModal, showAmountModal } = useAppSelector(
+    (state) => state.topUp
+  );
+
   return (
     <>
       {showLocationOverlay && !currentAddress && <LocationOverlay />}
@@ -52,8 +54,8 @@ export default function Backdrops() {
       {showCheckoutOverlay && <CheckoutBackdrops />}
       {showProductItemOverlay && <FoodItemOverlay />}
       {showSettingsOverlay && <SettingsOverlay />}
-      {showWalletOverlay && <WalletOverlay />}
       {showFilterOverlay && <FilterOverlay />}
+      {(showTopUpModal || showAmountModal) && <WalletOverlay />}
     </>
   );
 }

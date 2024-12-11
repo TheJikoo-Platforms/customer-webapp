@@ -7,7 +7,7 @@ interface FilterRange<T> {
 
 interface Filter {
   id: string;
-  type: "price" | "rating" | "deliveryTime";
+  type: "price" | "rating" | "cookingTime";
   range: FilterRange<number | string>;
 }
 
@@ -16,7 +16,7 @@ interface SearchFilterState {
   activeFilters: Filter[];
   priceRange: FilterRange<number>;
   ratingRange: FilterRange<string>;
-  deliveryTimeRange: FilterRange<number>;
+  cookingTimeRange: FilterRange<number>;
 }
 
 const initialState: SearchFilterState = {
@@ -24,7 +24,7 @@ const initialState: SearchFilterState = {
   activeFilters: [],
   priceRange: { min: null, max: null },
   ratingRange: { min: null, max: null },
-  deliveryTimeRange: { min: null, max: null },
+  cookingTimeRange: { min: null, max: null },
 };
 
 const searchFilterSlice = createSlice({
@@ -53,8 +53,8 @@ const searchFilterSlice = createSlice({
         case "rating":
           state.ratingRange = action.payload.range as FilterRange<string>;
           break;
-        case "deliveryTime":
-          state.deliveryTimeRange = action.payload.range as FilterRange<number>;
+        case "cookingTime":
+          state.cookingTimeRange = action.payload.range as FilterRange<number>;
           break;
       }
     },
@@ -76,8 +76,8 @@ const searchFilterSlice = createSlice({
           case "rating":
             state.ratingRange = initialState.ratingRange;
             break;
-          case "deliveryTime":
-            state.deliveryTimeRange = initialState.deliveryTimeRange;
+          case "cookingTime":
+            state.cookingTimeRange = initialState.cookingTimeRange;
             break;
         }
       }
@@ -86,7 +86,7 @@ const searchFilterSlice = createSlice({
       state.activeFilters = [];
       state.priceRange = initialState.priceRange;
       state.ratingRange = initialState.ratingRange;
-      state.deliveryTimeRange = initialState.deliveryTimeRange;
+      state.cookingTimeRange = initialState.cookingTimeRange;
     },
   },
 });
