@@ -90,8 +90,8 @@ export const Header = () => {
                   className="flex items-center relative"
                 >
                   <BellIcon strokeFill=" fill-white md:fill-[#141414]" />
-                  <div className="bg-[#BA3337] px-2 flex items-center rounded-full text-white text-[10px] font-medium absolute -top-1 -right-2">
-                    2
+                  <div className="bg-[#BA3337] w-[9px] max-w-[9px] h-[9px] flex items-center rounded-full text-white text-[10px] font-medium absolute top-[1px] -right-0">
+                    {/* 2 */}
                   </div>
                 </button>
 

@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from "@/redux-store/hooks";
 import { setShowNotificationsOverlay } from "@/redux-store/slices/backdrop/notifications";
 import { RootState } from "@/redux-store/store";
 import { useMediaQuery } from "react-responsive";
+import clsx from "clsx";
+import Image from "next/image";
 
 const NOTIFICATIONS = [
   {
@@ -108,13 +110,9 @@ const NotificationOverlayDesktop = () => {
   return (
     <AnimatePresence>
       {showNotificationOverlay && (
-        <Backdrop variants={slideUp}>
+        <Backdrop variants={slideFromRight}>
           <div className="flex w-full justify-end items-center relative">
-            <motion.div
-              variants={slideFromRight}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+            <div
               ref={mainRef}
               className="bg-white rounded-xl h-screen w-full rounded-l-2xl max-w-[520px] overflow-y-auto scrollbar-none"
             >
@@ -178,7 +176,7 @@ const NotificationOverlayDesktop = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           </div>
         </Backdrop>
       )}
@@ -189,6 +187,7 @@ const NotificationOverlayDesktop = () => {
 const NotificationsOverlayMobile = () => {
   const [currentFilter, setCurrentFilter] = useState("recent");
   const [isShowingFilters, setIsShowingFilters] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
   const dispatch = useAppDispatch();
   const showNotificationOverlay = useAppSelector(
     (state: RootState) => state.notifications.showNotificationsOverlay
@@ -208,38 +207,72 @@ const NotificationsOverlayMobile = () => {
         <Backdrop variants={slideUp}>
           <div className="flex w-full justify-end items-center relative">
             <div className="bg-white rounded-xl h-screen w-full overflow-y-auto scrollbar-none">
-              <div className="flex items-center justify-between p-6 gap-6 bg-white sticky top-0 w-full z-50 pb-3 ">
+              <div
+                className={clsx([
+                  "flex items-center p-5 gap-6 bg-white sticky top-0 w-full z-50 pb-3 ",
+                  { "justify-center": isEmpty },
+                  { "justify-between": !isEmpty },
+                ])}
+              >
                 <button
-                  className=""
+                  className={clsx([{ "absolute left-5": isEmpty }])}
                   onClick={handleCloseNotifications}
                   type="button"
                 >
                   <ArrowLeftIcon />
                 </button>
-                <p className="text-2xl font-medium tracking-[-0.48px] text-grey-900 lg:text-xl lg:font-bold lg:tracking-[-0.4px]">
+                <p className="text-lg font-medium tracking-[-0.48px] text-grey-900 lg:text-xl lg:font-bold lg:tracking-[-0.4px]">
                   Notifications
                 </p>
 
-                <button
-                  type="button"
-                  onClick={() => setIsShowingFilters((prev) => !prev)}
-                >
-                  <FilterIcon />
-                </button>
+                {!isEmpty && (
+                  <div className="flex gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => setIsShowingFilters((prev) => !prev)}
+                    >
+                      <FilterIcon />
+                    </button>
+
+                    <button
+                      type="button"
+                      className="text-sm text-jikoo-brand-green"
+                    >
+                      Clear All
+                    </button>
+                  </div>
+                )}
               </div>
 
-              <ul className="p-6">
-                {NOTIFICATIONS.map((item, key) => (
-                  <li key={key}>
-                    <NewNotificationItem
-                      imageUrl={item.imageUrl}
-                      time={item.time}
-                      title={item.title}
-                      message={item.message}
-                    />
-                  </li>
-                ))}
-              </ul>
+              {isEmpty && (
+                <div className="flex items-center flex-col h-[calc(100vh-120px)] justify-center">
+                  <Image
+                    src={"/notification-empty.svg"}
+                    width={500}
+                    height={500}
+                    alt="Empty Notification"
+                    className="w-[119px] h-auto"
+                  />
+                  <p className="text-sm text-grey-500 mt-6">
+                    You haven't got any new notifications yet
+                  </p>
+                </div>
+              )}
+
+              {!isEmpty && (
+                <ul className="p-6">
+                  {NOTIFICATIONS.map((item, key) => (
+                    <li key={key}>
+                      <NewNotificationItem
+                        imageUrl={item.imageUrl}
+                        time={item.time}
+                        title={item.title}
+                        message={item.message}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             {/* Mobile Filter */}
             <div className="">
