@@ -148,7 +148,6 @@ export const formatDateForDisplay = (dateString: string) => {
 };
 
 export const formatToNaira = (amount: number | null): string => {
-  console.log("formatToNaira input:", amount);
   if (amount === null || amount === undefined) return "0.00";
 
   try {
@@ -165,4 +164,21 @@ export const formatToNaira = (amount: number | null): string => {
     console.error("Error formatting naira:", error);
     return "0.00";
   }
+};
+
+export const formatCookingTime = (minutes: number): string => {
+  if (!minutes) return "0 mins";
+
+  if (minutes < 60) {
+    return `${minutes} mins`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+  const remainingMins = minutes % 60;
+
+  if (remainingMins === 0) {
+    return `${hours} ${hours === 1 ? "hour" : "hours"}`;
+  }
+
+  return `${hours} ${hours === 1 ? "hour" : "hours"} ${remainingMins} mins`;
 };

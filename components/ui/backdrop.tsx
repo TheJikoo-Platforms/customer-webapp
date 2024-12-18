@@ -10,16 +10,6 @@ interface BackdropProps {
 }
 
 export const Backdrop = ({ children, variants, className }: BackdropProps) => {
-  // useEffect(() => {
-  //   // Prevent body from scrolling when the backdrop is visible
-  //   document.body.classList.add("overflow-hidden");
-
-  //   return () => {
-  //     // Restore body scroll when the backdrop is hidden
-  //     document.body.classList.remove("overflow-hidden");
-  //   };
-  // }, []);
-
   return (
     <motion.div
       variants={variants}

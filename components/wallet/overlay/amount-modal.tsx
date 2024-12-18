@@ -71,7 +71,7 @@ export const AmountModal = () => {
                 value={inputAmount}
                 onChange={handleAmountChange}
                 placeholder="0.00"
-                className="w-full pl-12 pr-4 py-3 border rounded-md text-lg font-medium focus:outline-none focus:border-jikoo-brand-green"
+                className="w-full pl-12 pr-4 bg-transparent py-3 border rounded-md text-lg font-medium focus:outline-none focus:border-jikoo-brand-green"
               />
             </div>
 

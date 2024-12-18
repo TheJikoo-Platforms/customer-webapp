@@ -26,7 +26,7 @@ export const CategoryContainer = ({
         <Divider className="bg-[#eee]" />
       </div>
       <HorizontalScroll
-        className={cn("gap-3 md:gap-[50px] flex items-center", className)}
+        className={cn("gap-6 md:gap-[50px] flex items-center", className)}
       >
         {data?.map((el, key) => (
           <ExploreItem
